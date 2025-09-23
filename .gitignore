@@ -1,3 +1,8 @@
+# Ogre folders
+ogre-14.3.4-src/
+ogre-14.3.4-build/
+ogre-14.3.4-debug/
+
 ## C++
 # Prerequisites
 *.d
