@@ -1,0 +1,3 @@
+/home/guillermo/Escritorio/IG2/IG2-Practica/build/CMakeFiles/TestApp.dir
+/home/guillermo/Escritorio/IG2/IG2-Practica/build/CMakeFiles/edit_cache.dir
+/home/guillermo/Escritorio/IG2/IG2-Practica/build/CMakeFiles/rebuild_cache.dir

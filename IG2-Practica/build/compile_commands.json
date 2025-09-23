@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/guillermo/Escritorio/IG2/IG2-Practica/build",
+  "command": "/usr/bin/g++ -I/home/guillermo/Escritorio/IG2/IG2-Practica/TestApp -I/home/guillermo/Escritorio/IG2/IG2-Practica/include -isystem /usr/local/include/OGRE -isystem /usr/local/include/OGRE/Bites -isystem /usr/local/include/OGRE/Overlay -isystem /usr/local/include/OGRE/RTShaderSystem -isystem /usr/include/SDL2 -g -o CMakeFiles/TestApp.dir/src/Main.cpp.o -c /home/guillermo/Escritorio/IG2/IG2-Practica/src/Main.cpp",
+  "file": "/home/guillermo/Escritorio/IG2/IG2-Practica/src/Main.cpp",
+  "output": "CMakeFiles/TestApp.dir/src/Main.cpp.o"
+},
+{
+  "directory": "/home/guillermo/Escritorio/IG2/IG2-Practica/build",
+  "command": "/usr/bin/g++ -I/home/guillermo/Escritorio/IG2/IG2-Practica/TestApp -I/home/guillermo/Escritorio/IG2/IG2-Practica/include -isystem /usr/local/include/OGRE -isystem /usr/local/include/OGRE/Bites -isystem /usr/local/include/OGRE/Overlay -isystem /usr/local/include/OGRE/RTShaderSystem -isystem /usr/include/SDL2 -g -o CMakeFiles/TestApp.dir/src/SinbadExample.cpp.o -c /home/guillermo/Escritorio/IG2/IG2-Practica/src/SinbadExample.cpp",
+  "file": "/home/guillermo/Escritorio/IG2/IG2-Practica/src/SinbadExample.cpp",
+  "output": "CMakeFiles/TestApp.dir/src/SinbadExample.cpp.o"
+}
+]
