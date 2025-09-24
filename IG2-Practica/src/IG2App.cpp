@@ -1,10 +1,11 @@
-#include "SinbadExample.h"
+#include "IG2App.h"
+#include <OgreBitesConfigDialog.h>
 
 using namespace std;
 using namespace Ogre;
 
 
-bool SinbadExample::keyPressed(const OgreBites::KeyboardEvent& evt) {
+bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt) {
 
     // ESC key finished the rendering...
     if (evt.keysym.sym == SDLK_ESCAPE) {
@@ -15,7 +16,7 @@ bool SinbadExample::keyPressed(const OgreBites::KeyboardEvent& evt) {
 }
 
 
-void SinbadExample::shutdown() {
+void IG2App::shutdown() {
 
     mShaderGenerator->removeSceneManager(mSM);
     mSM->removeRenderQueueListener(mOverlaySystem);
@@ -29,8 +30,8 @@ void SinbadExample::shutdown() {
     OgreBites::ApplicationContext::shutdown();
 }
 
-void SinbadExample::setup(void) {
-
+void IG2App::setup(void) {
+    mRoot->showConfigDialog(OgreBites::getNativeConfigDialog());
     // do not forget to call the base first
     OgreBites::ApplicationContext::setup();
 
@@ -51,7 +52,7 @@ void SinbadExample::setup(void) {
     setupScene();
 }
 
-void SinbadExample::setupScene(void) {
+void IG2App::setupScene(void) {
 
     //------------------------------------------------------------------------
     // Creating the camera

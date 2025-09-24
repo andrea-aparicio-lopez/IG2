@@ -1,8 +1,8 @@
-#include "SinbadExample.h"
+#include "IG2App.h"
 
 int main(int argc, char* argv[]){
 
-    SinbadExample app;
+    IG2App app;
 
     try{        
         app.initApp();

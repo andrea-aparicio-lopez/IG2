@@ -10,7 +10,7 @@ find_package(SDL2 REQUIRED)
 
 
 # add the source files as usual
-add_executable(TestApp src/Main.cpp src/SinbadExample.cpp)
+add_executable(TestApp src/Main.cpp src/IG2App.cpp)
 
 #headers
 include_directories(TestApp include)

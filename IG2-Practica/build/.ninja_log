@@ -1,7 +1,7 @@
 # ninja log v5
-2	5885	1758644672198792635	CMakeFiles/TestApp.dir/src/Main.cpp.o	a9e4444f30291ddd
-3	6285	1758644672596792650	CMakeFiles/TestApp.dir/src/SinbadExample.cpp.o	3f9bc939087636b8
-6285	6573	1758644672886792661	/home/guillermo/Escritorio/IG2/IG2-Practica/bin/Debug/TestApp	4a622dbbef92fc4b
 5	5892	1758644862633799853	CMakeFiles/TestApp.dir/src/Main.cpp.o	d6e9a8490a5f6622
-5	6160	1758644862898799863	CMakeFiles/TestApp.dir/src/SinbadExample.cpp.o	14038f7fe9d2e860
-6160	6456	1758644863195799874	/home/guillermo/Escritorio/IG2/IG2-Practica/bin/Debug/TestApp	4a622dbbef92fc4b
+5	5931	1758645677787830747	CMakeFiles/TestApp.dir/src/SinbadExample.cpp.o	14038f7fe9d2e860
+5931	6208	1758645678066830758	/home/guillermo/Escritorio/IG2/IG2-Practica/bin/Debug/TestApp	4a622dbbef92fc4b
+6	4460	1758714059278556503	CMakeFiles/TestApp.dir/src/IG2App.cpp.o	f69b436f42eb472f
+5	5552	1758714086242557929	CMakeFiles/TestApp.dir/src/Main.cpp.o	d6e9a8490a5f6622
+5552	5823	1758714086513557943	/home/guillermo/Escritorio/IG2/IG2-Practica/bin/Debug/TestApp	538c0da61999e18b

@@ -56,8 +56,8 @@ build CMakeFiles/TestApp.dir/src/Main.cpp.o: CXX_COMPILER__TestApp_unscanned_Deb
   OBJECT_DIR = CMakeFiles/TestApp.dir
   OBJECT_FILE_DIR = CMakeFiles/TestApp.dir/src
 
-build CMakeFiles/TestApp.dir/src/SinbadExample.cpp.o: CXX_COMPILER__TestApp_unscanned_Debug /home/guillermo/Escritorio/IG2/IG2-Practica/src/SinbadExample.cpp || cmake_object_order_depends_target_TestApp
-  DEP_FILE = CMakeFiles/TestApp.dir/src/SinbadExample.cpp.o.d
+build CMakeFiles/TestApp.dir/src/IG2App.cpp.o: CXX_COMPILER__TestApp_unscanned_Debug /home/guillermo/Escritorio/IG2/IG2-Practica/src/IG2App.cpp || cmake_object_order_depends_target_TestApp
+  DEP_FILE = CMakeFiles/TestApp.dir/src/IG2App.cpp.o.d
   FLAGS = -g
   INCLUDES = -I/home/guillermo/Escritorio/IG2/IG2-Practica/TestApp -I/home/guillermo/Escritorio/IG2/IG2-Practica/include -isystem /usr/local/include/OGRE -isystem /usr/local/include/OGRE/Bites -isystem /usr/local/include/OGRE/Overlay -isystem /usr/local/include/OGRE/RTShaderSystem -isystem /usr/include/SDL2
   OBJECT_DIR = CMakeFiles/TestApp.dir
@@ -71,7 +71,7 @@ build CMakeFiles/TestApp.dir/src/SinbadExample.cpp.o: CXX_COMPILER__TestApp_unsc
 #############################################
 # Link the executable /home/guillermo/Escritorio/IG2/IG2-Practica/bin/Debug/TestApp
 
-build /home/guillermo/Escritorio/IG2/IG2-Practica/bin/Debug/TestApp: CXX_EXECUTABLE_LINKER__TestApp_Debug CMakeFiles/TestApp.dir/src/Main.cpp.o CMakeFiles/TestApp.dir/src/SinbadExample.cpp.o | /usr/local/lib/libOgreBites.so.14.3 /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2main.a /usr/local/lib/libOgreOverlay.so.14.3 /usr/local/lib/libOgreRTShaderSystem.so.14.3 /usr/local/lib/libOgreMain.so.14.3
+build /home/guillermo/Escritorio/IG2/IG2-Practica/bin/Debug/TestApp: CXX_EXECUTABLE_LINKER__TestApp_Debug CMakeFiles/TestApp.dir/src/Main.cpp.o CMakeFiles/TestApp.dir/src/IG2App.cpp.o | /usr/local/lib/libOgreBites.so.14.3 /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2main.a /usr/local/lib/libOgreOverlay.so.14.3 /usr/local/lib/libOgreRTShaderSystem.so.14.3 /usr/local/lib/libOgreMain.so.14.3
   FLAGS = -g
   LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib  /usr/local/lib/libOgreBites.so.14.3  /usr/lib/x86_64-linux-gnu/libSDL2.so  /usr/lib/x86_64-linux-gnu/libSDL2main.a  /usr/local/lib/libOgreOverlay.so.14.3  /usr/local/lib/libOgreRTShaderSystem.so.14.3  /usr/local/lib/libOgreMain.so.14.3  -lpthread
   OBJECT_DIR = CMakeFiles/TestApp.dir

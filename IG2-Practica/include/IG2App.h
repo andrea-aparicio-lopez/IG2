@@ -18,11 +18,11 @@
 #include <SDL_keycode.h>
 
 
-class SinbadExample: public OgreBites::ApplicationContext, OgreBites::InputListener {
+class IG2App: public OgreBites::ApplicationContext, OgreBites::InputListener {
 
 public:
-    explicit SinbadExample() : OgreBites::ApplicationContext("SinbadExample") {};
-    virtual ~SinbadExample() {};
+    explicit IG2App() : OgreBites::ApplicationContext("SinbadExample") {};
+    virtual ~IG2App() {};
 
 protected:
     virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
