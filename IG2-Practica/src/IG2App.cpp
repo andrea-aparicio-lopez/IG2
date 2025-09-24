@@ -1,4 +1,6 @@
 #include "IG2App.h"
+#include "IG2Object.h"
+#include "Wall.h"
 #include <OgreBitesConfigDialog.h>
 
 using namespace std;
@@ -93,13 +95,18 @@ void IG2App::setupScene(void) {
 
     //------------------------------------------------------------------------
     // Creating Sinbad
-
-    Ogre::Entity* ent = mSM->createEntity("Sinbad.mesh");
+    /*
+    Ogre::Entity* ent = mSM->createEntity("cube.mesh");
     mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
     mSinbadNode->attachObject(ent);
 
     // Show bounding box
     mSinbadNode->showBoundingBox(true);
+
+    */
+   mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
+   Wall* wall = new Wall(Vector3(0,0,0), mSinbadNode, mSM);
+   Wall* wall2 = new Wall(Vector3(200,0,0), mSinbadNode, mSM);
 
     // Set position of Sinbad
     //mSinbadNode->setPosition(x, y, z);

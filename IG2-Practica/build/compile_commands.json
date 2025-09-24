@@ -10,5 +10,17 @@
   "command": "/usr/bin/g++ -I/home/guillermo/Escritorio/IG2/IG2-Practica/TestApp -I/home/guillermo/Escritorio/IG2/IG2-Practica/include -isystem /usr/local/include/OGRE -isystem /usr/local/include/OGRE/Bites -isystem /usr/local/include/OGRE/Overlay -isystem /usr/local/include/OGRE/RTShaderSystem -isystem /usr/include/SDL2 -g -o CMakeFiles/TestApp.dir/src/IG2App.cpp.o -c /home/guillermo/Escritorio/IG2/IG2-Practica/src/IG2App.cpp",
   "file": "/home/guillermo/Escritorio/IG2/IG2-Practica/src/IG2App.cpp",
   "output": "CMakeFiles/TestApp.dir/src/IG2App.cpp.o"
+},
+{
+  "directory": "/home/guillermo/Escritorio/IG2/IG2-Practica/build",
+  "command": "/usr/bin/g++ -I/home/guillermo/Escritorio/IG2/IG2-Practica/TestApp -I/home/guillermo/Escritorio/IG2/IG2-Practica/include -isystem /usr/local/include/OGRE -isystem /usr/local/include/OGRE/Bites -isystem /usr/local/include/OGRE/Overlay -isystem /usr/local/include/OGRE/RTShaderSystem -isystem /usr/include/SDL2 -g -o CMakeFiles/TestApp.dir/src/IG2Object.cpp.o -c /home/guillermo/Escritorio/IG2/IG2-Practica/src/IG2Object.cpp",
+  "file": "/home/guillermo/Escritorio/IG2/IG2-Practica/src/IG2Object.cpp",
+  "output": "CMakeFiles/TestApp.dir/src/IG2Object.cpp.o"
+},
+{
+  "directory": "/home/guillermo/Escritorio/IG2/IG2-Practica/build",
+  "command": "/usr/bin/g++ -I/home/guillermo/Escritorio/IG2/IG2-Practica/TestApp -I/home/guillermo/Escritorio/IG2/IG2-Practica/include -isystem /usr/local/include/OGRE -isystem /usr/local/include/OGRE/Bites -isystem /usr/local/include/OGRE/Overlay -isystem /usr/local/include/OGRE/RTShaderSystem -isystem /usr/include/SDL2 -g -o CMakeFiles/TestApp.dir/src/Wall.cpp.o -c /home/guillermo/Escritorio/IG2/IG2-Practica/src/Wall.cpp",
+  "file": "/home/guillermo/Escritorio/IG2/IG2-Practica/src/Wall.cpp",
+  "output": "CMakeFiles/TestApp.dir/src/Wall.cpp.o"
 }
 ]
