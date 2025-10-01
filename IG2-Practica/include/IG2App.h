@@ -18,6 +18,9 @@
 #include <SDL_keycode.h>
 
 
+
+constexpr float SCALE = 5.f;
+
 class IG2App: public OgreBites::ApplicationContext, OgreBites::InputListener {
 
 public:

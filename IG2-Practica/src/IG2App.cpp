@@ -1,5 +1,6 @@
 #include "IG2App.h"
 #include "IG2Object.h"
+#include "Labyrinth.h"
 #include "Wall.h"
 #include <OgreBitesConfigDialog.h>
 
@@ -82,7 +83,7 @@ void IG2App::setupScene(void) {
     //------------------------------------------------------------------------
     // Creating the light
 
-    //mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+    mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
     
     Light* luz = mSM->createLight("Luz");
     luz->setType(Ogre::Light::LT_DIRECTIONAL);
@@ -105,8 +106,7 @@ void IG2App::setupScene(void) {
 
     */
    mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
-   Wall* wall = new Wall(Vector3(0,0,0), mSinbadNode, mSM);
-   Wall* wall2 = new Wall(Vector3(200,0,0), mSinbadNode, mSM);
+   Labyrinth* lab = new Labyrinth("../Labyrinths/stage1.txt", mSinbadNode, mSM);
 
     // Set position of Sinbad
     //mSinbadNode->setPosition(x, y, z);
