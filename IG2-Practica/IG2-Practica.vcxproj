@@ -133,12 +133,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\ogre-14.3.4-build\sdk\include\OGRE;..\ogre-14.3.4-build\sdk\include\OGRE\Bites;..\ogre-14.3.4-build\sdk\include\OGRE\Overlay;..\ogre-14.3.4-build\sdk\include\OGRE\RTShaderSystem;..\ogre-14.3.4-build\Dependencies\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <ClCompile Include="SinbadExample.cpp" />
+    <ClCompile Include="IG2-Practica\IG2App.cpp" />
+    <ClCompile Include="IG2-Practica\IG2Object.cpp" />
+    <ClCompile Include="IG2-Practica\Labyrinth.cpp" />
+    <ClCompile Include="IG2-Practica\Main.cpp" />
+    <ClCompile Include="IG2-Practica\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IG2-Practica\IG2App.h" />
+    <ClInclude Include="IG2-Practica\IG2Object.h" />
+    <ClInclude Include="IG2-Practica\Labyrinth.h" />
+    <ClInclude Include="IG2-Practica\Wall.h" />
     <ClInclude Include="SinbadExample.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

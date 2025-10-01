@@ -106,7 +106,7 @@ void IG2App::setupScene(void) {
 
     */
    mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
-   Labyrinth* lab = new Labyrinth("../Labyrinths/stage1.txt", mSinbadNode, mSM);
+   Labyrinth* lab = new Labyrinth("Labyrinths/stage1.txt", mSinbadNode, mSM);
 
     // Set position of Sinbad
     //mSinbadNode->setPosition(x, y, z);
