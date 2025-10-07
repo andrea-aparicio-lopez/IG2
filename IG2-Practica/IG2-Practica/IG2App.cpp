@@ -2,6 +2,7 @@
 #include "IG2Object.h"
 #include "Labyrinth.h"
 #include "Wall.h"
+#include "Hero.h"
 #include <OgreBitesConfigDialog.h>
 
 using namespace std;
@@ -105,8 +106,14 @@ void IG2App::setupScene(void) {
     mSinbadNode->showBoundingBox(true);
 
     */
+   mLabyrinthNode = mSM->getRootSceneNode()->createChildSceneNode("labyrinth");
+   Labyrinth* lab = new Labyrinth("Labyrinths/stage1.txt", mLabyrinthNode, mSM);
+
    mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
-   Labyrinth* lab = new Labyrinth("Labyrinths/stage1.txt", mSinbadNode, mSM);
+   Hero* sinbad = new Hero(Vector3(100, 0, 100), mSinbadNode, mSM);
+
+   // Show bounding box
+   mSinbadNode->showBoundingBox(true);
 
     // Set position of Sinbad
     //mSinbadNode->setPosition(x, y, z);

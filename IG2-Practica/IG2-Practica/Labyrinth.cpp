@@ -23,12 +23,14 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 
 	char casilla;
 
+	//float scale = cte::SCALE_CUBE / cte::SCALE;
+
 	for (int i = 0; i < r; ++i) {
 		for (int j = 0; j < c; ++j) {
 			cin >> casilla;
 			if (casilla == 'x') {
 				walls[i][j] = 1;
-				new Wall(Vector3(i * SCALE, 0, j * SCALE), mNode, sMe);
+				auto w = new Wall(Vector3(i * cte::SCALE_CUBE, 0, j * cte::SCALE_CUBE), mNode, sMe);
 			}
 			else {
 				walls[i][j] = 0;

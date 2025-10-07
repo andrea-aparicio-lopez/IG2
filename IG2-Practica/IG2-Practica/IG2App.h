@@ -19,8 +19,6 @@
 
 
 
-constexpr float SCALE = 5.f;
-
 class IG2App: public OgreBites::ApplicationContext, OgreBites::InputListener {
 
 public:
@@ -35,6 +33,7 @@ protected:
 
 
     Ogre::SceneNode* mSinbadNode = nullptr;
+    Ogre::SceneNode* mLabyrinthNode = nullptr;
 
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;

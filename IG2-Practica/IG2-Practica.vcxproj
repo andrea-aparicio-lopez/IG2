@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IG2-Practica\Hero.cpp" />
     <ClCompile Include="IG2-Practica\IG2App.cpp" />
     <ClCompile Include="IG2-Practica\IG2Object.cpp" />
     <ClCompile Include="IG2-Practica\Labyrinth.cpp" />
@@ -140,11 +141,12 @@
     <ClCompile Include="IG2-Practica\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IG2-Practica\Constants.h" />
+    <ClInclude Include="IG2-Practica\Hero.h" />
     <ClInclude Include="IG2-Practica\IG2App.h" />
     <ClInclude Include="IG2-Practica\IG2Object.h" />
     <ClInclude Include="IG2-Practica\Labyrinth.h" />
     <ClInclude Include="IG2-Practica\Wall.h" />
-    <ClInclude Include="SinbadExample.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
