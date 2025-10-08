@@ -14,5 +14,5 @@ public:
 	Labyrinth(std::string filename, SceneNode* node, SceneManager* sM);
 	~Labyrinth();
 
-	bool isWall(Vector2i position);
+	bool isWall(Vector3 pos);
 };

@@ -110,7 +110,7 @@ void IG2App::setupScene(void) {
    Labyrinth* lab = new Labyrinth("Labyrinths/stage1.txt", mLabyrinthNode, mSM);
 
    mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
-   Hero* sinbad = new Hero(Vector3(100, 0, 100), mSinbadNode, mSM);
+   Hero* sinbad = new Hero(Vector3(100, 0, 100), mSinbadNode, mSM, lab);
 
    addInputListener(sinbad);
 
@@ -124,5 +124,6 @@ void IG2App::setupScene(void) {
     //mSinbadNode->setScale(20, 20, 20);
 
     //mSinbadNode->yaw(Ogre::Degree(-45));
-    //mSinbadNode->setVisible(false);    
+    //mSinbadNode->setVisible(false);   
+    // 
 }

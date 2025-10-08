@@ -35,7 +35,6 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 			else {
 				walls[i][j] = 0;
 			}
-
 		}
 	}
 
@@ -44,6 +43,6 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 
 Labyrinth::~Labyrinth() {}
 
-bool Labyrinth::isWall(Vector2i pos) {
+bool Labyrinth::isWall(Vector3 pos) {
 	return walls[pos.x][pos.y];
 }
