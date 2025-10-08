@@ -7,12 +7,12 @@
 
 class Labyrinth : public IG2Object {
 private:
+	std::vector<std::vector<bool>> walls;
 	
 
 public:
 	Labyrinth(std::string filename, SceneNode* node, SceneManager* sM);
 	~Labyrinth();
 
-	std::vector<std::vector<bool>> walls;
-
+	bool isWall(Vector2i position);
 };

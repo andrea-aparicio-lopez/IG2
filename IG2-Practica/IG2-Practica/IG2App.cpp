@@ -112,6 +112,8 @@ void IG2App::setupScene(void) {
    mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
    Hero* sinbad = new Hero(Vector3(100, 0, 100), mSinbadNode, mSM);
 
+   addInputListener(sinbad);
+
    // Show bounding box
    mSinbadNode->showBoundingBox(true);
 

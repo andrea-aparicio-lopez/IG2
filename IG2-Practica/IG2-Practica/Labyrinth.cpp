@@ -43,3 +43,7 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 }
 
 Labyrinth::~Labyrinth() {}
+
+bool Labyrinth::isWall(Vector2i pos) {
+	return walls[pos.x][pos.y];
+}
