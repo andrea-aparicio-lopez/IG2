@@ -24,6 +24,10 @@ void Hero::setNewDir(Vector3 const& nDir) {
 	nextDir = nDir;
 }
 
+void Hero::frameRendered(const Ogre::FrameEvent& evt) {
+	moveHero(evt.timeSinceLastFrame);
+}
+
 void Hero::moveHero(double dt) {
 	// mover al heroe
 	// comprobar si hay colision
@@ -37,11 +41,39 @@ void Hero::moveHero(double dt) {
 	pos /= cte::SCALE_CUBE;
 	pos = { floor(pos.x), floor(pos.y), floor(pos.z) };
 
-	if (lab->isWall(pos)) { // si no hay pared no hace nada
-		// si hay pared devolver al heroe a la posicion valida mas cercana
+	if (dir.x != 0) { // comprobacion eje x
+		float center = (pos.x + dir.x + 0.5) * cte::SCALE_CUBE;
+		bool tasPasao = (getPosition().x * dir) > (center * dir);
+		if (tasPasao) {
+			// Comprobar si hay pared
+			// Comprobar si puede girar
+			// Si hay pared o puede girar, resetear posicion al centro
+			if (lab->isWall(pos + dir)) {
+				setPosition({ center, getPosition().y, getPosition().z });
+			}
+			else if (!lab->isWall(pos + nextDir)) {
+				setPosition({ center, getPosition().y, getPosition().z });
+				dir = nextDir;
+			}
+		}
+	}
+	else if (dir.z != 0) {
+		float center = (pos.z + dir.z + 0.5) * cte::SCALE_CUBE;
+		bool tasPasao = (getPosition().z * dir) > (center * dir);
+		std::cout << "Position: " << getPosition().x << " " << getPosition().z << '\n';
+		std::cout << "Center: " <<center << '\n';
+		if (tasPasao) {
+			if (lab->isWall(pos + dir)) {
+				setPosition({ getPosition().x, getPosition().y, center});
+			}
+			else if (!lab->isWall(pos + nextDir)) {
+				setPosition({ getPosition().x, getPosition().y, center });
+				dir = nextDir;
+			}
+		}
 	}
 
-	turnHero();
+	//turnHero();
 }
 
 void Hero::turnHero() {
@@ -52,25 +84,21 @@ void Hero::turnHero() {
 		Vector3 orientation = getOrientation();
 
 		if (nextDir.x == -1 && !lab->isWall(rotPos + nextDir)) { // LEFT
-			// TODO: comprobación extra para ver si ha sobrepasado la pared
 			Radian r = Radian(180.f - orientation.y);
 			yaw(r);
 			dir = nextDir;
 		}
 		if (nextDir.x == 1 && !lab->isWall(rotPos + nextDir)) { // RIGHT
-			// TODO: comprobación extra para ver si ha sobrepasado la pared
 			Radian r = Radian(0.f - orientation.y);
 			yaw(r);
 			dir = nextDir;
 		}
 		if (nextDir.z == -1 && !lab->isWall(rotPos + nextDir)) { // UP
-			// TODO: comprobación extra para ver si ha sobrepasado la pared
 			Radian r = Radian(90.f - orientation.y);
 			yaw(r);
 			dir = nextDir;
 		}
 		if (nextDir.z == 1 && !lab->isWall(rotPos + nextDir)) { // UP
-			// TODO: comprobación extra para ver si ha sobrepasado la pared
 			Radian r = Radian(270.f - orientation.y);
 			yaw(r);
 			dir = nextDir;

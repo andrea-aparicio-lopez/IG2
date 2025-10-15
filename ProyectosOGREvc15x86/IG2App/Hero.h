@@ -28,6 +28,8 @@ public:
 	void moveHero(double dt); 
 	void turnHero();
 
+	void frameRendered(const Ogre::FrameEvent& evt) override;
+
 	bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 
 };

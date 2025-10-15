@@ -6,5 +6,5 @@ namespace cte {
 	const float SCALE_CUBE = 100.0f;
 	const float SCALE_HERO = 100.0f;
 
-	const float HERO_VEL = 10.0f;
+	const float HERO_VEL = 30.0f;
 }

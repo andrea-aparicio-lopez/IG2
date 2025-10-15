@@ -114,9 +114,6 @@ void IG2App::setupScene(void) {
 
    addInputListener(sinbad);
 
-   // Show bounding box
-   mSinbadNode->showBoundingBox(true);
-
     // Set position of Sinbad
     //mSinbadNode->setPosition(x, y, z);
 
