@@ -64,73 +64,18 @@ void Hero::moveHero(double dt) {
 		if (!lab->isWall(flooredPos + nextDir) && dir != nextDir) {
 			setPosition(center * cte::SCALE_CUBE -Vector3(cte::SCALE_CUBE, 0, cte::SCALE_CUBE) * 0.5);
 			dir = nextDir;
+			turnHero();
 		}
 
 		if (lab->isWall(flooredPos + dir)) {
 			setPosition(center * cte::SCALE_CUBE -Vector3(cte::SCALE_CUBE, 0, cte::SCALE_CUBE) * 0.5);
 		}
 	}
-
-	/*if (dir.x != 0) { // comprobacion eje x
-		bool tasPasao = (getPosition().x * dir) > (center * dir);
-		if (tasPasao) {
-			// Comprobar si hay pared
-			// Comprobar si puede girar
-			// Si hay pared o puede girar, resetear posicion al centro
-			if (lab->isWall(pos + dir)) {
-				setPosition({ center, getPosition().y, getPosition().z });
-			}
-			else if (!lab->isWall(pos + nextDir)) {
-				setPosition({ center, getPosition().y, getPosition().z });
-				dir = nextDir;
-			}
-		}
-	}
-	else if (dir.z != 0) {
-		bool tasPasao = (getPosition().z + dir) > (center * dir);
-		if (tasPasao) {
-			if (lab->isWall(pos + dir)) {
-				setPosition({ getPosition().x, getPosition().y, center});
-			}
-			else if (!lab->isWall(pos + nextDir)) {
-				setPosition({ getPosition().x, getPosition().y, center });
-				dir = nextDir;
-			}
-		}
-	}
-	*/
-
-	//turnHero();
 }
 
 void Hero::turnHero() {
-	if (nextDir != dir) {
-		Vector3 rotPos = getPosition() / cte::SCALE_CUBE;
-		rotPos = { floor(rotPos.x), floor(rotPos.y), floor(rotPos.z) };
-
-		Vector3 orientation = getOrientation();
-
-		if (nextDir.x == -1 && !lab->isWall(rotPos + nextDir)) { // LEFT
-			Radian r = Radian(180.f - orientation.y);
-			yaw(r);
-			dir = nextDir;
-		}
-		if (nextDir.x == 1 && !lab->isWall(rotPos + nextDir)) { // RIGHT
-			Radian r = Radian(0.f - orientation.y);
-			yaw(r);
-			dir = nextDir;
-		}
-		if (nextDir.z == -1 && !lab->isWall(rotPos + nextDir)) { // UP
-			Radian r = Radian(90.f - orientation.y);
-			yaw(r);
-			dir = nextDir;
-		}
-		if (nextDir.z == 1 && !lab->isWall(rotPos + nextDir)) { // UP
-			Radian r = Radian(270.f - orientation.y);
-			yaw(r);
-			dir = nextDir;
-		}
-	}
+	Quaternion q = this->getOrientation().getRotationTo(dir);
+	mNode->rotate(q);
 }
 
 bool Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
