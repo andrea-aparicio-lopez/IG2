@@ -17,16 +17,14 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 	int r, c;
 	std::cin >> r >> c;
 
-	walls = std::vector<std::vector<bool>>(r);
-	for (int i = 0; i < walls.size(); ++i)
-		walls[i] = std::vector<bool>(c);
+	walls = std::vector<std::vector<bool>>(c, std::vector<bool>(r));
 
 	char casilla;
 
 	//float scale = cte::SCALE_CUBE / cte::SCALE;
 
-	for (int i = 0; i < r; ++i) {
-		for (int j = 0; j < c; ++j) {
+	for (int i = 0; i < c; ++i) {
+		for (int j = 0; j < r; ++j) {
 			cin >> casilla;
 			if (casilla == 'x') {
 				walls[i][j] = 1;
@@ -44,5 +42,5 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 Labyrinth::~Labyrinth() {}
 
 bool Labyrinth::isWall(Vector3 pos) {
-	return walls[pos.x][pos.y];
+	return walls[pos.x][pos.z];
 }

@@ -34,15 +34,44 @@ void Hero::moveHero(double dt) {
 	// si hay: devolver al heroe a la posición más cercana válida
 	// comprobar si puede girar
 	// si puede: rotar al héroe y cambiar direccion
-
+	//A
 	move(dir * cte::HERO_VEL * dt);
 
-	Vector3 pos = getPosition();
+	Vector3 pos = getPosition() + Vector3(cte::SCALE_CUBE, 0, cte::SCALE_CUBE) * 0.5;
+	std::cout << "Pos1: " << pos.x << " " << pos.z << '\n';
 	pos /= cte::SCALE_CUBE;
-	pos = { floor(pos.x), floor(pos.y), floor(pos.z) };
+	std::cout << "Pos2: " << pos.x << " " << pos.z << '\n';
+	Vector3 flooredPos = { floor(pos.x), floor(pos.y), floor(pos.z) };
 
-	if (dir.x != 0) { // comprobacion eje x
-		float center = (pos.x + dir.x + 0.5) * cte::SCALE_CUBE;
+	Vector3 center = flooredPos + Vector3(0.5, 0, 0.5);
+
+	bool taspasao = false;
+
+	if (dir.z > 0 && pos.z > center.z) {
+		taspasao = true;
+	}
+	if (dir.z < 0 && pos.z < center.z) {
+		taspasao = true;
+	}
+	if (dir.x > 0  && pos.x > center.x) {
+		taspasao = true;
+	}
+	if (dir.x < 0 && pos.x < center.x) {
+		taspasao = true;
+	}
+
+	if (taspasao) {
+		if (!lab->isWall(flooredPos + nextDir) && dir != nextDir) {
+			setPosition(center * cte::SCALE_CUBE -Vector3(cte::SCALE_CUBE, 0, cte::SCALE_CUBE) * 0.5);
+			dir = nextDir;
+		}
+
+		if (lab->isWall(flooredPos + dir)) {
+			setPosition(center * cte::SCALE_CUBE -Vector3(cte::SCALE_CUBE, 0, cte::SCALE_CUBE) * 0.5);
+		}
+	}
+
+	/*if (dir.x != 0) { // comprobacion eje x
 		bool tasPasao = (getPosition().x * dir) > (center * dir);
 		if (tasPasao) {
 			// Comprobar si hay pared
@@ -58,10 +87,7 @@ void Hero::moveHero(double dt) {
 		}
 	}
 	else if (dir.z != 0) {
-		float center = (pos.z + dir.z + 0.5) * cte::SCALE_CUBE;
-		bool tasPasao = (getPosition().z * dir) > (center * dir);
-		std::cout << "Position: " << getPosition().x << " " << getPosition().z << '\n';
-		std::cout << "Center: " <<center << '\n';
+		bool tasPasao = (getPosition().z + dir) > (center * dir);
 		if (tasPasao) {
 			if (lab->isWall(pos + dir)) {
 				setPosition({ getPosition().x, getPosition().y, center});
@@ -72,6 +98,7 @@ void Hero::moveHero(double dt) {
 			}
 		}
 	}
+	*/
 
 	//turnHero();
 }
@@ -109,10 +136,10 @@ void Hero::turnHero() {
 bool Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
 	switch (evt.keysym.sym) {
 		case SDLK_UP:
-			nextDir = { 0,0,1 };
+			nextDir = { 0,0,-1 };
 			break;
 		case SDLK_DOWN:
-			nextDir = { 0,0,-1 };
+			nextDir = { 0,0,1 };
 			break;
 		case SDLK_LEFT:
 			nextDir = { -1,0,0 };

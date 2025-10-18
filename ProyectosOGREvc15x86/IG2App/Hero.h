@@ -14,7 +14,7 @@ protected:
 	int _health = 3;
 	int _score = 0;
 
-	Vector3 dir = {0,0,1};
+	Vector3 dir = {1,0,0};
 	Vector3 nextDir = {0,0,1};
 
 	Labyrinth* lab;
