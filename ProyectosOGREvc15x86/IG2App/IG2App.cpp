@@ -110,12 +110,12 @@ void IG2App::setupScene(void) {
    mLabyrinthNode = mSM->getRootSceneNode()->createChildSceneNode("labyrinth");
    Labyrinth* lab = new Labyrinth("../Labyrinths/stage1.txt", mLabyrinthNode, mSM);
 
-   mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
+   Ogre::SceneNode * sinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
    Vector3 sinbadPos(lab->getHeroPos());
    sinbadPos *= cte::SCALE_CUBE;
-   Hero* sinbad = new Hero(sinbadPos, mSinbadNode, mSM, lab);
+   mHero = new Hero(sinbadPos, sinbadNode, mSM, lab);
 
-   addInputListener(sinbad);
+   addInputListener(mHero);
 
    std::vector<Vector3> villainPos = lab->getVillainPos();
    for (auto p : villainPos) {
@@ -137,4 +137,21 @@ void IG2App::setupScene(void) {
     //mSinbadNode->yaw(Ogre::Degree(-45));
     //mSinbadNode->setVisible(false);   
     // 
+}
+
+void IG2App::frameRendered(const Ogre::FrameEvent& evt) {
+    calculateCollisions();
+}
+
+void IG2App::calculateCollisions() {
+    for (auto villain : mVillainNodes) {
+        if (mHero->getAABB().intersects(villain->_getWorldAABB())) {
+            std::cout << "COLLISION" << '\n';
+            mHero->damageHero();
+            break;
+        }
+    }
+    if (mHero->health() <= 0) {
+        //end game
+    }
 }

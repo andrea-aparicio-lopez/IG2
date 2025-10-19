@@ -22,4 +22,6 @@ public:
 
 	bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 
+	void damageHero();
+
 };

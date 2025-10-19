@@ -43,3 +43,8 @@ bool Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
 	}
 	return true;
 }
+
+void Hero::damageHero() {
+	setPosition(lab->getHeroPos() * cte::SCALE_CUBE);
+	_health--;
+}

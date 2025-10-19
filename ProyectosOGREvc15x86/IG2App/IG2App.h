@@ -19,7 +19,7 @@
 #include <SDL_keycode.h>
 
 
-
+class Hero;
 class IG2App: public OgreBites::ApplicationContext, OgreBites::InputListener {
 
 public:
@@ -31,9 +31,11 @@ protected:
     virtual void setup();
     virtual void shutdown();
     virtual void setupScene();
+    virtual void frameRendered(const Ogre::FrameEvent& evt) override;
+    void calculateCollisions();
 
 
-    Ogre::SceneNode* mSinbadNode = nullptr;
+    Hero* mSinbadNode = nullptr;
     Ogre::SceneNode* mLabyrinthNode = nullptr;
     std::vector<Ogre::SceneNode*> mVillainNodes;
 
