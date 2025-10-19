@@ -34,6 +34,8 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 				walls[i][j] = 0;
 				if (casilla == 'h')
 					_heroPos = Vector3(j, 0, i);
+				else if (casilla == 'v')
+					_villainPos.push_back(Vector3(j, 0, i));
 			}
 		}
 	}
@@ -49,4 +51,8 @@ bool Labyrinth::isWall(Vector3 pos) const {
 
 Vector3 Labyrinth::getHeroPos() const {
 	return _heroPos;
+}
+
+std::vector<Vector3> Labyrinth::getVillainPos() const {
+	return _villainPos;
 }

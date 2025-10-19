@@ -117,11 +117,16 @@ void IG2App::setupScene(void) {
 
    addInputListener(sinbad);
 
-   Ogre::SceneNode* villainNode = mSM->getRootSceneNode()->createChildSceneNode();
-   mVillainNodes.push_back(villainNode);
-   Villain* villain = new Villain(Vector3(100, 0, 100), villainNode, mSM, lab);
+   std::vector<Vector3> villainPos = lab->getVillainPos();
+   for (auto p : villainPos) {
+       Ogre::SceneNode* villainNode = mSM->getRootSceneNode()->createChildSceneNode();
+       mVillainNodes.push_back(villainNode);
+       Villain* villain = new Villain(p * cte::SCALE_CUBE, villainNode, mSM, lab);
 
-   addInputListener(villain);
+       addInputListener(villain);
+   }
+
+
 
     // Set position of Sinbad
     //mSinbadNode->setPosition(x, y, z);
