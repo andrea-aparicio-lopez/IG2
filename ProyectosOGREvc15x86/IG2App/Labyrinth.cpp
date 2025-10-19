@@ -28,10 +28,12 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 			cin >> casilla;
 			if (casilla == 'x') {
 				walls[i][j] = 1;
-				auto w = new Wall(Vector3(i * cte::SCALE_CUBE, 0, j * cte::SCALE_CUBE), mNode, sMe);
+				auto w = new Wall(Vector3(j * cte::SCALE_CUBE, 0, i * cte::SCALE_CUBE), mNode, sMe);
 			}
 			else {
 				walls[i][j] = 0;
+				if (casilla == 'h')
+					_heroPos = Vector3(j, 0, i);
 			}
 		}
 	}
@@ -41,6 +43,10 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 
 Labyrinth::~Labyrinth() {}
 
-bool Labyrinth::isWall(Vector3 pos) {
-	return walls[pos.x][pos.z];
+bool Labyrinth::isWall(Vector3 pos) const {
+	return walls[pos.z][pos.x];
+}
+
+Vector3 Labyrinth::getHeroPos() const {
+	return _heroPos;
 }

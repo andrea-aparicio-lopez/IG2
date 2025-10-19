@@ -2,11 +2,9 @@
 #include "Constants.h"
 #include "Labyrinth.h"
 #include <cmath>
-#include <iostream>
 
 Hero::Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab)
-	: IG2Object(position, node->createChildSceneNode(), sM, "Sinbad.mesh")
-	, lab(lab)
+	: Character(position, node->createChildSceneNode(), sM, lab, "Sinbad.mesh")
 {
 	entity->getParentSceneNode()->_update(true, true);
 
@@ -16,66 +14,14 @@ Hero::Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab)
 }
 
 Hero::~Hero() {
-
+	Character::~Character();
 }
 
-
-void Hero::setNewDir(Vector3 const& nDir) {
-	nextDir = nDir;
-}
-
-void Hero::frameRendered(const Ogre::FrameEvent& evt) {
-	moveHero(evt.timeSinceLastFrame);
-}
-
-void Hero::moveHero(double dt) {
-	// mover al heroe
-	// comprobar si hay colision
-	// si hay: devolver al heroe a la posición más cercana válida
-	// comprobar si puede girar
-	// si puede: rotar al héroe y cambiar direccion
-	//A
+void Hero::moveCharacter(double dt) {
+	// mover al heroe en función de su velocidad
+	// Dejar que la lógica de moveCharacter haga su magia
 	move(dir * cte::HERO_VEL * dt);
-
-	Vector3 pos = getPosition() + Vector3(cte::SCALE_CUBE, 0, cte::SCALE_CUBE) * 0.5;
-	std::cout << "Pos1: " << pos.x << " " << pos.z << '\n';
-	pos /= cte::SCALE_CUBE;
-	std::cout << "Pos2: " << pos.x << " " << pos.z << '\n';
-	Vector3 flooredPos = { floor(pos.x), floor(pos.y), floor(pos.z) };
-
-	Vector3 center = flooredPos + Vector3(0.5, 0, 0.5);
-
-	bool taspasao = false;
-
-	if (dir.z > 0 && pos.z > center.z) {
-		taspasao = true;
-	}
-	if (dir.z < 0 && pos.z < center.z) {
-		taspasao = true;
-	}
-	if (dir.x > 0  && pos.x > center.x) {
-		taspasao = true;
-	}
-	if (dir.x < 0 && pos.x < center.x) {
-		taspasao = true;
-	}
-
-	if (taspasao) {
-		if (!lab->isWall(flooredPos + nextDir) && dir != nextDir) {
-			setPosition(center * cte::SCALE_CUBE -Vector3(cte::SCALE_CUBE, 0, cte::SCALE_CUBE) * 0.5);
-			dir = nextDir;
-			turnHero();
-		}
-
-		if (lab->isWall(flooredPos + dir)) {
-			setPosition(center * cte::SCALE_CUBE -Vector3(cte::SCALE_CUBE, 0, cte::SCALE_CUBE) * 0.5);
-		}
-	}
-}
-
-void Hero::turnHero() {
-	Quaternion q = this->getOrientation().getRotationTo(dir);
-	mNode->rotate(q);
+	Character::moveCharacter(dt);
 }
 
 bool Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {

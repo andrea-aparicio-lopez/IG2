@@ -3,6 +3,7 @@
 #include "Labyrinth.h"
 #include "Wall.h"
 #include "Hero.h"
+#include "Villain.h"
 #include <OgreBitesConfigDialog.h>
 
 using namespace std;
@@ -110,9 +111,17 @@ void IG2App::setupScene(void) {
    Labyrinth* lab = new Labyrinth("../Labyrinths/stage1.txt", mLabyrinthNode, mSM);
 
    mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
-   Hero* sinbad = new Hero(Vector3(100, 0, 100), mSinbadNode, mSM, lab);
+   Vector3 sinbadPos(lab->getHeroPos());
+   sinbadPos *= cte::SCALE_CUBE;
+   Hero* sinbad = new Hero(sinbadPos, mSinbadNode, mSM, lab);
 
    addInputListener(sinbad);
+
+   Ogre::SceneNode* villainNode = mSM->getRootSceneNode()->createChildSceneNode();
+   mVillainNodes.push_back(villainNode);
+   Villain* villain = new Villain(Vector3(100, 0, 100), villainNode, mSM, lab);
+
+   addInputListener(villain);
 
     // Set position of Sinbad
     //mSinbadNode->setPosition(x, y, z);

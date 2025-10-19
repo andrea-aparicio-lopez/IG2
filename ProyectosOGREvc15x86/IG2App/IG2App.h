@@ -13,6 +13,7 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Ogre.h"
 #include <OgreWindowEventUtilities.h>
 #include <SDL_keycode.h>
@@ -34,6 +35,7 @@ protected:
 
     Ogre::SceneNode* mSinbadNode = nullptr;
     Ogre::SceneNode* mLabyrinthNode = nullptr;
+    std::vector<Ogre::SceneNode*> mVillainNodes;
 
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;
