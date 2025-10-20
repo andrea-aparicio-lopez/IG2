@@ -35,7 +35,7 @@ protected:
     void calculateCollisions();
 
 
-    Hero* mSinbadNode = nullptr;
+    Hero* mHero = nullptr;
     Ogre::SceneNode* mLabyrinthNode = nullptr;
     std::vector<Ogre::SceneNode*> mVillainNodes;
 
