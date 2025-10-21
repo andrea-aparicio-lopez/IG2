@@ -3,14 +3,17 @@
 #include "Labyrinth.h"
 #include <cmath>
 
-Hero::Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab)
-	: Character(position, node, sM, lab, "Sinbad.mesh")
+Hero::Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, OgreBites::TextBox* hAD)
+	: Character(position, node, sM, lab, "Sinbad.mesh"), _heroAttributesDisplay(hAD)
 {
 	entity->getParentSceneNode()->_update(true, true);
 
 	auto s = getAABB().getSize();
 	s = cte::SCALE_HERO / s ;
 	setScale(s);
+
+	_heroAttributesDisplay->setText("Lives: " + std::to_string(_health) +
+	"\nScore: " + std::to_string(_score));
 }
 
 Hero::~Hero() {
@@ -47,4 +50,7 @@ bool Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
 void Hero::damageHero() {
 	setPosition(lab->getHeroPos() * cte::SCALE_CUBE);
 	_health--;
+
+	_heroAttributesDisplay->setText("Lives: " + std::to_string(_health) +
+		"\nScore: " + std::to_string(_score));
 }

@@ -107,13 +107,17 @@ void IG2App::setupScene(void) {
     mSinbadNode->showBoundingBox(true);
 
     */
+
+    mTrayMgr->createLabel(OgreBites::TL_BOTTOMRIGHT, "nombre", "Stage 1", 300);
+    auto heroAttributesDisplay = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "nombre2", "Game Info here!", 300, 200);
+
    mLabyrinthNode = mSM->getRootSceneNode()->createChildSceneNode("labyrinth");
    Labyrinth* lab = new Labyrinth("../Labyrinths/stage1.txt", mLabyrinthNode, mSM);
 
    Ogre::SceneNode * sinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
    Vector3 sinbadPos(lab->getHeroPos());
    sinbadPos *= cte::SCALE_CUBE;
-   mHero = new Hero(sinbadPos, sinbadNode, mSM, lab);
+   mHero = new Hero(sinbadPos, sinbadNode, mSM, lab, heroAttributesDisplay);
 
    addInputListener(mHero);
 
@@ -137,6 +141,7 @@ void IG2App::setupScene(void) {
     //mSinbadNode->yaw(Ogre::Degree(-45));
     //mSinbadNode->setVisible(false);   
     // 
+   
 }
 
 void IG2App::frameRendered(const Ogre::FrameEvent& evt) {
