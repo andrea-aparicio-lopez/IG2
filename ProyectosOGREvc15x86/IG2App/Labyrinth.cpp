@@ -6,7 +6,7 @@
 #include "Wall.h"
 
 Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe) 
-	: IG2Object(Vector3(0,0,0), node->createChildSceneNode(), sMe) {
+	: IG2Object(Vector3(0,0,0), node, sMe) {
 
 	std::ifstream in(filename);
 	if (!in.is_open())
@@ -41,6 +41,17 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 	}
 
 	std::cin.rdbuf(cinbuf);
+
+
+	// SUELO
+	Ogre::MeshManager::getSingleton().createPlane("mPlane",
+		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		Plane(Vector3::UNIT_Y, 0),
+		c*cte::SCALE_CUBE, r*cte::SCALE_CUBE, c, r,
+		true, 1, 1.0, 1.0, Vector3::UNIT_Z);
+
+	IG2Object* plane = new IG2Object(Vector3(((float)c*cte::SCALE_CUBE)/2, 0, ((float)r*cte::SCALE_CUBE)/2), mNode->createChildSceneNode(), mSM, "mPlane");
+	
 }
 
 Labyrinth::~Labyrinth() {}

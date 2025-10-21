@@ -5,7 +5,7 @@
 #include <iostream>
 
 Character::Character(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, std::string mesh)
-	: IG2Object(position, node->createChildSceneNode(), sM, mesh)
+	: IG2Object(position, node, sM, mesh)
 	, lab(lab)
 {
 

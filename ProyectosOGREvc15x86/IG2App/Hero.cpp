@@ -4,7 +4,7 @@
 #include <cmath>
 
 Hero::Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab)
-	: Character(position, node->createChildSceneNode(), sM, lab, "Sinbad.mesh")
+	: Character(position, node, sM, lab, "Sinbad.mesh")
 {
 	entity->getParentSceneNode()->_update(true, true);
 

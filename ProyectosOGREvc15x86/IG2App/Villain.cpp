@@ -6,7 +6,7 @@
 #include <iostream>
 
 Villain::Villain(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab)
-	: Character(position, node->createChildSceneNode(), sM, lab, "ogrehead.mesh")
+	: Character(position, node, sM, lab, "ogrehead.mesh")
 {
 	entity->getParentSceneNode()->_update(true, true);
 
