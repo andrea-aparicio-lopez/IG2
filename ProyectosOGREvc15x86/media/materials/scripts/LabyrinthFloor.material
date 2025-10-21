@@ -1,0 +1,9 @@
+material LabyrinthFloor {
+    technique {
+        pass {
+            texture_unit {
+                texture grass_1024.jpg
+            }
+        }
+    }
+}

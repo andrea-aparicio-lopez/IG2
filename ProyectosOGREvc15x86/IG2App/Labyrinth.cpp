@@ -17,6 +17,9 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 	int r, c;
 	std::cin >> r >> c;
 
+	std::string wallMat, floorMat;
+	std::cin >> wallMat >> floorMat;
+
 	walls = std::vector<std::vector<bool>>(c, std::vector<bool>(r));
 
 	char casilla;
@@ -29,6 +32,7 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 			if (casilla == 'x') {
 				walls[i][j] = 1;
 				auto w = new Wall(Vector3(j * cte::SCALE_CUBE, 0, i * cte::SCALE_CUBE), mNode, sMe);
+				w->setMaterialName(wallMat);
 			}
 			else {
 				walls[i][j] = 0;
@@ -53,6 +57,8 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 	float xPos = ((float)c * cte::SCALE_CUBE) / 2.f - cte::SCALE_CUBE/2;
 	float zPos = ((float)r * cte::SCALE_CUBE) / 2.f - cte::SCALE_CUBE / 2;
 	IG2Object* plane = new IG2Object(Vector3(xPos, -cte::SCALE_CUBE/2,zPos), mNode->createChildSceneNode(), mSM, "mPlane");
+
+	plane->setMaterialName(floorMat);
 	
 }
 
