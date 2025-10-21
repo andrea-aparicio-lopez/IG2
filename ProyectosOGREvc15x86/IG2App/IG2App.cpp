@@ -86,14 +86,8 @@ void IG2App::setupScene(void) {
     // Creating the light
 
     mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
-    
-    Light* luz = mSM->createLight("Luz");
-    luz->setType(Ogre::Light::LT_DIRECTIONAL);
-    luz->setDiffuseColour(0.75, 0.75, 0.75);
 
-    mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
-    mLightNode->attachObject(luz);
-    mLightNode->setDirection(Ogre::Vector3(-1, -1, -1));
+
  
 
     //------------------------------------------------------------------------
@@ -114,6 +108,7 @@ void IG2App::setupScene(void) {
    mLabyrinthNode = mSM->getRootSceneNode()->createChildSceneNode("labyrinth");
    Labyrinth* lab = new Labyrinth("../Labyrinths/stage1.txt", mLabyrinthNode, mSM);
 
+
    Ogre::SceneNode * sinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
    Vector3 sinbadPos(lab->getHeroPos());
    sinbadPos *= cte::SCALE_CUBE;
@@ -128,6 +123,41 @@ void IG2App::setupScene(void) {
        Villain* villain = new Villain(p * cte::SCALE_CUBE, villainNode, mSM, lab);
 
        addInputListener(villain);
+   }
+
+
+
+
+   auto lightType = lab->getLightType();
+
+   if (lightType == "directional") {
+       Light* luz = mSM->createLight("Luz");
+       luz->setType(Ogre::Light::LT_DIRECTIONAL);
+       luz->setDiffuseColour(0.75, 0.75, 0.75);
+
+       mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
+       mLightNode->attachObject(luz);
+       mLightNode->setDirection(Ogre::Vector3(-1, -1, -1));
+   }
+   else if (lightType == "point") {
+       Light* luz = mSM->createLight("Luz");
+       luz->setType(Ogre::Light::LT_POINT);
+       luz->setDiffuseColour(0.75, 0.75, 0.75);
+       mLightNode = sinbadNode->createChildSceneNode("nLuz");
+       mLightNode->attachObject(luz);
+       mLightNode->setPosition(sinbadNode->getPosition());
+   }
+   else if (lightType == "spotlight") {
+       Light* luz = mSM->createLight("Luz");
+       luz->setType(Ogre::Light::LT_SPOTLIGHT);
+       luz->setDiffuseColour(0.75f, 0.75f, 0.75f);
+       //luz->setDirection(Ogre::Vector3(0, -1, 0));
+       luz->setSpotlightRange(Ogre::Degree(5.0f), Ogre::Degree(45.f), .0f);
+
+       mLightNode = sinbadNode->createChildSceneNode("nLuz");
+       mLightNode->attachObject(luz);
+       mLightNode->setPosition(sinbadNode->getPosition() + Vector3(0, 200, 0));
+       mLightNode->setDirection(Ogre::Vector3(0, -1, 0));
    }
 
 

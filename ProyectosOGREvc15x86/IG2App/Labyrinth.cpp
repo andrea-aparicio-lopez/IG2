@@ -20,6 +20,8 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 	std::string wallMat, floorMat;
 	std::cin >> wallMat >> floorMat;
 
+	std::cin >> _lightType;
+
 	walls = std::vector<std::vector<bool>>(c, std::vector<bool>(r));
 
 	char casilla;
@@ -74,4 +76,8 @@ Vector3 Labyrinth::getHeroPos() const {
 
 std::vector<Vector3> Labyrinth::getVillainPos() const {
 	return _villainPos;
+}
+
+std::string Labyrinth::getLightType() {
+	return _lightType;
 }

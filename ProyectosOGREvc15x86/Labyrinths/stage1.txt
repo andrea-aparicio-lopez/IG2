@@ -2,6 +2,7 @@
 19
 LabyrinthWall
 LabyrinthFloor
+spotlight
 xxxxxxxxxxxxxxxxxxx
 xvoooooooxooooooovx
 xoxxoxxxoxoxxxoxxox
