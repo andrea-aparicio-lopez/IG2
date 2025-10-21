@@ -52,7 +52,7 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 
 	float xPos = ((float)c * cte::SCALE_CUBE) / 2.f - cte::SCALE_CUBE/2;
 	float zPos = ((float)r * cte::SCALE_CUBE) / 2.f - cte::SCALE_CUBE / 2;
-	IG2Object* plane = new IG2Object(Vector3(xPos, 0,zPos), mNode->createChildSceneNode(), mSM, "mPlane");
+	IG2Object* plane = new IG2Object(Vector3(xPos, -cte::SCALE_CUBE/2,zPos), mNode->createChildSceneNode(), mSM, "mPlane");
 	
 }
 
