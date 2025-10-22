@@ -4,6 +4,7 @@
 #include "Wall.h"
 #include "Hero.h"
 #include "Villain.h"
+#include "MegaVillain.h"
 #include <OgreBitesConfigDialog.h>
 
 using namespace std;
@@ -120,7 +121,7 @@ void IG2App::setupScene(void) {
    for (auto p : villainPos) {
        Ogre::SceneNode* villainNode = mSM->getRootSceneNode()->createChildSceneNode();
        mVillainNodes.push_back(villainNode);
-       Villain* villain = new Villain(p * cte::SCALE_CUBE, villainNode, mSM, lab);
+       Villain* villain = new MegaVillain(p * cte::SCALE_CUBE, villainNode, mSM, lab);
 
        addInputListener(villain);
    }
@@ -143,21 +144,24 @@ void IG2App::setupScene(void) {
        Light* luz = mSM->createLight("Luz");
        luz->setType(Ogre::Light::LT_POINT);
        luz->setDiffuseColour(0.75, 0.75, 0.75);
+       //luz->setAttenuation(500, 0.5, 0.5, 1);
        mLightNode = sinbadNode->createChildSceneNode("nLuz");
        mLightNode->attachObject(luz);
-       mLightNode->setPosition(sinbadNode->getPosition());
+       mLightNode->setPosition(sinbadNode->getPosition() + Vector3(0,100,0));
    }
    else if (lightType == "spotlight") {
        Light* luz = mSM->createLight("Luz");
        luz->setType(Ogre::Light::LT_SPOTLIGHT);
        luz->setDiffuseColour(0.75f, 0.75f, 0.75f);
-       //luz->setDirection(Ogre::Vector3(0, -1, 0));
-       luz->setSpotlightRange(Ogre::Degree(5.0f), Ogre::Degree(45.f), .0f);
+       //luz->setSpotlightRange(Ogre::Degree(40.0f), Ogre::Degree(45.f), 1.0f);
+      /* luz->setDirection(Ogre::Vector3(0, -1, 0));
+       luz->setPosition(sinbadPos + Ogre::Vector3(0, 400, 0));*/
 
        mLightNode = sinbadNode->createChildSceneNode("nLuz");
        mLightNode->attachObject(luz);
-       mLightNode->setPosition(sinbadNode->getPosition() + Vector3(0, 200, 0));
-       mLightNode->setDirection(Ogre::Vector3(0, -1, 0));
+       auto pos = sinbadPos + Vector3(0, 200, 0);
+       mLightNode->setPosition(pos);
+       mLightNode->setDirection(Vector3(0, -1, 0));
    }
 
 

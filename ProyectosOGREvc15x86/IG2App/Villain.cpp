@@ -5,8 +5,8 @@
 #include <random>
 #include <iostream>
 
-Villain::Villain(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab)
-	: Character(position, node, sM, lab, "ogrehead.mesh")
+Villain::Villain(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, std::string mesh)
+	: Character(position, node, sM, lab, mesh)
 {
 	entity->getParentSceneNode()->_update(true, true);
 

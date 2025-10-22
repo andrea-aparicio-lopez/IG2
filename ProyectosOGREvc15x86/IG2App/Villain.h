@@ -5,10 +5,10 @@ class Labyrinth;
 
 class Villain : public Character {
 public:
-	Villain(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab);
+	Villain(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, std::string mesh = "ogrehead.mesh");
 	~Villain();
 
-	void moveCharacter(double dt) override;
+	virtual void moveCharacter(double dt) override;
 
 protected:
 	Vector3 lastDirChange;

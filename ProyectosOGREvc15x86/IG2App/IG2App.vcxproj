@@ -126,6 +126,7 @@
     <ClInclude Include="IG2App.h" />
     <ClInclude Include="IG2Object.h" />
     <ClInclude Include="Labyrinth.h" />
+    <ClInclude Include="MegaVillain.h" />
     <ClInclude Include="Villain.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
@@ -137,6 +138,7 @@
     <ClCompile Include="IG2App.cpp" />
     <ClCompile Include="IG2Object.cpp" />
     <ClCompile Include="Labyrinth.cpp" />
+    <ClCompile Include="MegaVillain.cpp" />
     <ClCompile Include="Villain.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
