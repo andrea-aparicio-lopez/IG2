@@ -1,8 +1,11 @@
 18
 26
+LabyrinthWall
+LabyrinthFloor
+point
 xxxxxxxxxxxxxxxxxxxxxxxxxx
 xoooooxxxxxoooooxxxxooooox
-xoxxxoooooooxxxooooooxxxox
+xoxxxooovoooxxxooooooxxxox
 xoooooxoxoxoxxxoxxoxooooox
 xoxxxoxoxoxooooooooxoxxxox
 xoxxxoxoxoxoxxxxxoxxoxxoox
@@ -10,11 +13,11 @@ xoooooooooooooooooooooooxx
 xoxxxxoxxoxxxxxxxoxxxoxoxx
 xoooooooooooooooooooooooox
 xoxoxoxxoxoxxxxxxoxoxoxxxx
-xoooooxxoxooooooooxoxoxxxx
+xoooooxxoxooohooooxoxoxxxx
 xoxxxoxxoxxoxxoxxoooooooox
 xoooooooooooooooooxxxoxxox
 xoxoxxxoxxxxxxxxxoooooooox
 xoooooooooooooooooxxxoxxxx
 xoxxoxxoxxxxxxxxxoooooooox
-xoooooooooooooooooxxxoxxxx
+xoooooooooovooooooxxxoxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxx
