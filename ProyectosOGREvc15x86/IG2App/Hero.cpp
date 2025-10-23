@@ -25,6 +25,9 @@ void Hero::moveCharacter(double dt) {
 	// Dejar que la lógica de moveCharacter haga su magia
 	move(dir * cte::HERO_VEL * dt);
 	Character::moveCharacter(dt);
+	if(_isImmune && (_immunityTime -= dt) < 0) {
+		_isImmune = false;
+	}
 }
 
 bool Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
@@ -48,9 +51,23 @@ bool Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
 }
 
 void Hero::damageHero() {
-	setPosition(lab->getHeroPos() * cte::SCALE_CUBE);
-	_health--;
+	if (!_isImmune && --_health) {
+		resetHeroPos();
 
-	_heroAttributesDisplay->setText("Lives: " + std::to_string(_health) +
-		"\nScore: " + std::to_string(_score));
+		_heroAttributesDisplay->setText("Lives: " + std::to_string(_health) +
+			"\nScore: " + std::to_string(_score));
+
+		_isImmune = true;
+		_immunityTime = cte::HERO_IMMUNITY;
+	}
+	else if (!_health) {
+		resetHeroPos();
+		_heroAttributesDisplay->setText("YOU LOSE");
+	}
+}
+
+void Hero::resetHeroPos() {
+	setPosition(lab->getHeroPos() * cte::SCALE_CUBE);
+	dir = nextDir = directions[2];
+	turnCharacter();
 }

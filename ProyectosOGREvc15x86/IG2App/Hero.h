@@ -15,8 +15,11 @@ public:
 protected:
 	int _health = 3;
 	int _score = 0;
+	bool _isImmune = false;
+	double _immunityTime;
 
 	OgreBites::TextBox* _heroAttributesDisplay;
+
 
 public:
 	inline int health() const { return _health; }
@@ -28,4 +31,6 @@ public:
 
 	void damageHero();
 
+protected:
+	void resetHeroPos();
 };

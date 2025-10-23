@@ -144,24 +144,24 @@ void IG2App::setupScene(void) {
        Light* luz = mSM->createLight("Luz");
        luz->setType(Ogre::Light::LT_POINT);
        luz->setDiffuseColour(0.75, 0.75, 0.75);
-       //luz->setAttenuation(500, 0.5, 0.5, 1);
+       luz->setAttenuation(350, 0.5, 0.005, 0.0);
+       luz->setPosition( Vector3(0, 50, 0));
+
        mLightNode = sinbadNode->createChildSceneNode("nLuz");
+       mLightNode->setInheritScale(false);
+       mLightNode->setScale(0,0,0);
        mLightNode->attachObject(luz);
-       mLightNode->setPosition(sinbadNode->getPosition() + Vector3(0,100,0));
    }
    else if (lightType == "spotlight") {
        Light* luz = mSM->createLight("Luz");
        luz->setType(Ogre::Light::LT_SPOTLIGHT);
-       luz->setDiffuseColour(0.75f, 0.75f, 0.75f);
-       //luz->setSpotlightRange(Ogre::Degree(40.0f), Ogre::Degree(45.f), 1.0f);
-      /* luz->setDirection(Ogre::Vector3(0, -1, 0));
-       luz->setPosition(sinbadPos + Ogre::Vector3(0, 400, 0));*/
+       luz->setDiffuseColour(0.9f, 0.9f, 0.9f);
+       luz->setSpotlightRange(Ogre::Degree(10.0f), Ogre::Degree(12.f), 0.5f);
+       luz->setDirection(Ogre::Vector3(0, -1, 0));
+       luz->setPosition(Vector3(0, 200, 0));
 
        mLightNode = sinbadNode->createChildSceneNode("nLuz");
        mLightNode->attachObject(luz);
-       auto pos = sinbadPos + Vector3(0, 200, 0);
-       mLightNode->setPosition(pos);
-       mLightNode->setDirection(Vector3(0, -1, 0));
    }
 
 
