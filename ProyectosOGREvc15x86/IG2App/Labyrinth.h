@@ -14,6 +14,8 @@ protected:
 
 	std::string _lightType;
 
+	Vector2 labSize;
+
 public:
 	Labyrinth(std::string filename, SceneNode* node, SceneManager* sM);
 	~Labyrinth();
@@ -24,4 +26,6 @@ public:
 
 	Vector3 getHeroPos() const;
 	std::vector<Vector3> getVillainPos() const;
+
+	inline Vector2 getLabyrinthSize() { return labSize; }
 };

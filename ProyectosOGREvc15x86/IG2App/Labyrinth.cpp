@@ -17,6 +17,8 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 	int r, c;
 	std::cin >> r >> c;
 
+	labSize = Vector2( r,c );
+
 	std::string wallMat, floorMat;
 	std::cin >> wallMat >> floorMat;
 

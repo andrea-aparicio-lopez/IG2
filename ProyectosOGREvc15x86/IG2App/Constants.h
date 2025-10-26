@@ -11,4 +11,6 @@ namespace cte {
 	const float VILLAIN_VEL = 60.0f;
 
 	const double HERO_IMMUNITY = 1.0;
+
+	const float CAM_Y_POS = 3000;
 }

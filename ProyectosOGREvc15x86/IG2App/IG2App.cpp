@@ -6,6 +6,8 @@
 #include "Villain.h"
 #include "MegaVillain.h"
 #include <OgreBitesConfigDialog.h>
+#include <cmath>
+#include "Constants.h"
 
 using namespace std;
 using namespace Ogre;
@@ -72,8 +74,6 @@ void IG2App::setupScene(void) {
     mCamNode = mSM->getRootSceneNode()->createChildSceneNode("nCam");
     mCamNode->attachObject(cam);
 
-    mCamNode->setPosition(0, 0, 1000);
-    mCamNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
 
     // and tell it to render into the main window
     Viewport* vp = getRenderWindow()->addViewport(cam);
@@ -81,6 +81,9 @@ void IG2App::setupScene(void) {
     mCamMgr = new OgreBites::CameraMan(mCamNode);
     addInputListener(mCamMgr);
     mCamMgr->setStyle(OgreBites::CS_ORBIT);
+    mCamNode->setPosition(500, 3000, 500);
+    mCamNode->lookAt(Vector3(0, -100, 0), Ogre::Node::TS_LOCAL);
+    mCamNode->roll(Radian(Math::PI));
 
 
     //------------------------------------------------------------------------
@@ -109,6 +112,12 @@ void IG2App::setupScene(void) {
    mLabyrinthNode = mSM->getRootSceneNode()->createChildSceneNode("labyrinth");
    Labyrinth* lab = new Labyrinth("../Labyrinths/stage1.txt", mLabyrinthNode, mSM);
 
+   auto camPos = lab->getLabyrinthSize();
+   camPos *= cte::SCALE_CUBE;
+   camPos /= 2;
+
+   mCamNode->setPosition(Vector3( camPos.x, cte::CAM_Y_POS, camPos.y));
+   
 
    Ogre::SceneNode * sinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
    Vector3 sinbadPos(lab->getHeroPos());
