@@ -2,7 +2,9 @@
 #include <cmath>
 #include <OgreMath.h>
 
-MegaVillain::MegaVillain(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab): Villain(position, node, sM, lab, "athene.mesh"){
+MegaVillain::MegaVillain(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab): Villain(position, node, sM, lab, "athene.mesh"), fishTimer(), knotTimer(){
+	fishTimer.reset();
+	knotTimer.reset();
 	torque = node->createChildSceneNode();
 	torque->setPosition(0, 100, 0);
 
@@ -34,10 +36,20 @@ MegaVillain::~MegaVillain() {
 void MegaVillain::moveCharacter(double dt) {
 	Villain::moveCharacter(dt);
 	
-	torque->yaw(Radian(M_PI/180.0));
+	torque->yaw(Radian(FISH_ROTATION_VELOCITY*M_PI/180.0) * fishDirection);
 
-	for (auto fish : knotTorques) {
-		fish->roll(Radian(3*M_PI / 180));
+	for (auto knot : knotTorques) {
+		knot->roll(Radian(KNOT_ROTATION_VELOCITY*M_PI / 180) *knotDirection);
+	}
+
+	if (fishTimer.getMilliseconds() >= FISH_TIMER_DURATION) {
+		fishTimer.reset();
+		fishDirection = -fishDirection;
+	}
+
+	if (knotTimer.getMilliseconds() >= KNOT_TIMER_DURATION) {
+		knotTimer.reset();
+		knotDirection = -knotDirection;
 	}
 
 }
