@@ -38,6 +38,7 @@ protected:
     Hero* mHero = nullptr;
     Ogre::SceneNode* mLabyrinthNode = nullptr;
     std::vector<Ogre::SceneNode*> mVillainNodes;
+    std::vector<Ogre::SceneNode*> mMegaVillainNodes;
 
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;

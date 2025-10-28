@@ -8,7 +8,7 @@ namespace cte {
 	const float SCALE_VILLAIN = 60.0f;
 
 	const float HERO_VEL = 200.0f;
-	const float VILLAIN_VEL = 60.0f;
+	const float VILLAIN_VEL = 100.0f;
 
 	const double HERO_IMMUNITY = 1.0;
 

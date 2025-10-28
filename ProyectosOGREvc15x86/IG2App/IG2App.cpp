@@ -36,6 +36,8 @@ void IG2App::shutdown() {
 
     // do not forget to call the base 
     OgreBites::ApplicationContext::shutdown();
+
+
 }
 
 void IG2App::setup(void) {
@@ -86,25 +88,10 @@ void IG2App::setupScene(void) {
     mCamNode->roll(Radian(Math::PI));
 
 
-    //------------------------------------------------------------------------
-    // Creating the light
-
-    mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
-
-
  
 
     //------------------------------------------------------------------------
-    // Creating Sinbad
-    /*
-    Ogre::Entity* ent = mSM->createEntity("cube.mesh");
-    mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
-    mSinbadNode->attachObject(ent);
-
-    // Show bounding box
-    mSinbadNode->showBoundingBox(true);
-
-    */
+    // Creating Sinbad, UI and enemies
 
     mTrayMgr->createLabel(OgreBites::TL_BOTTOMRIGHT, "nombre", "Stage 1", 300);
     auto heroAttributesDisplay = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "nombre2", "Game Info here!", 300, 200);
@@ -130,12 +117,26 @@ void IG2App::setupScene(void) {
    for (auto p : villainPos) {
        Ogre::SceneNode* villainNode = mSM->getRootSceneNode()->createChildSceneNode();
        mVillainNodes.push_back(villainNode);
+       Villain* villain = new Villain(p * cte::SCALE_CUBE, villainNode, mSM, lab);
+
+       addInputListener(villain);
+   }
+
+   villainPos = lab->getMegaVillainPos();
+   for (auto p : villainPos) {
+       Ogre::SceneNode* villainNode = mSM->getRootSceneNode()->createChildSceneNode();
+       mVillainNodes.push_back(villainNode);
        Villain* villain = new MegaVillain(p * cte::SCALE_CUBE, villainNode, mSM, lab);
 
        addInputListener(villain);
    }
 
 
+
+   //------------------------------------------------------------------------
+   // Creating the light
+
+   mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
 
 
    auto lightType = lab->getLightType();
@@ -173,18 +174,6 @@ void IG2App::setupScene(void) {
        mLightNode->attachObject(luz);
    }
 
-
-
-    // Set position of Sinbad
-    //mSinbadNode->setPosition(x, y, z);
-
-    // Set scale of Sinbad
-    //mSinbadNode->setScale(20, 20, 20);
-
-    //mSinbadNode->yaw(Ogre::Degree(-45));
-    //mSinbadNode->setVisible(false);   
-    // 
-   
 }
 
 void IG2App::frameRendered(const Ogre::FrameEvent& evt) {

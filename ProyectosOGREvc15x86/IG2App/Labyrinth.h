@@ -11,6 +11,7 @@ protected:
 	std::vector<std::vector<bool>> walls;
 	Vector3 _heroPos; // pos inicial del héroe
 	std::vector<Vector3> _villainPos; // pos inicial de los villanos
+	std::vector<Vector3> _megaVillainPos; // pos inicial de los mega villanos
 
 	std::string _lightType;
 
@@ -26,6 +27,7 @@ public:
 
 	Vector3 getHeroPos() const;
 	std::vector<Vector3> getVillainPos() const;
+	std::vector<Vector3> getMegaVillainPos() const;
 
 	inline Vector2 getLabyrinthSize() { return labSize; }
 };

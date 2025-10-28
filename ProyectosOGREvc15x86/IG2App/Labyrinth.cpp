@@ -30,8 +30,8 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 
 	//float scale = cte::SCALE_CUBE / cte::SCALE;
 
-	for (int i = 0; i < c; ++i) {
-		for (int j = 0; j < r; ++j) {
+	for (int i = 0; i < r; ++i) {
+		for (int j = 0; j < c; ++j) {
 			cin >> casilla;
 			if (casilla == 'x') {
 				walls[i][j] = 1;
@@ -44,6 +44,8 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 					_heroPos = Vector3(j, 0, i);
 				else if (casilla == 'v')
 					_villainPos.push_back(Vector3(j, 0, i));
+				else if (casilla == 'm')
+					_megaVillainPos.push_back(Vector3(j, 0, i));
 			}
 		}
 	}
@@ -78,6 +80,10 @@ Vector3 Labyrinth::getHeroPos() const {
 
 std::vector<Vector3> Labyrinth::getVillainPos() const {
 	return _villainPos;
+}
+
+std::vector<Vector3> Labyrinth::getMegaVillainPos() const {
+	return _megaVillainPos;
 }
 
 std::string Labyrinth::getLightType() {

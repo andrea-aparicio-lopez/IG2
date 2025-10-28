@@ -4,7 +4,7 @@ LabyrinthWall
 LabyrinthFloor
 point
 xxxxxxxxxxxxxxxxxxx
-xvoooooooxooooooovx
+xmoooooooxooooooovx
 xoxxoxxxoxoxxxoxxox
 xooooooooooooooooox
 xoxxoxoxxxxxoxoxxox
@@ -16,9 +16,9 @@ xxxxoxooohoooxoxxxx
 xxxxoxoxxxxxoxoxxxx
 xooooooooxoooooooox
 xoxxoxxxoxoxxxoxxox
-xooxoooooooooooxoox
+xooxoovooooooooxoox
 xxoxoxoxxxxxoxoxoxx
 xooooxoooxoooxoooox
 xoxxxxxxoxoxxxxxxox
-xooooooooxoooooooox
+xooooooooxoooomooox
 xxxxxxxxxxxxxxxxxxx
