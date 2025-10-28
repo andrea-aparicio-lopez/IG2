@@ -8,6 +8,7 @@
 class Wall: public IG2Object{
 public:
     Wall(Vector3 position, SceneNode* node, SceneManager* sM);
+    ~Wall();
 };
 
 //#endif // !__WALL_H__

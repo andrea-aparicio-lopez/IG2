@@ -1,6 +1,6 @@
 #pragma once
 #include "Villain.h"
-#include <OGRE/OgreTimer.h>
+#include <OgreTimer.h>
 class MegaVillain: public Villain
 {
 public:
@@ -22,6 +22,8 @@ private:
 
 	SceneNode* torque;
 	std::vector<SceneNode*> knotTorques;
+
+	std::vector<IG2Object*> parts;
 	Ogre::Timer fishTimer;
 	Ogre::Timer knotTimer;
 	int fishDirection = 1;

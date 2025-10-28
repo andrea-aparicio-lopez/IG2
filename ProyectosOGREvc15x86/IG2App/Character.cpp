@@ -12,7 +12,7 @@ Character::Character(Vector3 position, SceneNode* node, SceneManager* sM, Labyri
 }
 
 Character::~Character() {
-
+	IG2Object::~IG2Object();
 }
 
 

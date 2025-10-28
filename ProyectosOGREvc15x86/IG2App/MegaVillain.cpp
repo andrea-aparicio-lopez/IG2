@@ -13,6 +13,7 @@ MegaVillain::MegaVillain(Vector3 position, SceneNode* node, SceneManager* sM, La
 		currentDegree *= i;
 
 		auto fish = new IG2Object(Vector3(cos(currentDegree * M_PI/180.0) * FISH_DISTANCE, 0, sin(currentDegree * M_PI / 180.0) * FISH_DISTANCE), torque->createChildSceneNode(), sM, "fish.mesh");
+		parts.push_back(fish);
 		fish->setScale(Vector3(4));
 		fish->yaw(Radian(Real(45)));
 
@@ -22,6 +23,7 @@ MegaVillain::MegaVillain(Vector3 position, SceneNode* node, SceneManager* sM, La
 			float currentKnotDegree = 360 / NUM_KNOTS;
 			currentKnotDegree *= j;
 			auto knot = new IG2Object(Vector3(cos(currentKnotDegree * M_PI / 180.0) * KNOT_DISTANCE, sin(currentKnotDegree * M_PI / 180.0) * KNOT_DISTANCE, 0),knotTorque->createChildSceneNode(), sM, "knot.mesh");
+			parts.push_back(knot);
 			knot->setScale(Vector3(0.01));
 
 		}
@@ -30,6 +32,7 @@ MegaVillain::MegaVillain(Vector3 position, SceneNode* node, SceneManager* sM, La
 }
 
 MegaVillain::~MegaVillain() {
+	for (auto p : parts) delete p;
 	Villain::~Villain();
 }
 

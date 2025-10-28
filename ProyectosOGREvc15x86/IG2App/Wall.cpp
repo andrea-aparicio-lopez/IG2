@@ -9,3 +9,7 @@ Wall::Wall(Vector3 pos, SceneNode* mazeNode, SceneManager* sM):IG2Object(pos, ma
 	s = cte::SCALE_CUBE / s ;
 	setScale(s);
 }
+
+Wall::~Wall() {
+	IG2Object::~IG2Object();
+}

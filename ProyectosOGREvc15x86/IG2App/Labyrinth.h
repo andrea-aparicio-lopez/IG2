@@ -6,9 +6,14 @@
 #include <vector>
 #include <string>
 
+class Wall;
+
 class Labyrinth : public IG2Object {
 protected:
 	std::vector<std::vector<bool>> walls;
+	std::vector<Wall*> _wallEntities;
+	IG2Object* _plane;
+
 	Vector3 _heroPos; // pos inicial del héroe
 	std::vector<Vector3> _villainPos; // pos inicial de los villanos
 	std::vector<Vector3> _megaVillainPos; // pos inicial de los mega villanos

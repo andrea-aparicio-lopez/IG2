@@ -37,6 +37,7 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 				walls[i][j] = 1;
 				auto w = new Wall(Vector3(j * cte::SCALE_CUBE, 0, i * cte::SCALE_CUBE), mNode, sMe);
 				w->setMaterialName(wallMat);
+				_wallEntities.push_back(w);
 			}
 			else {
 				walls[i][j] = 0;
@@ -62,13 +63,18 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 
 	float xPos = ((float)c * cte::SCALE_CUBE) / 2.f - cte::SCALE_CUBE/2;
 	float zPos = ((float)r * cte::SCALE_CUBE) / 2.f - cte::SCALE_CUBE / 2;
-	IG2Object* plane = new IG2Object(Vector3(xPos, -cte::SCALE_CUBE/2,zPos), mNode->createChildSceneNode(), mSM, "mPlane");
+	_plane = new IG2Object(Vector3(xPos, -cte::SCALE_CUBE/2,zPos), mNode->createChildSceneNode(), mSM, "mPlane");
 
-	plane->setMaterialName(floorMat);
+	_plane->setMaterialName(floorMat);
 	
 }
 
-Labyrinth::~Labyrinth() {}
+Labyrinth::~Labyrinth() {
+	for (auto w : _wallEntities)
+		delete w;
+
+	delete _plane;
+}
 
 bool Labyrinth::isWall(Vector3 pos) const {
 	return walls[pos.z][pos.x];

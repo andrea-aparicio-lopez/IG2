@@ -20,6 +20,10 @@
 
 
 class Hero;
+class Villain;
+class MegaVillain;
+class Labyrinth;
+
 class IG2App: public OgreBites::ApplicationContext, OgreBites::InputListener {
 
 public:
@@ -36,9 +40,9 @@ protected:
 
 
     Hero* mHero = nullptr;
-    Ogre::SceneNode* mLabyrinthNode = nullptr;
-    std::vector<Ogre::SceneNode*> mVillainNodes;
-    std::vector<Ogre::SceneNode*> mMegaVillainNodes;
+    Labyrinth* mLabyrinth = nullptr;
+
+    std::vector<Villain*> mVillains;
 
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;
