@@ -18,12 +18,6 @@
 #include <OgreWindowEventUtilities.h>
 #include <SDL_keycode.h>
 
-
-class Hero;
-class Villain;
-class MegaVillain;
-class Labyrinth;
-
 class IG2App: public OgreBites::ApplicationContext, OgreBites::InputListener {
 
 public:
@@ -37,14 +31,6 @@ protected:
     virtual void setupScene();
     virtual void frameRendered(const Ogre::FrameEvent& evt) override;
     void calculateCollisions();
-
-
-    Hero* mHero = nullptr;
-    Labyrinth* mLabyrinth = nullptr;
-
-    std::vector<Villain*> mVillains;
-    Ogre::Light* light = nullptr;
-    Ogre::SceneNode* mLightNode = nullptr;
 
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;

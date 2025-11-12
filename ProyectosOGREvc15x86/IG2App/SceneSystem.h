@@ -23,6 +23,8 @@ public:
 
 	void changeScene(SceneType s);
 
+	Ogre::SceneManager* getSceneManager();
+
 protected:
 	Ogre::SceneManager* _mSM;
 
