@@ -13,15 +13,13 @@
 
 using namespace Ogre;
 
-GameScene::GameScene(Ogre::SceneNode* root, SceneSystem* sys, OgreBites::TextBox* textBox, std::string path)
+GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* textBox, OgreBites::ApplicationContext* appContext, std::string path)
     : Scene(root, sys) 
 {
 
     //------------------------------------------------------------------------
-    // Creating Sinbad, UI and enemies
+    // Creating Sinbad and enemies
 
-    //mTrayMgr->createLabel(OgreBites::TL_BOTTOMRIGHT, "nombre", "Stage 1", 300);
-    //auto heroAttributesDisplay = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "nombre2", "Game Info here!", 300, 200);
 
     auto mLabyrinthNode = _root->createChildSceneNode("labyrinth");
     mLabyrinth = new Labyrinth(path, mLabyrinthNode, _sys->getSceneManager());
@@ -32,6 +30,7 @@ GameScene::GameScene(Ogre::SceneNode* root, SceneSystem* sys, OgreBites::TextBox
     sinbadPos *= cte::SCALE_CUBE;
     mHero = new Hero(sinbadPos, sinbadNode, _sys->getSceneManager(), mLabyrinth, textBox);
 
+    appContext->addInputListener(mHero);
 
     std::vector<Vector3> villainPos = mLabyrinth->getVillainPos();
     for (auto p : villainPos) {
@@ -39,7 +38,7 @@ GameScene::GameScene(Ogre::SceneNode* root, SceneSystem* sys, OgreBites::TextBox
         Villain* villain = new Villain(p * cte::SCALE_CUBE, villainNode, _sys->getSceneManager(), mLabyrinth);
         mVillains.push_back(villain);
 
-        //addInputListener(villain);
+        appContext->addInputListener(villain);
     }
 
     villainPos = mLabyrinth->getMegaVillainPos();
@@ -48,7 +47,7 @@ GameScene::GameScene(Ogre::SceneNode* root, SceneSystem* sys, OgreBites::TextBox
         Villain* villain = new MegaVillain(p * cte::SCALE_CUBE, villainNode, _sys->getSceneManager(), mLabyrinth);
         mVillains.push_back(villain);
 
-        //addInputListener(villain);
+        appContext->addInputListener(villain);
     }
 
 
@@ -107,12 +106,25 @@ void GameScene::openScene() {
     camPos /= 2;
 
     _sys->getSceneManager()->getSceneNode("nCam")->setPosition(Vector3(camPos.x, cte::CAM_Y_POS, camPos.y));
+    _sys->getSceneManager()->getSceneNode("nCam")->lookAt(Vector3(0, -100, 0), Ogre::Node::TS_LOCAL);
 }
 
 void GameScene::closeScene() {
 
 }
 
-void GameScene::addInputListeners(OgreBites::ApplicationContext* appContext) {
-    appContext->addInputListener(mHero);
+void GameScene::onFrameRendered() {
+    calculateCollisions();
+}
+
+void GameScene::calculateCollisions() {
+    for (auto villain : mVillains) {
+        if (mHero->getAABB().intersects(villain->getAABB())) {
+            mHero->damageHero();
+            break;
+        }
+    }
+    if (mHero->health() <= 0) {
+        //end game
+    }
 }

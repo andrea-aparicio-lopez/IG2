@@ -20,9 +20,10 @@ public:
 
 	virtual void openScene() = 0;
 	virtual void closeScene() = 0;
-	virtual void addInputListeners(OgreBites::ApplicationContext* appContext) = 0;
 
 	Ogre::SceneNode* getRoot();
+
+	virtual void onFrameRendered() = 0;
 
 protected:
 	Ogre::SceneNode* _root;

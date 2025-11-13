@@ -5,7 +5,11 @@
 
 namespace Ogre {
     class Light;
+}
+
+namespace OgreBites {
     class TextBox;
+    class ApplicationContext;
 }
 
 class Hero;
@@ -16,13 +20,16 @@ class Labyrinth;
 class GameScene: public Scene
 {
 public:
-	GameScene(Ogre::SceneNode* root, SceneSystem* sys, OgreBites::TextBox* textBox, std::string path = "../Labyrinths/stage1.txt");
+	GameScene(Ogre::SceneNode* root, SceneSystem* sys, OgreBites::TextBox* textBox, OgreBites::ApplicationContext* appContext, std::string path = "../Labyrinths/stage1.txt");
 	~GameScene();
 
     void openScene() override;
     void closeScene() override;
 
-    void addInputListeners(OgreBites::ApplicationContext* appContext) override;
+    void onFrameRendered() override;
+
+protected:
+    void calculateCollisions();
 
 protected:
     Hero* mHero = nullptr;

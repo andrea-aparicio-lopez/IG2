@@ -127,6 +127,7 @@
     <ClInclude Include="IG2ApplicationContext.h" />
     <ClInclude Include="IG2App.h" />
     <ClInclude Include="IG2Object.h" />
+    <ClInclude Include="IntroScene.h" />
     <ClInclude Include="Labyrinth.h" />
     <ClInclude Include="MegaVillain.h" />
     <ClInclude Include="Scene.h" />
@@ -142,6 +143,7 @@
     <ClCompile Include="IG2Main.cpp" />
     <ClCompile Include="IG2App.cpp" />
     <ClCompile Include="IG2Object.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Labyrinth.cpp" />
     <ClCompile Include="MegaVillain.cpp" />
     <ClCompile Include="Scene.cpp" />

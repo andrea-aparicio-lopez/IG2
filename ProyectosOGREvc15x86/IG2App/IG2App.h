@@ -18,6 +18,8 @@
 #include <OgreWindowEventUtilities.h>
 #include <SDL_keycode.h>
 
+class SceneSystem;
+
 class IG2App: public OgreBites::ApplicationContext, OgreBites::InputListener {
 
 public:
@@ -30,14 +32,14 @@ protected:
     virtual void shutdown();
     virtual void setupScene();
     virtual void frameRendered(const Ogre::FrameEvent& evt) override;
-    void calculateCollisions();
 
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;
 
-
     Ogre::SceneNode* mCamNode = nullptr;
     OgreBites::CameraMan* mCamMgr = nullptr;
+
+    SceneSystem* mSceneSys;
 };
 
 #endif

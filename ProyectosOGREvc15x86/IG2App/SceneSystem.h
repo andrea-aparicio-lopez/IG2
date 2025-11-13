@@ -8,6 +8,11 @@ namespace Ogre {
 	class SceneManager;
 }
 
+namespace OgreBites {
+	class TrayManager;
+	class ApplicationContext;
+}
+
 class SceneSystem
 {
 public:
@@ -18,17 +23,23 @@ public:
 	};
 
 public:
-	SceneSystem(Ogre::SceneManager* mSM);
+	SceneSystem(OgreBites::ApplicationContext* appContext, Ogre::SceneManager* mSM, OgreBites::TrayManager* mTrayM);
 	~SceneSystem();
 
 	void changeScene(SceneType s);
 
 	Ogre::SceneManager* getSceneManager();
 
+	void frameRendered();
+
 protected:
 	Ogre::SceneManager* _mSM;
+	OgreBites::TrayManager* _mTrayM;
 
 	std::vector<Scene*> _scenes;
-	SceneType _currentScene;
+	SceneType _currentScene = INTRO_SCENE;
+
+	OgreBites::ApplicationContext* _appContext;
+
 };
 

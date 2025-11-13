@@ -1,5 +1,6 @@
 #include "IG2App.h"
 #include "IG2Object.h"
+#include "SceneSystem.h"
 #include <OgreBitesConfigDialog.h>
 #include <cmath>
 
@@ -57,6 +58,7 @@ void IG2App::setup(void) {
     // Adds the listener for this object
     addInputListener(this);
     setupScene();
+
 }
 
 void IG2App::setupScene(void) {
@@ -86,20 +88,11 @@ void IG2App::setupScene(void) {
 
 
      mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+
+
+     mSceneSys = new SceneSystem(this, mSM, mTrayMgr);
 }
 
 void IG2App::frameRendered(const Ogre::FrameEvent& evt) {
-    calculateCollisions();
-}
-
-void IG2App::calculateCollisions() {
-    for (auto villain : mVillains) {
-        if (mHero->getAABB().intersects(villain->getAABB())) {
-            mHero->damageHero();
-            break;
-        }
-    }
-    if (mHero->health() <= 0) {
-        //end game
-    }
+    mSceneSys->frameRendered();
 }
