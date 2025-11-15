@@ -4,6 +4,7 @@
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
 #include <OgreTrays.h>
+#include "IntroScene.h"
 #include "GameScene.h"
 
 using namespace Ogre;
@@ -14,12 +15,16 @@ SceneSystem::SceneSystem(OgreBites::ApplicationContext* appContext, SceneManager
 	, _mTrayM(mTrayM)
 {
 	_mTrayM->createLabel(OgreBites::TL_BOTTOMRIGHT, "nombre", "Stage 1", 300);
-	auto heroAttributesDisplay = _mTrayM->createTextBox(OgreBites::TL_BOTTOMRIGHT, "nombre2", "Game Info here!", 300, 200);
+	auto textBox = _mTrayM->createTextBox(OgreBites::TL_BOTTOMRIGHT, "nombre2", "Game Info here!", 300, 200);
 
 	// Creacion de escenas
-	//_scenes.push_back(new IntroScene(...));
-	_scenes.push_back(new GameScene(_mSM->getRootSceneNode()->createChildSceneNode(), this, heroAttributesDisplay, appContext));
+	_scenes.push_back(new IntroScene(_mSM->getRootSceneNode()->createChildSceneNode(), this, textBox, appContext));
+	_scenes.push_back(new GameScene(_mSM->getRootSceneNode()->createChildSceneNode(), this, textBox, appContext));
 
+	for(auto s : _scenes)
+		_mSM->getRootSceneNode()->removeChild(s->getRoot());
+
+	_mSM->getRootSceneNode()->addChild(_scenes[_currentScene]->getRoot());
 	_scenes[_currentScene]->openScene();
 }
 

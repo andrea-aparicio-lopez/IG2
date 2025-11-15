@@ -17,8 +17,7 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
     : Scene(root, sys) 
 {
 
-    //------------------------------------------------------------------------
-    // Creating Sinbad and enemies
+    //--------------- LABYRINTH, SINBAD AND ENEMIES ---------------------
 
 
     auto mLabyrinthNode = _root->createChildSceneNode("labyrinth");
@@ -51,8 +50,7 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
     }
 
 
-    //------------------------------------------------------------------------
-    // Creating the light
+    //--------------------- LIGHT -----------------------------
 
 
     auto lightType = mLabyrinth->getLightType();
