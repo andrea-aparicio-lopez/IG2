@@ -9,9 +9,6 @@ namespace OgreBites {
 	class ApplicationContext;
 }
 
-//class IG2Object;
-//class AnimCharacter;
-
 class IntroScene : public Scene
 {
 public:
@@ -24,7 +21,20 @@ public:
 	void onFrameRendered() override;
 
 protected:
+	enum AnimState {
+		DANCE_1,
+		RUN_RIGHT_1,
+		RUN_LEFT_1,
+		RUN_LEFT_2,
+		RUN_RIGHT_2,
+		DANCE_2,
+		ANIM_STATE_SIZE
+	};
+
+	int _currentAnimState = DANCE_1;
+
 	void startAnimation();
+	void switchSinbadAnimation();
 
 protected:
 	IG2Object* _plane;
@@ -39,5 +49,8 @@ protected:
 
 	// ANIMACIONES
 	const Ogre::Vector3 SINBAD_START_POS = { 0,50,0 };
+
+	Ogre::Timer* _timer;
+
 };
 
