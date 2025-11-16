@@ -9,6 +9,7 @@ namespace OgreBites {
 	class ApplicationContext;
 }
 
+
 class IntroScene : public Scene
 {
 public:
@@ -57,13 +58,11 @@ protected:
 	IG2Object* _plane;
 	AnimCharacter* _sinbad;
 
-	IG2Object* _swordLeft;
-	IG2Object* _swordRight;
+	Ogre::Entity* _swordLeft;
+	Ogre::Entity* _swordRight;
 	AnimCharacter* _ogreHead;
 
 	const std::string FLOORMAT = "IntroSceneFloor";
-
-
 
 };
 

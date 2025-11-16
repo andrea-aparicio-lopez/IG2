@@ -43,6 +43,10 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 
 	appContext->addInputListener(_sinbad);
 
+	// Espadas
+	_swordLeft = _sys->getSceneManager()->createEntity("Sword.mesh");
+	_swordRight = _sys->getSceneManager()->createEntity("Sword.mesh");
+
 
 	// --------- OGREHEAD ---------
 	_ogreHead = new AnimCharacter(OGREHEAD_START_POS, _root->createChildSceneNode(), _sys->getSceneManager(), "ogrehead.mesh");
@@ -211,6 +215,10 @@ void IntroScene::switchSinbadAnimation() {
 		anim->setEnabled(false);
 		anim->setLoop(false);
 		break;
+	case RUN_RIGHT_1:
+		_sinbad->getEntity()->attachObjectToBone("Handle.L", _swordLeft);
+		_sinbad->getEntity()->attachObjectToBone("Handle.R", _swordRight);
+		break;
 	case RUN_RIGHT_2:
 		anim = _sinbad->getAnimationState("RunBase");
 		anim->setEnabled(false);
@@ -218,6 +226,7 @@ void IntroScene::switchSinbadAnimation() {
 		anim = _sinbad->getAnimationState("RunTop");
 		anim->setEnabled(false);
 		anim->setLoop(false);
+		_sinbad->getEntity()->detachAllObjectsFromBone();
 		break;
 	default:
 		break;

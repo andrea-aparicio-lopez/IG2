@@ -11,5 +11,6 @@ public:
 	AnimationState* getAnimationState(std::string anim);
 
 	SceneNode* getNode();
+	Entity* getEntity();
 };
 

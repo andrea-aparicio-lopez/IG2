@@ -26,3 +26,7 @@ AnimationState* AnimCharacter::getAnimationState(std::string anim) {
 SceneNode* AnimCharacter::getNode() {
 	return mNode;
 }
+
+Entity* AnimCharacter::getEntity() {
+	return entity;
+}
