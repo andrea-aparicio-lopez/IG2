@@ -2,10 +2,13 @@
 
 #include <vector>
 
+#include <OgreFrameListener.h>
+
 class Scene;
 
 namespace Ogre {
 	class SceneManager;
+	class FrameEvent;
 }
 
 namespace OgreBites {
@@ -30,7 +33,7 @@ public:
 
 	Ogre::SceneManager* getSceneManager();
 
-	void frameRendered();
+	void frameRendered(const Ogre::FrameEvent& evt);
 
 protected:
 	Ogre::SceneManager* _mSM;

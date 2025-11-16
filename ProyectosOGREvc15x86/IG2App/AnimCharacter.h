@@ -9,5 +9,7 @@ public:
 	virtual void frameRendered(const Ogre::FrameEvent& evt) override;
 
 	AnimationState* getAnimationState(std::string anim);
+
+	SceneNode* getNode();
 };
 

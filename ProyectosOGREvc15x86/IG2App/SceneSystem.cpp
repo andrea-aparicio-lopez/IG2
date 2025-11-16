@@ -47,6 +47,6 @@ Ogre::SceneManager* SceneSystem::getSceneManager() {
 	return _mSM;
 }
 
-void SceneSystem::frameRendered() {
-	_scenes[_currentScene]->onFrameRendered();
+void SceneSystem::frameRendered(const Ogre::FrameEvent& evt) {
+	_scenes[_currentScene]->onFrameRendered(evt);
 }

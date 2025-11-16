@@ -34,8 +34,6 @@ void IG2App::shutdown() {
     // do not forget to call the base 
     OgreBites::ApplicationContext::shutdown();
 
-
-
 }
 
 void IG2App::setup(void) {
@@ -89,10 +87,9 @@ void IG2App::setupScene(void) {
 
      mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
 
-
      mSceneSys = new SceneSystem(this, mSM, mTrayMgr);
 }
 
 void IG2App::frameRendered(const Ogre::FrameEvent& evt) {
-    mSceneSys->frameRendered();
+    mSceneSys->frameRendered(evt);
 }

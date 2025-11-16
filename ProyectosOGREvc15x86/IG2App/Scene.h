@@ -1,5 +1,7 @@
 #pragma once
 
+#include <OgreFrameListener.h>
+
 namespace Ogre {
 	class SceneNode;
 	class SceneManager;
@@ -23,7 +25,7 @@ public:
 
 	Ogre::SceneNode* getRoot();
 
-	virtual void onFrameRendered() = 0;
+	virtual void onFrameRendered(const Ogre::FrameEvent& evt) = 0;
 
 protected:
 	Ogre::SceneNode* _root;

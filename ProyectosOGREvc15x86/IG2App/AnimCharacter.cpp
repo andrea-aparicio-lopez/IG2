@@ -19,3 +19,7 @@ void AnimCharacter::frameRendered(const Ogre::FrameEvent& evt) {
 AnimationState* AnimCharacter::getAnimationState(std::string anim) {
 	return entity->getAnimationState(anim);
 }
+
+SceneNode* AnimCharacter::getNode() {
+	return mNode;
+}

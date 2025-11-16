@@ -26,7 +26,7 @@ public:
     void openScene() override;
     void closeScene() override;
 
-    void onFrameRendered() override;
+    void onFrameRendered(const Ogre::FrameEvent& evt) override;
 
 protected:
     void calculateCollisions();

@@ -18,7 +18,7 @@ public:
 	void openScene() override;
 	void closeScene() override;
 
-	void onFrameRendered() override;
+	void onFrameRendered(const Ogre::FrameEvent& evt) override;
 
 protected:
 	enum AnimState {
@@ -32,9 +32,24 @@ protected:
 	};
 
 	int _currentAnimState = DANCE_1;
+	
+	enum AnimNodeTracks {
+		SINBAD,
+		OGREHEAD
+	};
 
+	void createNodeAnimations();
 	void startAnimation();
 	void switchSinbadAnimation();
+
+	const Ogre::Vector3 SINBAD_START_POS = { 0,55,0 };
+	const Ogre::Vector3 WALK_LENGHT = { 200,0,0 };
+	const Ogre::Real DURATION = 21.0;
+	const Ogre::Real DURATION_STEP = DURATION / 6;
+
+	Ogre::Timer* _timer;
+
+	AnimationState* _animState;
 
 protected:
 	IG2Object* _plane;
@@ -47,10 +62,7 @@ protected:
 
 	const std::string FLOORMAT = "LabyrinthFloor"; // Todo cambiar material
 
-	// ANIMACIONES
-	const Ogre::Vector3 SINBAD_START_POS = { 0,50,0 };
 
-	Ogre::Timer* _timer;
 
 };
 

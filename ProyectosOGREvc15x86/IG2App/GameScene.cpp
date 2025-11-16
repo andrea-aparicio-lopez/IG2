@@ -111,7 +111,7 @@ void GameScene::closeScene() {
 
 }
 
-void GameScene::onFrameRendered() {
+void GameScene::onFrameRendered(const Ogre::FrameEvent& evt) {
     calculateCollisions();
 }
 

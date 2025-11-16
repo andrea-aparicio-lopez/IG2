@@ -9,6 +9,8 @@
 #include <OgreTrays.h>
 #include <OgreApplicationContext.h>
 #include <OgreTimer.h>
+#include <OgreAnimation.h>
+#include <OgreKeyFrame.h>
 
 using namespace Ogre;
 
@@ -34,10 +36,21 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 
 	_root->_update(true, true);
 	auto s = _sinbad->getAABB().getSize();
-	s = cte::SCALE_HERO / s;
-	_sinbad->setScale(s);
+	auto scale = Vector3(cte::SCALE_HERO / s.x, cte::SCALE_HERO / s.y, cte::SCALE_HERO/(s.z *1.5));
+	_sinbad->setScale(scale);
+
+	_sinbad->getNode()->setInitialState();
 
 	appContext->addInputListener(_sinbad);
+
+
+	// --------- OGREHEAD ---------
+
+
+
+
+	// --------- ANIMACIONES -----------
+	createNodeAnimations();
 
 }
 
@@ -56,11 +69,72 @@ void IntroScene::closeScene() {
 	
 }
 
-void IntroScene::onFrameRendered() {
-	if (_timer->getMilliseconds() > 5000) {
+void IntroScene::onFrameRendered(const Ogre::FrameEvent& evt) {
+	_animState->addTime(evt.timeSinceLastFrame);
+
+	if (_timer->getMilliseconds() > DURATION_STEP * 1000) {
 		switchSinbadAnimation();
 		_timer->reset();
 	}
+}
+
+void IntroScene::createNodeAnimations() {
+
+	Animation* anim = _sys->getSceneManager()->createAnimation("IntroAnimation", DURATION);
+	anim->setInterpolationMode(Ogre::Animation::IM_LINEAR);
+
+	// ----- SINBAD -----
+	NodeAnimationTrack* sinbadTrack = anim->createNodeTrack(SINBAD);
+	sinbadTrack->setAssociatedNode(_sinbad->getNode());
+
+
+	// KF 0: Estado inicial
+	TransformKeyFrame* kf = sinbadTrack->createNodeKeyFrame(DURATION_STEP * 0);
+
+	// KF 1: Sigue igual
+	kf = sinbadTrack->createNodeKeyFrame(DURATION_STEP * 1);
+
+	// KF 2: Mirar derecha
+	kf = sinbadTrack->createNodeKeyFrame(DURATION_STEP * 1.2);
+	kf->setRotation(_sinbad->getOrientation().getRotationTo(Vector3(1,0,0)));
+	kf->setTranslate(Vector3::ZERO);
+	//kf->setRotation(Quaternion(Degree(90.f), Vector3(0, 1, 0)));
+
+	// KF 3: Caminar derecha
+	kf = sinbadTrack->createNodeKeyFrame(DURATION_STEP * 2);
+	kf->setRotation(_sinbad->getOrientation().getRotationTo(Vector3(1,0,0)));
+	kf->setTranslate(WALK_LENGHT);
+
+	// KF 4: Mirar izquierda
+	kf = sinbadTrack->createNodeKeyFrame(DURATION_STEP * 2.2);
+	kf->setRotation(_sinbad->getOrientation().getRotationTo(Vector3(-1, 0, 0)));
+	kf->setTranslate(WALK_LENGHT);
+
+	// KF 5: Caminar izquierda
+	kf = sinbadTrack->createNodeKeyFrame(DURATION_STEP * 4);
+	kf->setRotation(_sinbad->getOrientation().getRotationTo(Vector3(-1, 0, 0)));
+	kf->setTranslate(WALK_LENGHT * (-1));
+
+	// KF 6: Mirar derecha
+	kf = sinbadTrack->createNodeKeyFrame(DURATION_STEP * 4.2);
+	kf->setRotation(_sinbad->getOrientation().getRotationTo(Vector3(1, 0, 0)));
+	kf->setTranslate(WALK_LENGHT * (-1));
+
+	// KF 7: Caminar al centro
+	kf = sinbadTrack->createNodeKeyFrame(DURATION_STEP * 5);
+	kf->setRotation(_sinbad->getOrientation().getRotationTo(Vector3(1, 0, 0)));
+	kf->setTranslate(Vector3::ZERO);
+
+	// KF 8: Mirar delante (estado inicial)
+	kf = sinbadTrack->createNodeKeyFrame(DURATION_STEP * 5.2);
+
+
+	// ----- OGEHEAD -----
+	// TODO
+
+	_animState = _sys->getSceneManager()->createAnimationState("IntroAnimation");
+	_animState->setEnabled(true);
+	_animState->setLoop(true);
 }
 
 void IntroScene::startAnimation() {
