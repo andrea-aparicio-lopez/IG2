@@ -34,7 +34,7 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 	// ------- SINBAD ---------
 	_sinbad = new AnimCharacter(SINBAD_START_POS, _root->createChildSceneNode(), _sys->getSceneManager(), "Sinbad.mesh");
 
-	_root->_update(true, true);
+	_sinbad->getNode()->_update(true, true);
 	auto s = _sinbad->getAABB().getSize();
 	auto scale = Vector3(cte::SCALE_HERO / s.x, cte::SCALE_HERO / s.y, cte::SCALE_HERO/(s.z *1.5));
 	_sinbad->setScale(scale);
@@ -45,12 +45,32 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 
 
 	// --------- OGREHEAD ---------
+	_ogreHead = new AnimCharacter(OGREHEAD_START_POS, _root->createChildSceneNode(), _sys->getSceneManager(), "ogrehead.mesh");
+	_ogreHead->yaw(Ogre::Radian(Degree(90.f)));
 
+	_ogreHead->getNode()->_update(true, true);
+	s = _ogreHead->getAABB().getSize();
+	s = cte::SCALE_OGREHEAD / s;
+	_ogreHead->setScale(s);
 
+	_ogreHead->getNode()->setInitialState();
+
+	appContext->addInputListener(_ogreHead);
 
 
 	// --------- ANIMACIONES -----------
 	createNodeAnimations();
+
+
+	// ----------- LUX ---------------
+	Light* luz = _sys->getSceneManager()->createLight();
+	luz->setType(Ogre::Light::LT_DIRECTIONAL);
+	luz->setDiffuseColour(0.75, 0.75, 0.75);
+	luz->setCastShadows(true);
+
+	auto lightNode = _root->createChildSceneNode();
+	lightNode->attachObject(luz);
+	lightNode->setDirection(Ogre::Vector3(0, -1, 0));
 
 }
 
@@ -83,7 +103,7 @@ void IntroScene::createNodeAnimations() {
 	Animation* anim = _sys->getSceneManager()->createAnimation("IntroAnimation", DURATION);
 	anim->setInterpolationMode(Ogre::Animation::IM_LINEAR);
 
-	// ----- SINBAD -----
+	// --------------- SINBAD ---------------
 	NodeAnimationTrack* sinbadTrack = anim->createNodeTrack(SINBAD);
 	sinbadTrack->setAssociatedNode(_sinbad->getNode());
 
@@ -129,8 +149,43 @@ void IntroScene::createNodeAnimations() {
 	kf = sinbadTrack->createNodeKeyFrame(DURATION_STEP * 5.2);
 
 
-	// ----- OGEHEAD -----
-	// TODO
+
+	// --------------- OGEHEAD ---------------
+	NodeAnimationTrack* ogreheadTrack = anim->createNodeTrack(OGREHEAD);
+	ogreheadTrack->setAssociatedNode(_ogreHead->getNode());
+
+	// KF 0: Estado inicial
+	kf = ogreheadTrack->createNodeKeyFrame(DURATION_STEP * 0);
+
+	// KF 1: Mover derecha
+	kf = ogreheadTrack->createNodeKeyFrame(DURATION_STEP * 2);
+	kf->setRotation(_ogreHead->getOrientation().getRotationTo(Vector3(1, 0, 0)));
+	kf->setTranslate(WALK_LENGHT * 2);
+
+	// KF 2: Mirar izquierda
+	kf = ogreheadTrack->createNodeKeyFrame(DURATION_STEP * 2.2);
+	kf->setRotation(_ogreHead->getOrientation().getRotationTo(Vector3(-1, 0, 0)));
+	kf->setTranslate(WALK_LENGHT * 2);
+
+	// KF 3: Mover izquierda
+	kf = ogreheadTrack->createNodeKeyFrame(DURATION_STEP * 4);
+	kf->setRotation(_ogreHead->getOrientation().getRotationTo(Vector3(-1, 0, 0)));
+	kf->setTranslate(Vector3::ZERO);
+
+	// KF 4: Mirar derecha
+	kf = ogreheadTrack->createNodeKeyFrame(DURATION_STEP * 4.2);
+	kf->setRotation(_ogreHead->getOrientation().getRotationTo(Vector3(1, 0, 0)));
+	kf->setTranslate(Vector3::ZERO);
+
+	// KF 5: Mover derecha y desaparecer
+	kf = ogreheadTrack->createNodeKeyFrame(DURATION_STEP * 5);
+	//kf->setRotation(_ogreHe)
+	kf->setTranslate(WALK_LENGHT);
+	kf->setScale(Vector3::ZERO);
+
+	// KF 6: Estado inicial
+	kf = ogreheadTrack->createNodeKeyFrame(DURATION_STEP * 5);
+
 
 	_animState = _sys->getSceneManager()->createAnimationState("IntroAnimation");
 	_animState->setEnabled(true);

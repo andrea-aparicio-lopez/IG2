@@ -43,6 +43,8 @@ protected:
 	void switchSinbadAnimation();
 
 	const Ogre::Vector3 SINBAD_START_POS = { 0,55,0 };
+	const Ogre::Vector3 OGREHEAD_START_POS = { -350, 60, 0 };
+
 	const Ogre::Vector3 WALK_LENGHT = { 200,0,0 };
 	const Ogre::Real DURATION = 21.0;
 	const Ogre::Real DURATION_STEP = DURATION / 6;
@@ -54,13 +56,12 @@ protected:
 protected:
 	IG2Object* _plane;
 	AnimCharacter* _sinbad;
-	//SceneNode* _sinbadNode;
 
 	IG2Object* _swordLeft;
 	IG2Object* _swordRight;
-	IG2Object* _ogreHead;
+	AnimCharacter* _ogreHead;
 
-	const std::string FLOORMAT = "LabyrinthFloor"; // Todo cambiar material
+	const std::string FLOORMAT = "IntroSceneFloor";
 
 
 

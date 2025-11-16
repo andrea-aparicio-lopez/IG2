@@ -19,7 +19,6 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
 
     //--------------- LABYRINTH, SINBAD AND ENEMIES ---------------------
 
-
     auto mLabyrinthNode = _root->createChildSceneNode("labyrinth");
     mLabyrinth = new Labyrinth(path, mLabyrinthNode, _sys->getSceneManager());
 

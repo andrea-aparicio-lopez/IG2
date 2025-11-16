@@ -1,0 +1,9 @@
+material IntroSceneFloor {
+    technique {
+        pass {
+            texture_unit {
+                texture floor_bump.PNG
+            }
+        }
+    }
+}

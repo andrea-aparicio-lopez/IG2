@@ -11,9 +11,12 @@ AnimCharacter::~AnimCharacter() {
 }
 
 void AnimCharacter::frameRendered(const Ogre::FrameEvent& evt) {
-	auto anims = entity->getAllAnimationStates()->getEnabledAnimationStates();
-	for (auto a : anims)
-		a->addTime(2.5 * evt.timeSinceLastEvent);
+	
+	if (entity->_isAnimated()) {
+		Ogre::EnabledAnimationStateList anims = entity->getAllAnimationStates()->getEnabledAnimationStates();
+		for (auto a : anims)
+			a->addTime(2.5 * evt.timeSinceLastEvent);
+	}
 }
 
 AnimationState* AnimCharacter::getAnimationState(std::string anim) {
