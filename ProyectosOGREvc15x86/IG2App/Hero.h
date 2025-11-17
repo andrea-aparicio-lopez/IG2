@@ -6,6 +6,7 @@ class Labyrinth;
 
 #include <OgreTrays.h>
 
+
 class Hero : public Character {
 public:
 	Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab);
@@ -28,6 +29,8 @@ public:
 	bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 
 	void damageHero();
+
+	void placeBomb();
 
 protected:
 	void resetHeroPos();

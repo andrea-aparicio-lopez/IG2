@@ -23,23 +23,25 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
     mLabyrinth = new Labyrinth(path, mLabyrinthNode, _sys->getSceneManager());
 
 
-    Ogre::SceneNode* sinbadNode = _root->createChildSceneNode("nSinbad");
+    Ogre::SceneNode* sinbadNode = mLabyrinthNode->createChildSceneNode("nSinbad");
     Vector3 sinbadPos(mLabyrinth->getHeroPos());
     sinbadPos *= cte::SCALE_CUBE;
     mHero = new Hero(sinbadPos, sinbadNode, _sys->getSceneManager(), mLabyrinth);
 
     std::vector<Vector3> villainPos = mLabyrinth->getVillainPos();
     for (auto p : villainPos) {
-        Ogre::SceneNode* villainNode = _root->createChildSceneNode();
+        Ogre::SceneNode* villainNode = mLabyrinthNode->createChildSceneNode();
         Villain* villain = new Villain(p * cte::SCALE_CUBE, villainNode, _sys->getSceneManager(), mLabyrinth);
         mVillains.push_back(villain);
+        appContext->addInputListener(villain);
     }
 
     villainPos = mLabyrinth->getMegaVillainPos();
     for (auto p : villainPos) {
-        Ogre::SceneNode* villainNode = _root->createChildSceneNode();
+        Ogre::SceneNode* villainNode = mLabyrinthNode->createChildSceneNode();
         Villain* villain = new MegaVillain(p * cte::SCALE_CUBE, villainNode, _sys->getSceneManager(), mLabyrinth);
         mVillains.push_back(villain);
+        appContext->addInputListener(villain);
     }
 
 

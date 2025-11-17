@@ -2,6 +2,7 @@
 #include "Constants.h"
 #include "Labyrinth.h"
 #include <cmath>
+#include "Bomb.h"
 
 Hero::Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab)
 	: Character(position, node, sM, lab, "Sinbad.mesh")
@@ -41,10 +42,22 @@ bool Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
 		case SDLK_RIGHT:
 			nextDir = { 1,0,0 };
 			break;
+		case SDLK_q:
+			placeBomb();
+			break;
 		default:
 			break;
 	}
 	return true;
+}
+
+void Hero::placeBomb() {
+
+	Vector3 pos = getPosition() / cte::SCALE_CUBE;
+	pos = Vector3(floor(pos.x), floor(pos.y), floor(pos.z));
+	pos *= cte::SCALE_CUBE;
+
+	new Bomb(pos, mNode->getParentSceneNode()->createChildSceneNode(), mSM);
 }
 
 void Hero::damageHero() {
