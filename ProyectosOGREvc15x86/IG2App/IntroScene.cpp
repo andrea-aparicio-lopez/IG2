@@ -15,10 +15,9 @@
 using namespace Ogre;
 
 IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* textBox, OgreBites::ApplicationContext* appContext)
-	: Scene(root, sys)
+	: Scene(root, sys, textBox)
 	, _timer(new Ogre::Timer())
 {
-	textBox->setText("Press S to start game");
 
 	// SUELO
 	Ogre::MeshManager::getSingleton().createPlane("introPlane",
@@ -78,6 +77,14 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 
 }
 
+bool IntroScene::keyPressed(const OgreBites::KeyboardEvent& evt) {
+	if (evt.keysym.sym == SDLK_s) {
+		_sys->changeScene(SceneSystem::GAME_SCENE);
+	}
+
+	return true;
+}
+
 IntroScene::~IntroScene() {
 	Scene::~Scene();
 }
@@ -85,6 +92,8 @@ IntroScene::~IntroScene() {
 void IntroScene::openScene() {
 	_sys->getSceneManager()->getSceneNode("nCam")->setPosition(Vector3(0,100,500));
 	_sys->getSceneManager()->getSceneNode("nCam")->lookAt(Vector3(0, 1, -0.2), Ogre::Node::TS_LOCAL);
+
+	_textBox->setText("Press S to start game");
 
 	startAnimation();
 }

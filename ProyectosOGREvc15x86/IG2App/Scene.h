@@ -1,6 +1,7 @@
 #pragma once
 
 #include <OgreFrameListener.h>
+#include <OgreInput.h>
 
 namespace Ogre {
 	class SceneNode;
@@ -9,14 +10,15 @@ namespace Ogre {
 
 namespace OgreBites {
 	class ApplicationContext;
+	class TextBox;
 }
 
 class SceneSystem;
 
-class Scene
+class Scene: public OgreBites::InputListener
 {
 protected:
-	Scene(Ogre::SceneNode* root, SceneSystem* sys);
+	Scene(Ogre::SceneNode* root, SceneSystem* sys, OgreBites::TextBox* textbox);
 public:
 	~Scene();
 
@@ -30,6 +32,6 @@ public:
 protected:
 	Ogre::SceneNode* _root;
 	SceneSystem* _sys;
-
+	OgreBites::TextBox* _textBox;
 };
 

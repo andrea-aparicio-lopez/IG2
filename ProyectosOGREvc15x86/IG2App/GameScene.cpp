@@ -14,7 +14,7 @@
 using namespace Ogre;
 
 GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* textBox, OgreBites::ApplicationContext* appContext, std::string path)
-    : Scene(root, sys) 
+    : Scene(root, sys, textBox) 
 {
 
     //--------------- LABYRINTH, SINBAD AND ENEMIES ---------------------
@@ -26,17 +26,13 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
     Ogre::SceneNode* sinbadNode = _root->createChildSceneNode("nSinbad");
     Vector3 sinbadPos(mLabyrinth->getHeroPos());
     sinbadPos *= cte::SCALE_CUBE;
-    mHero = new Hero(sinbadPos, sinbadNode, _sys->getSceneManager(), mLabyrinth, textBox);
-
-    appContext->addInputListener(mHero);
+    mHero = new Hero(sinbadPos, sinbadNode, _sys->getSceneManager(), mLabyrinth);
 
     std::vector<Vector3> villainPos = mLabyrinth->getVillainPos();
     for (auto p : villainPos) {
         Ogre::SceneNode* villainNode = _root->createChildSceneNode();
         Villain* villain = new Villain(p * cte::SCALE_CUBE, villainNode, _sys->getSceneManager(), mLabyrinth);
         mVillains.push_back(villain);
-
-        appContext->addInputListener(villain);
     }
 
     villainPos = mLabyrinth->getMegaVillainPos();
@@ -44,8 +40,6 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
         Ogre::SceneNode* villainNode = _root->createChildSceneNode();
         Villain* villain = new MegaVillain(p * cte::SCALE_CUBE, villainNode, _sys->getSceneManager(), mLabyrinth);
         mVillains.push_back(villain);
-
-        appContext->addInputListener(villain);
     }
 
 
@@ -104,10 +98,18 @@ void GameScene::openScene() {
 
     _sys->getSceneManager()->getSceneNode("nCam")->setPosition(Vector3(camPos.x, cte::CAM_Y_POS, camPos.y));
     _sys->getSceneManager()->getSceneNode("nCam")->lookAt(Vector3(0, -100, 0), Ogre::Node::TS_LOCAL);
+
+    //TEXTBOX
+    _textBox->setText("Lives: " + std::to_string(mHero->health()) +
+        "\nScore: " + std::to_string(mHero->score()));
+
+    //SUSCRIPCION DEL HEROE AL INPUT
+    _sys->addInputListener(mHero);
 }
 
 void GameScene::closeScene() {
-
+    //DESUSCRIPCION DEL HEROE AL INPUT
+    _sys->removeInputListener(mHero);
 }
 
 void GameScene::onFrameRendered(const Ogre::FrameEvent& evt) {
@@ -118,10 +120,13 @@ void GameScene::calculateCollisions() {
     for (auto villain : mVillains) {
         if (mHero->getAABB().intersects(villain->getAABB())) {
             mHero->damageHero();
+            _textBox->setText("Lives: " + std::to_string(mHero->health()) +
+                "\nScore: " + std::to_string(mHero->score()));
             break;
         }
     }
     if (mHero->health() <= 0) {
         //end game
+        _textBox->setText("YOU LOSE");
     }
 }

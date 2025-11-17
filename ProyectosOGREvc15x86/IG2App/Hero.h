@@ -8,7 +8,7 @@ class Labyrinth;
 
 class Hero : public Character {
 public:
-	Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, OgreBites::TextBox* heroAttributesDisplay);
+	Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab);
 	~Hero();
 
 
@@ -17,8 +17,6 @@ protected:
 	int _score = 0;
 	bool _isImmune = false;
 	double _immunityTime;
-
-	OgreBites::TextBox* _heroAttributesDisplay;
 
 
 public:

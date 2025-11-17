@@ -6,6 +6,7 @@
 #include <OgreTrays.h>
 #include "IntroScene.h"
 #include "GameScene.h"
+#include <OgreApplicationContext.h>
 
 using namespace Ogre;
 
@@ -16,7 +17,6 @@ SceneSystem::SceneSystem(OgreBites::ApplicationContext* appContext, SceneManager
 {
 	_mTrayM->createLabel(OgreBites::TL_BOTTOMRIGHT, "nombre", "Stage 1", 300);
 	auto textBox = _mTrayM->createTextBox(OgreBites::TL_BOTTOMRIGHT, "nombre2", "Game Info here!", 300, 200);
-
 	// Creacion de escenas
 	_scenes.push_back(new IntroScene(_mSM->getRootSceneNode()->createChildSceneNode(), this, textBox, appContext));
 	_scenes.push_back(new GameScene(_mSM->getRootSceneNode()->createChildSceneNode(), this, textBox, appContext));
@@ -24,8 +24,7 @@ SceneSystem::SceneSystem(OgreBites::ApplicationContext* appContext, SceneManager
 	for(auto s : _scenes)
 		_mSM->getRootSceneNode()->removeChild(s->getRoot());
 
-	_mSM->getRootSceneNode()->addChild(_scenes[_currentScene]->getRoot());
-	_scenes[_currentScene]->openScene();
+	changeScene(INTRO_SCENE);
 }
 
 SceneSystem::~SceneSystem() {
@@ -38,9 +37,11 @@ SceneSystem::~SceneSystem() {
 void SceneSystem::changeScene(SceneType s) {
 	_scenes[_currentScene]->closeScene();
 	_mSM->getRootSceneNode()->removeChild(_scenes[_currentScene]->getRoot());
+	removeInputListener(_scenes[_currentScene]);
 	_currentScene = s;
 	_mSM->getRootSceneNode()->addChild(_scenes[_currentScene]->getRoot());
 	_scenes[_currentScene]->openScene();
+	addInputListener(_scenes[_currentScene]);
 }
 
 Ogre::SceneManager* SceneSystem::getSceneManager() {
@@ -49,4 +50,12 @@ Ogre::SceneManager* SceneSystem::getSceneManager() {
 
 void SceneSystem::frameRendered(const Ogre::FrameEvent& evt) {
 	_scenes[_currentScene]->onFrameRendered(evt);
+}
+
+void SceneSystem::addInputListener(OgreBites::InputListener* iL) {
+	_appContext->addInputListener(iL);
+}
+
+void SceneSystem::removeInputListener(OgreBites::InputListener* iL) {
+	_appContext->removeInputListener(iL);
 }

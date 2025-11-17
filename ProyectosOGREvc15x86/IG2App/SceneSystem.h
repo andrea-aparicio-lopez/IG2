@@ -14,6 +14,7 @@ namespace Ogre {
 namespace OgreBites {
 	class TrayManager;
 	class ApplicationContext;
+	class InputListener;
 }
 
 class SceneSystem
@@ -34,6 +35,10 @@ public:
 	Ogre::SceneManager* getSceneManager();
 
 	void frameRendered(const Ogre::FrameEvent& evt);
+
+	void addInputListener(OgreBites::InputListener*);
+	void removeInputListener(OgreBites::InputListener*);
+
 
 protected:
 	Ogre::SceneManager* _mSM;

@@ -21,6 +21,7 @@ public:
 
 	void onFrameRendered(const Ogre::FrameEvent& evt) override;
 
+	bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 protected:
 	enum AnimState {
 		DANCE_1,

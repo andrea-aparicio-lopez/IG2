@@ -3,17 +3,14 @@
 #include "Labyrinth.h"
 #include <cmath>
 
-Hero::Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, OgreBites::TextBox* hAD)
-	: Character(position, node, sM, lab, "Sinbad.mesh"), _heroAttributesDisplay(hAD)
+Hero::Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab)
+	: Character(position, node, sM, lab, "Sinbad.mesh")
 {
 	entity->getParentSceneNode()->_update(true, true);
 
 	auto s = getAABB().getSize();
 	s = cte::SCALE_HERO / s ;
 	setScale(s);
-
-	_heroAttributesDisplay->setText("Lives: " + std::to_string(_health) +
-	"\nScore: " + std::to_string(_score));
 }
 
 Hero::~Hero() {
@@ -54,15 +51,11 @@ void Hero::damageHero() {
 	if (!_isImmune && --_health) {
 		resetHeroPos();
 
-		_heroAttributesDisplay->setText("Lives: " + std::to_string(_health) +
-			"\nScore: " + std::to_string(_score));
-
 		_isImmune = true;
 		_immunityTime = cte::HERO_IMMUNITY;
 	}
 	else if (!_health) {
 		resetHeroPos();
-		_heroAttributesDisplay->setText("YOU LOSE");
 	}
 }
 
