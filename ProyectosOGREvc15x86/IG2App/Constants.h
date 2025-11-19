@@ -14,4 +14,8 @@ namespace cte {
 	const double HERO_IMMUNITY = 1.0;
 
 	const float CAM_Y_POS = 3000;
+
+	const float BOMB_MIN_SIZE = 50;
+	const float BOMB_MAX_SIZE = 90;
+	const double BOMB_SIZE_ANIM_DURATION = 500.; // ms
 }
