@@ -98,8 +98,11 @@ void GameScene::openScene() {
     camPos *= cte::SCALE_CUBE;
     camPos /= 2;
 
-    _sys->getSceneManager()->getSceneNode("nCam")->setPosition(Vector3(camPos.x, cte::CAM_Y_POS, camPos.y));
-    _sys->getSceneManager()->getSceneNode("nCam")->lookAt(Vector3(0, -100, 0), Ogre::Node::TS_LOCAL);
+    auto cam = _sys->getSceneManager()->getSceneNode("nCam");
+    cam->setPosition(Vector3(camPos.x, cte::CAM_Y_POS, camPos.y));
+    //cam->lookAt(Vector3(0, -1, 0), Ogre::Node::TS_WORLD);
+    cam->setDirection(Vector3(0, -1, 0), Ogre::Node::TS_WORLD);
+    cam->roll(Degree(180.f));
 
     //TEXTBOX
     _textBox->setText("Lives: " + std::to_string(mHero->health()) +

@@ -90,9 +90,9 @@ IntroScene::~IntroScene() {
 }
 
 void IntroScene::openScene() {
-	_root->setVisible(true);
+	//_root->setVisible(true);
 	_sys->getSceneManager()->getSceneNode("nCam")->setPosition(Vector3(0,100,500));
-	_sys->getSceneManager()->getSceneNode("nCam")->lookAt(Vector3(0, 1, -0.2), Ogre::Node::TS_LOCAL);
+	_sys->getSceneManager()->getSceneNode("nCam")->lookAt(Vector3(0, 1, -0.2), Ogre::Node::TS_WORLD);
 
 	_textBox->setText("Press S to start game");
 
@@ -100,7 +100,7 @@ void IntroScene::openScene() {
 }
 
 void IntroScene::closeScene() {
-	_root->setVisible(false);
+	//_root->setVisible(false);
 }
 
 void IntroScene::onFrameRendered(const Ogre::FrameEvent& evt) {

@@ -35,13 +35,21 @@ SceneSystem::~SceneSystem() {
 }
 
 void SceneSystem::changeScene(SceneType s) {
-	_scenes[_currentScene]->closeScene();
-	_mSM->getRootSceneNode()->removeChild(_scenes[_currentScene]->getRoot());
-	removeInputListener(_scenes[_currentScene]);
-	_currentScene = s;
-	_mSM->getRootSceneNode()->addChild(_scenes[_currentScene]->getRoot());
-	_scenes[_currentScene]->openScene();
-	addInputListener(_scenes[_currentScene]);
+
+	if (s != _currentScene) {
+		_scenes[_currentScene]->closeScene();
+		removeInputListener(_scenes[_currentScene]);
+		_mSM->getRootSceneNode()->addChild(_scenes[s]->getRoot()); // atachar nueva escena primero
+		_mSM->getRootSceneNode()->removeChild(_scenes[_currentScene]->getRoot()); // desatachar la escena anterior
+		_scenes[s]->openScene();
+		addInputListener(_scenes[s]);
+		_currentScene = s;
+	}
+	else {
+		_mSM->getRootSceneNode()->addChild(_scenes[s]->getRoot()); // para abrir la escena de inicio
+		_scenes[s]->openScene();
+		addInputListener(_scenes[s]);
+	}
 }
 
 Ogre::SceneManager* SceneSystem::getSceneManager() {
