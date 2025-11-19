@@ -16,6 +16,7 @@ class Hero;
 class Villain;
 class MegaVillain;
 class Labyrinth;
+class Bomb;
 
 class GameScene: public Scene
 {
@@ -30,14 +31,20 @@ public:
     void addInputListeners() override;
     void removeInputListeners() override;
 
+    bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
+
 protected:
     void calculateCollisions();
+    void placeBomb();
 
 protected:
     Hero* mHero = nullptr;
     Labyrinth* mLabyrinth = nullptr;
 
     std::vector<Villain*> mVillains;
+    std::vector<Bomb*> mBombs;
+
     Ogre::SceneNode* mLightNode = nullptr;
+
 };
 

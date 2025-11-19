@@ -3,7 +3,7 @@
 class AnimCharacter : public IG2Object
 {
 public:
-	AnimCharacter(Vector3 iitPos, SceneNode* node, SceneManager* sM, std::string mesh);
+	AnimCharacter(Vector3 initPos, SceneNode* node, SceneManager* sM, std::string mesh);
 	~AnimCharacter();
 
 	virtual void frameRendered(const Ogre::FrameEvent& evt) override;

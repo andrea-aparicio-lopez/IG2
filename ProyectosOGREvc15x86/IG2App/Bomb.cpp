@@ -1,7 +1,11 @@
 #include "Bomb.h"
 #include "Constants.h"
 
-Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM): IG2Object(position, node, sM, "sphere.mesh") 
+#include <OgreTimer.h>
+
+Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM)
+	: IG2Object(position, node, sM, "sphere.mesh") 
+	, _timer(new Ogre::Timer())
 {
 	entity->getParentSceneNode()->_update(true, true);
 	auto s = getAABB().getSize();
@@ -10,10 +14,11 @@ Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM): IG2Object(posit
 
 	setMaterialName("Bomb");
 
-
 	_fuse = new IG2Object(Vector3(0, getAABB().getSize().y/2, 0), mNode->createChildSceneNode(), mSM, "column.mesh");
 	_fuse->setScale(Vector3(0.15));
 	_fuse->setMaterialName("BombFuse");
+
+	_timer->reset();
 
 }
 
@@ -23,3 +28,10 @@ Bomb::~Bomb() {
 	IG2Object::~IG2Object();
 }
 
+void Bomb::frameRendered(const Ogre::FrameEvent& evt) {
+	if (entity->_isAnimated()) {
+		Ogre::EnabledAnimationStateList anims = entity->getAllAnimationStates()->getEnabledAnimationStates();
+		for (auto a : anims)
+			a->addTime(2.5 * evt.timeSinceLastEvent);
+	}
+}

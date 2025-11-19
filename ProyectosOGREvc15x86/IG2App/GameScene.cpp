@@ -5,6 +5,7 @@
 #include "Hero.h"
 #include "Villain.h"
 #include "MegaVillain.h"
+#include "Bomb.h"
 #include "Constants.h"
 
 #include <OgreLight.h>
@@ -82,10 +83,12 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
 }
 
 GameScene::~GameScene() {
-    for (auto v : mVillains)
-        delete v;
     delete mHero;
     delete mLabyrinth;
+    for (auto v : mVillains)
+        delete v;
+    for (auto b : mBombs)
+        delete b;
 
     Scene::~Scene();
 }
@@ -133,6 +136,14 @@ void GameScene::removeInputListeners() {
         _sys->removeInputListener(villain);
 }
 
+bool GameScene::keyPressed(const OgreBites::KeyboardEvent& evt) {
+    if (evt.keysym.sym == SDLK_q) {
+        placeBomb();
+    }
+
+    return true;
+}
+
 void GameScene::calculateCollisions() {
     for (auto villain : mVillains) {
         if (mHero->getAABB().intersects(villain->getAABB())) {
@@ -146,4 +157,12 @@ void GameScene::calculateCollisions() {
         //end game
         _textBox->setText("YOU LOSE");
     }
+}
+
+void GameScene::placeBomb() {
+    Vector3 pos = mHero->getPosition() / cte::SCALE_CUBE;
+    pos = Vector3(floor(pos.x), floor(pos.y), floor(pos.z));
+    pos *= cte::SCALE_CUBE;
+
+    mBombs.push_back(new Bomb(pos, _root->createChildSceneNode(), _sys->getSceneManager()));
 }
