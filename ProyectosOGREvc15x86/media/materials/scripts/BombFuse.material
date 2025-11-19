@@ -1,0 +1,9 @@
+material BombFuse {
+    technique {
+        pass {
+            texture_unit {
+                texture WoodPallet.png
+            }
+        }
+    }
+}

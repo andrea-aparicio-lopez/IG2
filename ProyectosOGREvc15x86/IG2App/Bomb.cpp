@@ -8,10 +8,13 @@ Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM): IG2Object(posit
 	s = cte::BOMB_MAX_SIZE / s;
 	setScale(s);
 
-	//entity->setMaterial
+	setMaterialName("Bomb");
+
 
 	_fuse = new IG2Object(Vector3(0, getAABB().getSize().y/2, 0), mNode->createChildSceneNode(), mSM, "column.mesh");
 	_fuse->setScale(Vector3(0.15));
+	_fuse->setMaterialName("BombFuse");
+
 }
 
 Bomb::~Bomb() {

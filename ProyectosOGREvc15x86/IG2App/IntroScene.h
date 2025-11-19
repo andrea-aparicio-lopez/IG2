@@ -20,6 +20,8 @@ public:
 	void closeScene() override;
 
 	void onFrameRendered(const Ogre::FrameEvent& evt) override;
+	void addInputListeners() override;
+	void removeInputListeners() override;
 
 	bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 protected:

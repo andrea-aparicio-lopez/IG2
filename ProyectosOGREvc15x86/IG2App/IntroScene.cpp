@@ -40,7 +40,7 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 
 	_sinbad->getNode()->setInitialState();
 
-	appContext->addInputListener(_sinbad);
+	
 
 	// Espadas
 	_swordLeft = _sys->getSceneManager()->createEntity("Sword.mesh");
@@ -57,8 +57,6 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 	_ogreHead->setScale(s);
 
 	_ogreHead->getNode()->setInitialState();
-
-	appContext->addInputListener(_ogreHead);
 
 
 	// --------- ANIMACIONES -----------
@@ -97,10 +95,13 @@ void IntroScene::openScene() {
 	_textBox->setText("Press S to start game");
 
 	startAnimation();
+
+	addInputListeners();
 }
 
 void IntroScene::closeScene() {
 	//_root->setVisible(false);
+	removeInputListeners();
 }
 
 void IntroScene::onFrameRendered(const Ogre::FrameEvent& evt) {
@@ -110,6 +111,16 @@ void IntroScene::onFrameRendered(const Ogre::FrameEvent& evt) {
 		switchSinbadAnimation();
 		_timer->reset();
 	}
+}
+
+void IntroScene::addInputListeners() {
+	_sys->addInputListener(_sinbad);
+	_sys->addInputListener(_ogreHead);
+}
+
+void IntroScene::removeInputListeners() {
+	_sys->removeInputListener(_sinbad);
+	_sys->removeInputListener(_ogreHead);
 }
 
 void IntroScene::createNodeAnimations() {

@@ -11,6 +11,7 @@ namespace Ogre {
 namespace OgreBites {
 	class ApplicationContext;
 	class TextBox;
+	class InputListener;
 }
 
 class SceneSystem;
@@ -28,6 +29,9 @@ public:
 	Ogre::SceneNode* getRoot();
 
 	virtual void onFrameRendered(const Ogre::FrameEvent& evt) = 0;
+
+	virtual void addInputListeners() = 0;
+	virtual void removeInputListeners() = 0;
 
 protected:
 	Ogre::SceneNode* _root;

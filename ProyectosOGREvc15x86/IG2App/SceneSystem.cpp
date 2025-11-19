@@ -39,16 +39,17 @@ void SceneSystem::changeScene(SceneType s) {
 	if (s != _currentScene) {
 		_scenes[_currentScene]->closeScene();
 		removeInputListener(_scenes[_currentScene]);
-		_mSM->getRootSceneNode()->addChild(_scenes[s]->getRoot()); // atachar nueva escena primero
 		_mSM->getRootSceneNode()->removeChild(_scenes[_currentScene]->getRoot()); // desatachar la escena anterior
-		_scenes[s]->openScene();
-		addInputListener(_scenes[s]);
+
 		_currentScene = s;
+		_mSM->getRootSceneNode()->addChild(_scenes[_currentScene]->getRoot()); // atachar nueva escena
+		addInputListener(_scenes[_currentScene]);
+		_scenes[_currentScene]->openScene();
 	}
 	else {
 		_mSM->getRootSceneNode()->addChild(_scenes[s]->getRoot()); // para abrir la escena de inicio
-		_scenes[s]->openScene();
 		addInputListener(_scenes[s]);
+		_scenes[s]->openScene();
 	}
 }
 

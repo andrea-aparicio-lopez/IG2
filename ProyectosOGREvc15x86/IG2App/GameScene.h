@@ -27,6 +27,8 @@ public:
     void closeScene() override;
 
     void onFrameRendered(const Ogre::FrameEvent& evt) override;
+    void addInputListeners() override;
+    void removeInputListeners() override;
 
 protected:
     void calculateCollisions();
