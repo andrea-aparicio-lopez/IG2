@@ -37,8 +37,8 @@ SceneSystem::~SceneSystem() {
 void SceneSystem::changeScene(SceneType s) {
 
 	if (s != _currentScene) {
-		_scenes[_currentScene]->closeScene();
 		removeInputListener(_scenes[_currentScene]);
+		_scenes[_currentScene]->closeScene();
 		_mSM->getRootSceneNode()->removeChild(_scenes[_currentScene]->getRoot()); // desatachar la escena anterior
 
 		_currentScene = s;
