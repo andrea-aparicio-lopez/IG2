@@ -64,6 +64,7 @@ protected:
 	Ogre::Entity* _swordLeft;
 	Ogre::Entity* _swordRight;
 	AnimCharacter* _ogreHead;
+	Light* _luz;
 
 	const std::string FLOORMAT = "IntroSceneFloor";
 

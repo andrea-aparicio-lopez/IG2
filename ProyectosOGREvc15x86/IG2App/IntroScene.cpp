@@ -64,13 +64,13 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 
 
 	// ----------- LUX ---------------
-	Light* luz = _sys->getSceneManager()->createLight();
-	luz->setType(Ogre::Light::LT_DIRECTIONAL);
-	luz->setDiffuseColour(0.75, 0.75, 0.75);
-	luz->setCastShadows(true);
+	_luz = _sys->getSceneManager()->createLight();
+	_luz->setType(Ogre::Light::LT_DIRECTIONAL);
+	_luz->setDiffuseColour(0.75, 0.75, 0.75);
+	_luz->setCastShadows(true);
 
 	auto lightNode = _root->createChildSceneNode();
-	lightNode->attachObject(luz);
+	lightNode->attachObject(_luz);
 	lightNode->setDirection(Ogre::Vector3(0, -1, 0));
 
 }
@@ -101,6 +101,7 @@ void IntroScene::openScene() {
 
 void IntroScene::closeScene() {
 	//_root->setVisible(false);
+	_luz->setVisible(false);
 	removeInputListeners();
 }
 
