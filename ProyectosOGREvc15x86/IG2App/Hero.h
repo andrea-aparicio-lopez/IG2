@@ -30,8 +30,6 @@ public:
 
 	void damageHero();
 
-	void placeBomb();
-
 protected:
 	void resetHeroPos();
 };

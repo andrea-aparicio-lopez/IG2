@@ -24,7 +24,7 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 
 	std::cin >> _lightType;
 
-	walls = std::vector<std::vector<bool>>(c, std::vector<bool>(r));
+	walls = std::vector<std::vector<SquareType>>(c, std::vector<SquareType>(r));
 
 	char casilla;
 
@@ -34,13 +34,13 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 		for (int j = 0; j < c; ++j) {
 			cin >> casilla;
 			if (casilla == 'x') {
-				walls[i][j] = 1;
+				walls[i][j] = WALL;
 				auto w = new Wall(Vector3(j * cte::SCALE_CUBE, 0, i * cte::SCALE_CUBE), mNode, sMe);
 				w->setMaterialName(wallMat);
 				_wallEntities.push_back(w);
 			}
 			else {
-				walls[i][j] = 0;
+				walls[i][j] = EMPTY;
 				if (casilla == 'h')
 					_heroPos = Vector3(j, 0, i);
 				else if (casilla == 'v')
@@ -77,7 +77,19 @@ Labyrinth::~Labyrinth() {
 }
 
 bool Labyrinth::isWall(Vector3 pos) const {
-	return walls[pos.z][pos.x];
+	return walls[pos.z][pos.x] == WALL;
+}
+
+void Labyrinth::setBomb(Vector2 pos) {
+	walls[pos.y][pos.x] = BOMB;
+}
+
+void Labyrinth::removeBomb(Vector2 pos) {
+	walls[pos.y][pos.x] = EMPTY;
+}
+
+bool Labyrinth::hasBomb(Vector2 pos) const {
+	return walls[pos.y][pos.x] == BOMB;
 }
 
 Vector3 Labyrinth::getHeroPos() const {

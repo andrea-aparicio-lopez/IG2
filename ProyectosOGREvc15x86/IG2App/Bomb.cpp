@@ -1,11 +1,14 @@
 #include "Bomb.h"
 #include "Constants.h"
+#include "Labyrinth.h"
 
 #include <OgreTimer.h>
 
-Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM)
+Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, Vector2 normalizedPos)
 	: IG2Object(position, node, sM, "sphere.mesh") 
-	, _timer(new Ogre::Timer())
+	, _timer(new Ogre::Timer()),
+	_lab(lab),
+	_normalizedPos(normalizedPos)
 {
 	entity->getParentSceneNode()->_update(true, true);
 	auto s = getAABB().getSize();
@@ -20,6 +23,8 @@ Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM)
 
 	_timer->reset();
 
+	_lab->setBomb(normalizedPos);
+
 }
 
 Bomb::~Bomb() {
@@ -33,5 +38,10 @@ void Bomb::frameRendered(const Ogre::FrameEvent& evt) {
 		Ogre::EnabledAnimationStateList anims = entity->getAllAnimationStates()->getEnabledAnimationStates();
 		for (auto a : anims)
 			a->addTime(2.5 * evt.timeSinceLastEvent);
+	}
+
+	if (_timer->getMilliseconds() >= cte::BOMB_EXPLODING_TIME) {
+		_lab->removeBomb(_normalizedPos);
+		setVisible(false);
 	}
 }

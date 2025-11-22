@@ -162,7 +162,11 @@ void GameScene::calculateCollisions() {
 void GameScene::placeBomb() {
     Vector3 pos = mHero->getPosition() / cte::SCALE_CUBE;
     pos = Vector3(floor(pos.x), floor(pos.y), floor(pos.z));
+    Vector2 normalizedPos = Vector2(pos.x, pos.z);
     pos *= cte::SCALE_CUBE;
 
-    mBombs.push_back(new Bomb(pos, _root->createChildSceneNode(), _sys->getSceneManager()));
+    auto bomb = new Bomb(pos, _root->createChildSceneNode(), _sys->getSceneManager(), mLabyrinth, normalizedPos);
+
+    mBombs.push_back(bomb);
+    _sys->addInputListener(bomb);
 }

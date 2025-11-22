@@ -10,7 +10,12 @@ class Wall;
 
 class Labyrinth : public IG2Object {
 protected:
-	std::vector<std::vector<bool>> walls;
+
+	enum SquareType {
+		EMPTY, WALL, BOMB
+	};
+
+	std::vector<std::vector<SquareType>> walls;
 	std::vector<Wall*> _wallEntities;
 	IG2Object* _plane;
 
@@ -27,6 +32,10 @@ public:
 	~Labyrinth();
 
 	bool isWall(Vector3 pos) const;
+
+	void setBomb(Vector2 pos);
+	void removeBomb(Vector2 pos);
+	bool hasBomb(Vector2 pos)const;
 
 	std::string getLightType();
 
