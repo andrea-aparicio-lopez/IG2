@@ -31,11 +31,11 @@ public:
     void addInputListeners() override;
     void removeInputListeners() override;
 
-    bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
+    //bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 
+    void registerBomb(Bomb* b);
 protected:
     void calculateCollisions();
-    void placeBomb();
 
 protected:
     Hero* mHero = nullptr;

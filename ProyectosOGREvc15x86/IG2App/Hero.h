@@ -6,10 +6,10 @@ class Labyrinth;
 
 #include <OgreTrays.h>
 
-
+class GameScene;
 class Hero : public Character {
 public:
-	Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab);
+	Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, GameScene* scene);
 	~Hero();
 
 
@@ -19,7 +19,7 @@ protected:
 	bool _isImmune = false;
 	double _immunityTime;
 
-
+	GameScene* _gameScene;
 public:
 	inline int health() const { return _health; }
 	inline int score() const { return _score; }
@@ -29,6 +29,8 @@ public:
 	bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 
 	void damageHero();
+
+	void placeBomb();
 
 protected:
 	void resetHeroPos();

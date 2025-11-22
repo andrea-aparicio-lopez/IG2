@@ -27,7 +27,7 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
     Ogre::SceneNode* sinbadNode = mLabyrinthNode->createChildSceneNode("nSinbad");
     Vector3 sinbadPos(mLabyrinth->getHeroPos());
     sinbadPos *= cte::SCALE_CUBE;
-    mHero = new Hero(sinbadPos, sinbadNode, _sys->getSceneManager(), mLabyrinth);
+    mHero = new Hero(sinbadPos, sinbadNode, _sys->getSceneManager(), mLabyrinth, this);
 
     std::vector<Vector3> villainPos = mLabyrinth->getVillainPos();
     for (auto p : villainPos) {
@@ -136,14 +136,6 @@ void GameScene::removeInputListeners() {
         _sys->removeInputListener(villain);
 }
 
-bool GameScene::keyPressed(const OgreBites::KeyboardEvent& evt) {
-    if (evt.keysym.sym == SDLK_q) {
-        placeBomb();
-    }
-
-    return true;
-}
-
 void GameScene::calculateCollisions() {
     for (auto villain : mVillains) {
         if (mHero->getAABB().intersects(villain->getAABB())) {
@@ -159,14 +151,8 @@ void GameScene::calculateCollisions() {
     }
 }
 
-void GameScene::placeBomb() {
-    Vector3 pos = mHero->getPosition() / cte::SCALE_CUBE;
-    pos = Vector3(floor(pos.x), floor(pos.y), floor(pos.z));
-    Vector2 normalizedPos = Vector2(pos.x, pos.z);
-    pos *= cte::SCALE_CUBE;
-
-    auto bomb = new Bomb(pos, _root->createChildSceneNode(), _sys->getSceneManager(), mLabyrinth, normalizedPos);
-
+void GameScene::registerBomb(Bomb* bomb) {
     mBombs.push_back(bomb);
+
     _sys->addInputListener(bomb);
 }
