@@ -3,12 +3,14 @@
 #include "Labyrinth.h"
 
 #include <OgreTimer.h>
+#include <OgreParticleSystem.h>
 
 Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, Vector2 normalizedPos)
 	: IG2Object(position, node, sM, "sphere.mesh") 
 	, _timer(new Ogre::Timer()),
 	_lab(lab),
-	_normalizedPos(normalizedPos)
+	_normalizedPos(normalizedPos),
+	_particlesNode(node->createChildSceneNode())
 {
 	entity->getParentSceneNode()->_update(true, true);
 	auto s = getAABB().getSize();
@@ -25,11 +27,12 @@ Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, 
 
 	_lab->setBomb(normalizedPos);
 
+	ParticleSystem* pSys = mSM->createParticleSystem("a", "Examples/Smoke");
+	_particlesNode->attachObject(pSys);
 }
 
 Bomb::~Bomb() {
 	delete _fuse;
-
 	IG2Object::~IG2Object();
 }
 
