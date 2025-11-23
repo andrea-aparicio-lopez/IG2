@@ -5,6 +5,7 @@
 class Labyrinth;
 
 #include <OgreTrays.h>
+#include <OgreNameGenerator.h>
 
 class GameScene;
 class Hero : public Character {
@@ -20,6 +21,8 @@ protected:
 	double _immunityTime;
 
 	GameScene* _gameScene;
+
+	Ogre::NameGenerator _particleSystemNameGen;
 public:
 	inline int health() const { return _health; }
 	inline int score() const { return _score; }

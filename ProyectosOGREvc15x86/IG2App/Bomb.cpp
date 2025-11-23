@@ -4,8 +4,9 @@
 
 #include <OgreTimer.h>
 #include <OgreParticleSystem.h>
+#include <OgreNameGenerator.h>
 
-Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, Vector2 normalizedPos)
+Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, Vector2 normalizedPos, Ogre::String name)
 	: IG2Object(position, node, sM, "sphere.mesh") 
 	, _timer(new Ogre::Timer()),
 	_lab(lab),
@@ -27,7 +28,7 @@ Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, 
 
 	_lab->setBomb(normalizedPos);
 
-	ParticleSystem* pSys = mSM->createParticleSystem("a", "Examples/Smoke");
+	ParticleSystem* pSys = mSM->createParticleSystem(name, "Examples/Smoke");
 	_particlesNode->attachObject(pSys);
 }
 

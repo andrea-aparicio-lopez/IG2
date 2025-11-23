@@ -10,7 +10,7 @@ class Labyrinth;
 class Bomb: public IG2Object
 {
 public:
-	Bomb(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, Vector2 normalizedPos);
+	Bomb(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, Vector2 normalizedPos, Ogre::String name);
 	~Bomb();
 
 	virtual void frameRendered(const Ogre::FrameEvent& evt) override;
