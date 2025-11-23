@@ -23,5 +23,8 @@ protected:
 	Ogre::Timer* _timer;
 	Labyrinth* _lab;
 	SceneNode* _particlesNode;
+	Ogre::String _name;
+
+	bool _exploded = false;
 };
 

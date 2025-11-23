@@ -21,4 +21,6 @@ namespace cte {
 	const double BOMB_EXPLODING_TIME = 2000.;
 
 	constexpr int MAX_HERO_BOMBS = 5;
+
+	constexpr int BOMB_EXPLODING_LENGTH = 4;
 }
