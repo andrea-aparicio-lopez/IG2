@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include <vector>
 #include <string>
+#include <OgreNameGenerator.h>
 
 namespace Ogre {
     class Light;
@@ -17,6 +18,7 @@ class Villain;
 class MegaVillain;
 class Labyrinth;
 class Bomb;
+class ExplosionSmoke;
 
 class GameScene: public Scene
 {
@@ -33,7 +35,9 @@ public:
 
     //bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 
-    void registerBomb(Bomb* b);
+    void placeBomb(Ogre::Vector3 pos, Ogre::Vector2 normalizedPos);
+    void bombExplodes(Bomb* bomb);
+
 protected:
     void calculateCollisions();
 
@@ -43,8 +47,10 @@ protected:
 
     std::vector<Villain*> mVillains;
     std::vector<Bomb*> mBombs;
+    std::vector<ExplosionSmoke*> mSmoke;
 
     Ogre::SceneNode* mLightNode = nullptr;
 
+    Ogre::NameGenerator _particleSystemNameGen;
 };
 

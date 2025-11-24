@@ -6,7 +6,7 @@
 #include "GameScene.h"
 
 Hero::Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, GameScene* scene)
-	: Character(position, node, sM, lab, "Sinbad.mesh"), _gameScene(scene), _particleSystemNameGen("ParticleSystem")
+	: Character(position, node, sM, lab, "Sinbad.mesh"), _gameScene(scene)
 {
 	entity->getParentSceneNode()->_update(true, true);
 
@@ -58,8 +58,7 @@ void Hero::placeBomb() {
 	Vector2 normalizedPos = Vector2(pos.x, pos.z);
 	pos *= cte::SCALE_CUBE;
 
-	auto bomb = new Bomb(pos, _gameScene->getRoot()->createChildSceneNode(), mSM, lab, normalizedPos, _particleSystemNameGen.generate());
-	_gameScene->registerBomb(bomb);
+	_gameScene->placeBomb(pos, normalizedPos);
 }
 
 void Hero::damageHero() {

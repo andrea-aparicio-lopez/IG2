@@ -6,6 +6,7 @@
 #include "Villain.h"
 #include "MegaVillain.h"
 #include "Bomb.h"
+#include "ExplosionSmoke.h"
 #include "Constants.h"
 
 #include <OgreLight.h>
@@ -16,6 +17,7 @@ using namespace Ogre;
 
 GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* textBox, OgreBites::ApplicationContext* appContext, std::string path)
     : Scene(root, sys, textBox) 
+    , _particleSystemNameGen("ParticleSystem")
 {
 
     //--------------- LABYRINTH, SINBAD AND ENEMIES ---------------------
@@ -90,6 +92,9 @@ GameScene::~GameScene() {
     for (auto b : mBombs)
         delete b;
 
+    for (auto s : mSmoke)
+        delete s;
+
     Scene::~Scene();
 }
 
@@ -151,8 +156,49 @@ void GameScene::calculateCollisions() {
     }
 }
 
-void GameScene::registerBomb(Bomb* bomb) {
+void GameScene::placeBomb(Vector3 pos, Vector2 normalizedPos) {
+    auto bomb = new Bomb(pos,_root->createChildSceneNode(), _sys->getSceneManager(), normalizedPos, _particleSystemNameGen.generate());
     mBombs.push_back(bomb);
+    mLabyrinth->setBomb(normalizedPos);
 
     _sys->addInputListener(bomb);
+}
+
+void GameScene::bombExplodes(Bomb* bomb) {
+    auto normalizedPos = bomb->getNormalizedPos();
+    mLabyrinth->removeBomb(normalizedPos);
+    bomb->setVisible(false);
+    _sys->removeInputListener(bomb);
+
+    //añadir las posiciones disponibles para los humos
+    std::vector<Vector2> smokePositions;
+    for (int i = normalizedPos.x - 1; i >= normalizedPos.x - cte::BOMB_EXPLODING_LENGTH; i--) {
+        if (i < 0 || mLabyrinth->isWall(Vector3(i, 0, normalizedPos.y))) break;
+        smokePositions.push_back(Vector2(i, normalizedPos.y));
+    }
+
+    for (int i = normalizedPos.x + 1; i <= normalizedPos.x + cte::BOMB_EXPLODING_LENGTH; i++) {
+        if (i > mLabyrinth->getLabyrinthSize().x - 1 || mLabyrinth->isWall(Vector3(i, 0, normalizedPos.y))) break;
+        smokePositions.push_back(Vector2(i, normalizedPos.y));
+    }
+
+    for (int i = normalizedPos.y - 1; i < normalizedPos.y - cte::BOMB_EXPLODING_LENGTH; i--) {
+        if (i < 0 || mLabyrinth->isWall(Vector3(normalizedPos.x, 0, i))) break;
+        smokePositions.push_back(Vector2(normalizedPos.x, i));
+    }
+
+    for (int i = normalizedPos.y + 1; i <= normalizedPos.y + cte::BOMB_EXPLODING_LENGTH; i++) {
+        if (i > mLabyrinth->getLabyrinthSize().y - 1 || mLabyrinth->isWall(Vector3(normalizedPos.x, 0, i))) break;
+        smokePositions.push_back(Vector2(normalizedPos.x, i));
+    }
+
+    //por cada posicion crea un humo
+    for (int i = 0; i < smokePositions.size(); i++) {
+        Vector2 relPos = smokePositions[i] - normalizedPos;
+
+        Ogre::String name = bomb->getName() + "_" + to_string(i);
+        auto smoke = new ExplosionSmoke(Vector3(relPos.x * cte::SCALE, 0, relPos.y * cte::SCALE), _root->createChildSceneNode(), _sys->getSceneManager(), name);
+        mSmoke.push_back(smoke);
+        _sys->addInputListener(smoke);
+    }
 }
