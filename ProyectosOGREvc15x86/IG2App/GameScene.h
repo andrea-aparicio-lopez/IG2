@@ -35,7 +35,7 @@ public:
 
     //bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 
-    void placeBomb(Ogre::Vector3 pos, Ogre::Vector2 normalizedPos);
+    void placeBomb(Ogre::Vector3 pos);
     void bombExplodes(Bomb* bomb);
 
 protected:

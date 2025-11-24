@@ -7,12 +7,13 @@
 #include <OgreTimer.h>
 #include <OgreParticleSystem.h>
 
-Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, Vector2 normalizedPos, Ogre::String name)
+Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, GameScene* gameScene, Vector2 normalizedPos, Ogre::String name)
 	: IG2Object(position, node, sM, "sphere.mesh") 
-	, _timer(new Ogre::Timer()),
-	_normalizedPos(normalizedPos),
-	_particlesNode(node->createChildSceneNode()),
-	_name(name)
+	, _timer(new Ogre::Timer())
+	,_normalizedPos(normalizedPos)
+	,_particlesNode(node->createChildSceneNode())
+	,_name(name)
+	,_gameScene(gameScene)
 {
 	mNode->_update(true, true);
 	auto s = getAABB().getSize();

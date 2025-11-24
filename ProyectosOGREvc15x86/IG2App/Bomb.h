@@ -11,7 +11,7 @@ class GameScene;
 class Bomb: public IG2Object
 {
 public:
-	Bomb(Vector3 position, SceneNode* node, SceneManager* sM, Vector2 normalizedPos, Ogre::String name);
+	Bomb(Vector3 position, SceneNode* node, SceneManager* sM, GameScene* gameScene, Vector2 normalizedPos, Ogre::String name);
 	~Bomb();
 
 	virtual void frameRendered(const Ogre::FrameEvent& evt) override;

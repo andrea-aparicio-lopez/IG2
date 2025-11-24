@@ -55,10 +55,9 @@ bool Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
 void Hero::placeBomb() {
 	Vector3 pos = getPosition() / cte::SCALE_CUBE;
 	pos = Vector3(floor(pos.x), floor(pos.y), floor(pos.z));
-	Vector2 normalizedPos = Vector2(pos.x, pos.z);
 	pos *= cte::SCALE_CUBE;
 
-	_gameScene->placeBomb(pos, normalizedPos);
+	_gameScene->placeBomb(pos);
 }
 
 void Hero::damageHero() {

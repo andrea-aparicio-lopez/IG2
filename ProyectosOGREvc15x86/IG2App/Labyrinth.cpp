@@ -70,8 +70,6 @@ Labyrinth::Labyrinth(std::string filename, SceneNode* node, SceneManager* sMe)
 }
 
 Labyrinth::~Labyrinth() {
-	std::cout << "AAAAAAAAAAAAAAAAA\n";
-
 	for (auto w : _wallEntities)
 		delete w;
 
