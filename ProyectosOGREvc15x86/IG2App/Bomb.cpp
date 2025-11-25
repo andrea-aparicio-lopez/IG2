@@ -7,13 +7,11 @@
 #include <OgreTimer.h>
 #include <OgreParticleSystem.h>
 
-Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, GameScene* gameScene, Vector2 normalizedPos, Ogre::String name)
+Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, int bombIndex)
 	: IG2Object(position, node, sM, "sphere.mesh") 
 	, _timer(new Ogre::Timer())
-	,_normalizedPos(normalizedPos)
 	,_particlesNode(node->createChildSceneNode())
-	,_name(name)
-	,_gameScene(gameScene)
+	,_bombIndex(bombIndex)
 {
 	mNode->_update(true, true);
 	auto s = getAABB().getSize();
@@ -28,13 +26,11 @@ Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, GameScene* gameS
 
 	_timer->reset();
 
-	ParticleSystem* pSys = mSM->createParticleSystem(name, "Examples/Smoke");
+	ParticleSystem* pSys = mSM->createParticleSystem(to_string(_bombIndex), "Examples/Smoke");
 	_particlesNode->attachObject(pSys);
 }
 
 Bomb::~Bomb() {
-	mSM->getParticleSystem(_name)->setEmitting(false);
-
 	delete _fuse;
 
 	IG2Object::~IG2Object();
@@ -54,15 +50,11 @@ void Bomb::frameRendered(const Ogre::FrameEvent& evt) {
 }
 
 void Bomb::explodeBomb() {
-	_gameScene->bombExplodes(this);
+	//_gameScene->bombExplodes(this);
 }
 
 Vector2 Bomb::getNormalizedPos() const {
 	return _normalizedPos;
-}
-
-String Bomb::getName() const {
-	return _name;
 }
 
 void Bomb::createAnimations() {

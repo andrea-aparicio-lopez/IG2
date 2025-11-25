@@ -20,6 +20,8 @@ class Labyrinth;
 class Bomb;
 class ExplosionSmoke;
 
+#include "BombPool.h"
+
 class GameScene: public Scene
 {
 public:
@@ -36,13 +38,14 @@ public:
     //bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 
     void placeBomb(Ogre::Vector3 pos);
-    void bombExplodes(Bomb* bomb);
 
 protected:
     void calculateCollisions();
     void calculateBombCollisions();
 
 protected:
+
+    BombPool _bombPool;
     Hero* mHero = nullptr;
     Labyrinth* mLabyrinth = nullptr;
 
