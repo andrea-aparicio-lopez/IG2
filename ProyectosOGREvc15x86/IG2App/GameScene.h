@@ -40,6 +40,7 @@ public:
 
 protected:
     void calculateCollisions();
+    void calculateBombCollisions();
 
 protected:
     Hero* mHero = nullptr;

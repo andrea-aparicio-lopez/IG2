@@ -21,6 +21,9 @@ public:
 	Ogre::String getName() const;
 
 protected:
+	void createAnimations();
+
+protected:
 	IG2Object* _fuse;
 	Vector2 _normalizedPos;
 

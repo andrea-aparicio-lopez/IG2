@@ -23,5 +23,5 @@ namespace cte {
 
 	constexpr int MAX_HERO_BOMBS = 5;
 
-	constexpr int SMOKE_DURATION = 5000; // ms
+	constexpr int SMOKE_DURATION = 2000; // ms
 }

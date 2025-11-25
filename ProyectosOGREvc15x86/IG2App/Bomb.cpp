@@ -33,7 +33,10 @@ Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, GameScene* gameS
 }
 
 Bomb::~Bomb() {
+	mSM->getParticleSystem(_name)->setEmitting(false);
+
 	delete _fuse;
+
 	IG2Object::~IG2Object();
 }
 
@@ -41,7 +44,7 @@ void Bomb::frameRendered(const Ogre::FrameEvent& evt) {
 	if (entity->_isAnimated()) {
 		Ogre::EnabledAnimationStateList anims = entity->getAllAnimationStates()->getEnabledAnimationStates();
 		for (auto a : anims)
-			a->addTime(2.5 * evt.timeSinceLastEvent);
+			a->addTime(evt.timeSinceLastEvent);
 	}
 
 	if (_timer->getMilliseconds() >= cte::BOMB_EXPLODING_TIME && !_exploded) {
@@ -60,4 +63,8 @@ Vector2 Bomb::getNormalizedPos() const {
 
 String Bomb::getName() const {
 	return _name;
+}
+
+void Bomb::createAnimations() {
+	// TODO
 }

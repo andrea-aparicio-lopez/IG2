@@ -203,3 +203,7 @@ void GameScene::bombExplodes(Bomb* bomb) {
         _sys->addInputListener(smoke);
     }
 }
+
+void GameScene::calculateBombCollisions() {
+    // TODO
+}
