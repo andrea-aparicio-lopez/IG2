@@ -122,6 +122,7 @@
   <ItemGroup>
     <ClInclude Include="AnimCharacter.h" />
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="BombPool.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Constants.h" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="AnimCharacter.cpp" />
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="BombPool.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="ExplosionSmoke.cpp" />
     <ClCompile Include="GameScene.cpp" />
