@@ -10,8 +10,8 @@
 Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, int bombIndex)
 	: IG2Object(position, node, sM, "sphere.mesh") 
 	, _timer(new Ogre::Timer())
-	,_particlesNode(node->createChildSceneNode())
-	,_bombIndex(bombIndex)
+	, _particlesNode(node->createChildSceneNode())
+	, _name("bomb" + to_string(bombIndex))
 {
 	mNode->_update(true, true);
 	auto s = getAABB().getSize();
@@ -24,9 +24,7 @@ Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, int bombIndex)
 	_fuse->setScale(Vector3(0.15));
 	_fuse->setMaterialName("BombFuse");
 
-	_timer->reset();
-
-	ParticleSystem* pSys = mSM->createParticleSystem(to_string(_bombIndex), "Examples/Smoke");
+	ParticleSystem* pSys = mSM->createParticleSystem(_name, "Examples/Smoke");
 	_particlesNode->attachObject(pSys);
 }
 
@@ -44,17 +42,37 @@ void Bomb::frameRendered(const Ogre::FrameEvent& evt) {
 	}
 
 	if (_timer->getMilliseconds() >= cte::BOMB_EXPLODING_TIME && !_exploded) {
-		explodeBomb();
 		_exploded = true;
 	}
 }
 
-void Bomb::explodeBomb() {
-	//_gameScene->bombExplodes(this);
+void Bomb::activate() {
+	_active = true;
+	mNode->setVisible(true);
+	mSM->getParticleSystem(_name)->setEmitting(true);
+
+	_exploded = false;
+	_timer->reset();
+}
+
+void Bomb::deactivate() {
+	_active = false;
+	mNode->setVisible(false);
+	mSM->getParticleSystem(_name)->setEmitting(false);
+	mSM->getParticleSystem(_name)->clear();
+	
 }
 
 Vector2 Bomb::getNormalizedPos() const {
 	return _normalizedPos;
+}
+
+bool Bomb::getExploded() const {
+	return _exploded;
+}
+
+bool Bomb::getActive() const {
+	return _active;
 }
 
 void Bomb::createAnimations() {

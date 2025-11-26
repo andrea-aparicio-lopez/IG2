@@ -6,7 +6,6 @@ namespace Ogre {
 }
 
 class Labyrinth;
-class GameScene;
 
 class Bomb: public IG2Object
 {
@@ -15,10 +14,13 @@ public:
 	~Bomb();
 
 	virtual void frameRendered(const Ogre::FrameEvent& evt) override;
-	void explodeBomb();
+
+	void activate();
+	void deactivate();
 
 	Vector2 getNormalizedPos() const;
-	Ogre::String getName() const;
+	bool getExploded() const;
+	bool getActive() const;
 
 protected:
 	void createAnimations();
@@ -29,8 +31,9 @@ protected:
 
 	Ogre::Timer* _timer;
 	SceneNode* _particlesNode;
-	int _bombIndex;
+	Ogre::String _name;
 
-	bool _exploded = false;
+	bool _exploded = true;
+	bool _active;
 };
 

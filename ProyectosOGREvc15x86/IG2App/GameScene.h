@@ -21,6 +21,7 @@ class Bomb;
 class ExplosionSmoke;
 
 #include "BombPool.h"
+#include "SmokePool.h"
 
 class GameScene: public Scene
 {
@@ -38,6 +39,7 @@ public:
     //bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
 
     void placeBomb(Ogre::Vector3 pos);
+    void explodeBomb(Ogre::Vector3 pos);
 
 protected:
     void calculateCollisions();
@@ -46,12 +48,12 @@ protected:
 protected:
 
     BombPool _bombPool;
+    SmokePool* _smokePool;
+
     Hero* mHero = nullptr;
     Labyrinth* mLabyrinth = nullptr;
 
     std::vector<Villain*> mVillains;
-    std::vector<Bomb*> mBombs;
-    std::vector<ExplosionSmoke*> mSmoke;
 
     Ogre::SceneNode* mLightNode = nullptr;
 

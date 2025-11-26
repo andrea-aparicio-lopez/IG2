@@ -17,8 +17,8 @@ using namespace Ogre;
 
 GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* textBox, OgreBites::ApplicationContext* appContext, std::string path)
     : Scene(root, sys, textBox) 
-    , _particleSystemNameGen("ParticleSystem"),
-    _bombPool(BombPool(root->createChildSceneNode(), this, sys->getSceneManager()))
+    , _particleSystemNameGen("ParticleSystem")
+    , _bombPool(BombPool(root->createChildSceneNode(), this, sys->getSceneManager()))
 {
 
     //--------------- LABYRINTH, SINBAD AND ENEMIES ---------------------
@@ -45,6 +45,8 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
         Villain* villain = new MegaVillain(p * cte::SCALE_CUBE, villainNode, _sys->getSceneManager(), mLabyrinth);
         mVillains.push_back(villain);
     }
+
+    _smokePool = new SmokePool(_root->createChildSceneNode(), _sys->getSceneManager(), mLabyrinth);
 
 
     //--------------------- LIGHT -----------------------------
@@ -90,11 +92,8 @@ GameScene::~GameScene() {
     delete mLabyrinth;
     for (auto v : mVillains)
         delete v;
-    for (auto b : mBombs)
-        delete b;
 
-    for (auto s : mSmoke)
-        delete s;
+    delete _smokePool;
 
     Scene::~Scene();
 }
@@ -133,6 +132,9 @@ void GameScene::addInputListeners() {
 
     for (auto villain : mVillains)
         _sys->addInputListener(villain);
+
+    _sys->addInputListener(&_bombPool);
+    _sys->addInputListener(_smokePool);
 }
 
 void GameScene::removeInputListeners() {
@@ -140,6 +142,9 @@ void GameScene::removeInputListeners() {
 
     for (auto villain : mVillains)
         _sys->removeInputListener(villain);
+
+    _sys->removeInputListener(&_bombPool);
+    _sys->removeInputListener(_smokePool);
 }
 
 void GameScene::calculateCollisions() {
@@ -159,6 +164,10 @@ void GameScene::calculateCollisions() {
 
 void GameScene::placeBomb(Vector3 pos) {
     _bombPool.placeBomb(pos);
+}
+
+void GameScene::explodeBomb(Vector3 pos) {
+    _smokePool->placeAllSmokes(pos);
 }
 
 void GameScene::calculateBombCollisions() {

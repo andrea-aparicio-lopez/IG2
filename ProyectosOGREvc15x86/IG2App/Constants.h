@@ -15,13 +15,14 @@ namespace cte {
 
 	const float CAM_Y_POS = 3000;
 
-	const float BOMB_MIN_SIZE = 50;
-	const float BOMB_MAX_SIZE = 90;
-	const double BOMB_SIZE_ANIM_DURATION = 500.; // ms
-	const double BOMB_EXPLODING_TIME = 2000.;
+	const float BOMB_MIN_SIZE = 50.f;
+	const float BOMB_MAX_SIZE = 90.f;
+	const int BOMB_SIZE_ANIM_DURATION = 500; // ms
+	const int BOMB_EXPLODING_TIME = 3000; // ms
 	constexpr int BOMB_EXPLODING_LENGTH = 4;
 
 	constexpr int MAX_HERO_BOMBS = 5;
 
+	constexpr int MAX_SMOKE = MAX_HERO_BOMBS * (BOMB_EXPLODING_LENGTH * 4 + 1);
 	constexpr int SMOKE_DURATION = 2000; // ms
 }

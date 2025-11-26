@@ -137,6 +137,7 @@
     <ClInclude Include="MegaVillain.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneSystem.h" />
+    <ClInclude Include="SmokePool.h" />
     <ClInclude Include="Villain.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
@@ -157,6 +158,7 @@
     <ClCompile Include="MegaVillain.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneSystem.cpp" />
+    <ClCompile Include="SmokePool.cpp" />
     <ClCompile Include="Villain.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
