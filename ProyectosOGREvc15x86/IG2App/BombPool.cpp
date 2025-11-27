@@ -12,7 +12,7 @@ BombPool::BombPool(Ogre::SceneNode* node, GameScene* scene, SceneManager* sm )
 	_myBombs = std::vector<Bomb*>(cte::MAX_HERO_BOMBS);
 
 	for (int i = 0; i < cte::MAX_HERO_BOMBS; ++i) {
-		_myBombs[i] = new Bomb(Ogre::Vector3(0,0,0), node->createChildSceneNode(), sm, i);
+		_myBombs[i] = new Bomb(Ogre::Vector3(100,0,100), node->createChildSceneNode(), sm, i);
 		_myBombs[i]->deactivate();
 	}
 }

@@ -16,8 +16,8 @@ namespace cte {
 	const float CAM_Y_POS = 3000;
 
 	const float BOMB_MIN_SIZE = 50.f;
-	const float BOMB_MAX_SIZE = 90.f;
-	const int BOMB_SIZE_ANIM_DURATION = 500; // ms
+	const float BOMB_MAX_SIZE = SCALE_CUBE*1.5f;
+	const float BOMB_SIZE_ANIM_DURATION = 0.2; // ms
 	const int BOMB_EXPLODING_TIME = 3000; // ms
 	constexpr int BOMB_EXPLODING_LENGTH = 4;
 
