@@ -10,21 +10,19 @@
 #include <OgreKeyFrame.h>
 
 Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, int bombIndex)
-	: IG2Object(position, node, sM) 
+	: IG2Object(position, node, sM, "sphere.mesh")
 	, _timer(new Ogre::Timer())
 	, _particlesNode(node->createChildSceneNode())
 	, _name("bomb" + to_string(bombIndex))
 {
 	mNode->_update(true, true);
 
-	_bombNode = mNode->createChildSceneNode();
-	_bomb = new IG2Object(Vector3(0, 0, 0), _bombNode, sM, "sphere.mesh");
-	_bomb->setMaterialName("Bomb");
-	auto s = _bomb->getAABB().getSize();
-	s = cte::BOMB_MAX_SIZE / s;
-	_bombNode->setScale(s);
+	setMaterialName("Bomb");
+	auto s = getAABB().getSize();
+	_initScale = cte::BOMB_MAX_SIZE / s;
+	setScale(_initScale);
 
-	_fuse = new IG2Object(Vector3(0, getAABB().getSize().y/2, 0), _bombNode->createChildSceneNode(), mSM, "column.mesh");
+	_fuse = new IG2Object(Vector3(0, getAABB().getSize().y/2, 0), mNode->createChildSceneNode(), mSM, "column.mesh");
 	_fuse->setScale(Vector3(0.15));
 	_fuse->setMaterialName("BombFuse");
 
@@ -42,14 +40,6 @@ Bomb::~Bomb() {
 
 void Bomb::frameRendered(const Ogre::FrameEvent& evt) {
 	_animState->addTime(evt.timeSinceLastEvent);
-	/*if (entity->_isAnimated()) {
-		Ogre::EnabledAnimationStateList anims = entity->getAllAnimationStates()->getEnabledAnimationStates();
-		for (auto a : anims)
-			a->addTime(evt.timeSinceLastEvent);
-	}
-	*/
-
-	if (!_exploded)_bomb->setPosition(Vector3(100, 0, 100));
 
 	if (_timer->getMilliseconds() >= cte::BOMB_EXPLODING_TIME && !_exploded) {
 		_exploded = true;
@@ -61,6 +51,10 @@ void Bomb::activate() {
 	mNode->setVisible(true);
 	mSM->getParticleSystem(_name)->setEmitting(true);
 
+	setScale(_initScale);
+	mNode->setInitialState();
+	_animState->setEnabled(true);
+
 	_exploded = false;
 	_timer->reset();
 }
@@ -70,7 +64,7 @@ void Bomb::deactivate() {
 	mNode->setVisible(false);
 	mSM->getParticleSystem(_name)->setEmitting(false);
 	mSM->getParticleSystem(_name)->clear();
-	
+	_animState->setEnabled(false);
 }
 
 Vector2 Bomb::getNormalizedPos() const {
@@ -87,24 +81,24 @@ bool Bomb::getActive() const {
 
 void Bomb::createAnimations() {
 	// TODO
-	//_bombNode->setInitialState();
+	mNode->setInitialState();
 	//_particlesNode->setInitialState();
 
-	Animation* anim = mSM->createAnimation("BombAnim_"+ _name, cte::BOMB_SIZE_ANIM_DURATION*2);
+	Animation* anim = mSM->createAnimation("BombAnim_"+ _name, cte::BOMB_SIZE_ANIM_DURATION);
 	anim->setInterpolationMode(Ogre::Animation::IM_LINEAR);
 	//NODE ANIMATIONS
-	NodeAnimationTrack* sinbadTrack = anim->createNodeTrack(BOMB);
-	sinbadTrack->setAssociatedNode(_bombNode);
-	auto normalScale = _bombNode->getScale();
+	NodeAnimationTrack* bombScaleTrack = anim->createNodeTrack(BOMB);
+	bombScaleTrack->setAssociatedNode(mNode);
+	auto normalScale = mNode->getScale();
 	auto halfedScale = normalScale / 2;
 
-	TransformKeyFrame* kf = sinbadTrack->createNodeKeyFrame(0);
+	TransformKeyFrame* kf = bombScaleTrack->createNodeKeyFrame(0);
 	kf->setScale(normalScale);
 
-	kf = sinbadTrack->createNodeKeyFrame(cte::BOMB_SIZE_ANIM_DURATION);
+	kf = bombScaleTrack->createNodeKeyFrame(cte::BOMB_SIZE_ANIM_DURATION * 0.5);
 	kf->setScale(halfedScale);
 
-	kf = sinbadTrack->createNodeKeyFrame(cte::BOMB_SIZE_ANIM_DURATION * 2);
+	kf = bombScaleTrack->createNodeKeyFrame(cte::BOMB_SIZE_ANIM_DURATION * 1);
 	kf->setScale(normalScale);
 	//PARTICLE ANIMATIONS
 

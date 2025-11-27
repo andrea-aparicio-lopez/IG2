@@ -11,9 +11,12 @@ public:
 	virtual void moveCharacter(double dt) override;
 
 	void damageVillain();
+	bool isDead() const;
 
 protected:
-	Vector3 lastDirChange;
 	void changeDir();
+
+	Vector3 lastDirChange;
+	bool _dead = false;
 };
 

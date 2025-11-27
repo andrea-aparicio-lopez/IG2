@@ -27,7 +27,6 @@ protected:
 
 protected:
 	IG2Object* _fuse;
-	IG2Object* _bomb;
 	SceneNode* _bombNode;
 	Vector2 _normalizedPos;
 
@@ -37,6 +36,8 @@ protected:
 
 	bool _exploded = true;
 	bool _active;
+
+	Ogre::Vector3 _initScale;
 
 	enum AnimNodeTracks {
 		BOMB,

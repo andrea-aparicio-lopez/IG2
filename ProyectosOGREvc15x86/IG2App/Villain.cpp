@@ -35,7 +35,12 @@ void Villain::moveCharacter(double dt) {
 }
 
 void Villain::damageVillain() {
+	_dead = true;
 	mNode->setVisible(false);
+}
+
+bool Villain::isDead() const {
+	return _dead;
 }
 
 void Villain::changeDir() {

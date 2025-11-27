@@ -47,6 +47,8 @@ protected:
     void calculateBombCollisions(Ogre::Vector3 pos);
     bool checkCharacterBombDamage(Ogre::Vector3 tilePos, Character* ch);
 
+    void setText();
+
 protected:
 
     BombPool _bombPool;

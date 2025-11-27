@@ -150,16 +150,11 @@ void GameScene::removeInputListeners() {
 
 void GameScene::calculateCollisions() {
     for (auto villain : mVillains) {
-        if (mHero->getAABB().intersects(villain->getAABB())) {
+        if (!villain->isDead() && mHero->getAABB().intersects(villain->getAABB())) {
             mHero->damageHero();
-            _textBox->setText("Lives: " + std::to_string(mHero->health()) +
-                "\nScore: " + std::to_string(mHero->score()));
+            setText();
             break;
         }
-    }
-    if (mHero->health() <= 0) {
-        //end game
-        _textBox->setText("YOU LOSE");
     }
 }
 
@@ -223,4 +218,14 @@ void GameScene::calculateBombCollisions(Vector3 pos) {
 
     if (checkCharacterBombDamage(pos, mHero))
         mHero->damageHero();
+}
+
+void GameScene::setText() {
+    if (mHero->health() <= 0) {
+        _textBox->setText("YOU LOSE");
+    }
+    else {
+        _textBox->setText("Lives: " + std::to_string(mHero->health()) +
+            "\nScore: " + std::to_string(mHero->score()));
+    }
 }
