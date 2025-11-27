@@ -27,6 +27,8 @@ protected:
 
 protected:
 	IG2Object* _fuse;
+	IG2Object* _bomb;
+	SceneNode* _bombNode;
 	Vector2 _normalizedPos;
 
 	Ogre::Timer* _timer;
@@ -35,5 +37,12 @@ protected:
 
 	bool _exploded = true;
 	bool _active;
+
+	enum AnimNodeTracks {
+		BOMB,
+		PARTICLES
+	};
+
+	Ogre::AnimationState* _animState;
 };
 
