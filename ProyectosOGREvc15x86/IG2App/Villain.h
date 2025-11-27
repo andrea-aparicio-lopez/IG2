@@ -10,6 +10,8 @@ public:
 
 	virtual void moveCharacter(double dt) override;
 
+	void damageVillain();
+
 protected:
 	Vector3 lastDirChange;
 	void changeDir();

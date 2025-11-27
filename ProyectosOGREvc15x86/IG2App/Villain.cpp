@@ -34,6 +34,10 @@ void Villain::moveCharacter(double dt) {
 	Character::moveCharacter(dt);
 }
 
+void Villain::damageVillain() {
+	mNode->setVisible(false);
+}
+
 void Villain::changeDir() {
 	Vector3 pos = getPosition() + Vector3(cte::SCALE_CUBE, 0, cte::SCALE_CUBE) * 0.5;
 	pos /= cte::SCALE_CUBE;

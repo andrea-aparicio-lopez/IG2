@@ -2,6 +2,7 @@
 #include "SceneSystem.h"
 #include "Labyrinth.h"
 #include "Wall.h"
+#include "Character.h"
 #include "Hero.h"
 #include "Villain.h"
 #include "MegaVillain.h"
@@ -168,8 +169,58 @@ void GameScene::placeBomb(Vector3 pos) {
 
 void GameScene::explodeBomb(Vector3 pos) {
     _smokePool->placeAllSmokes(pos);
+    calculateBombCollisions(pos);
 }
 
-void GameScene::calculateBombCollisions() {
-    // TODO
+bool GameScene::checkCharacterBombDamage(Vector3 bombPos, Character* ch) {
+    bombPos /= cte::SCALE_CUBE;
+    Vector3 charPos = ch->getPosition() / cte::SCALE_CUBE;
+    charPos = { floor(charPos.x), floor(charPos.y), floor(charPos.z) };
+
+        bool collides = false;
+        bool wallFound = false;
+
+        if (bombPos.x == charPos.x) {
+            if (bombPos.z <= charPos.z && (charPos.z - bombPos.z < cte::BOMB_EXPLODING_LENGTH)) {
+                for (int i = 0; i < cte::BOMB_EXPLODING_LENGTH && !wallFound; ++i) {
+                    wallFound = mLabyrinth->isWall({ bombPos.x, bombPos.y, bombPos.z + i });
+                }
+                collides = !wallFound;
+            }
+            else if (bombPos.z > charPos.z && (bombPos.z - charPos.z < cte::BOMB_EXPLODING_LENGTH)) {
+                for (int i = -1; i < -cte::BOMB_EXPLODING_LENGTH && !wallFound; --i) {
+                    wallFound = mLabyrinth->isWall({ bombPos.x, bombPos.y, bombPos.z +i});
+                }
+                collides = !wallFound;
+            }
+        }
+        else if (bombPos.z == charPos.z) {
+            if (bombPos.x <= charPos.x && (charPos.x - bombPos.x < cte::BOMB_EXPLODING_LENGTH)) {
+                for (int i = 0; i < cte::BOMB_EXPLODING_LENGTH && !wallFound; ++i) {
+                    wallFound = mLabyrinth->isWall({ bombPos.x + i, bombPos.y, bombPos.z});
+                }
+                collides = !wallFound;
+            }
+            else if (bombPos.x > charPos.x && (bombPos.x - charPos.x < cte::BOMB_EXPLODING_LENGTH)) {
+                for (int i = -1; i < -cte::BOMB_EXPLODING_LENGTH && !wallFound; --i) {
+                    wallFound = mLabyrinth->isWall({ bombPos.x + i, bombPos.y, bombPos.z });
+                }
+                collides = !wallFound;
+            }
+        }
+
+        return collides;
+}
+
+void GameScene::calculateBombCollisions(Vector3 pos) {
+
+    for (auto v : mVillains) {
+        if (checkCharacterBombDamage(pos, v)) {
+            v->damageVillain();
+            _sys->removeInputListener(v);
+        }
+    }
+
+    if (checkCharacterBombDamage(pos, mHero))
+        mHero->damageHero();
 }

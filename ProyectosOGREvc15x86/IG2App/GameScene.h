@@ -13,6 +13,7 @@ namespace OgreBites {
     class ApplicationContext;
 }
 
+class Character;
 class Hero;
 class Villain;
 class MegaVillain;
@@ -43,7 +44,8 @@ public:
 
 protected:
     void calculateCollisions();
-    void calculateBombCollisions();
+    void calculateBombCollisions(Ogre::Vector3 pos);
+    bool checkCharacterBombDamage(Ogre::Vector3 tilePos, Character* ch);
 
 protected:
 
