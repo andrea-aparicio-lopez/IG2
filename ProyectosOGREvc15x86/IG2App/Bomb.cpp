@@ -28,7 +28,7 @@ Bomb::Bomb(Vector3 position, SceneNode* node, SceneManager* sM, int bombIndex)
 
 	ParticleSystem* pSys = mSM->createParticleSystem(_name, "Examples/Smoke");
 	_particlesNode->attachObject(pSys);
-
+	_particlesNode->setPosition(_fuse->getPosition()*2);
 	createAnimations();
 }
 
@@ -39,7 +39,8 @@ Bomb::~Bomb() {
 }
 
 void Bomb::frameRendered(const Ogre::FrameEvent& evt) {
-	_animState->addTime(evt.timeSinceLastEvent);
+	//_bombSizeAnimState->addTime(evt.timeSinceLastEvent);
+	_particleMovementAnimState->addTime(evt.timeSinceLastEvent);
 
 	if (_timer->getMilliseconds() >= cte::BOMB_EXPLODING_TIME && !_exploded) {
 		_exploded = true;
@@ -53,8 +54,9 @@ void Bomb::activate() {
 
 	setScale(_initScale);
 	mNode->setInitialState();
-	_animState->setEnabled(true);
-
+	_bombSizeAnimState->setEnabled(true);
+	_particleMovementAnimState->setEnabled(true);
+	_particleMovementAnimState->setTimePosition(Ogre::Real(0));
 	_exploded = false;
 	_timer->reset();
 }
@@ -64,7 +66,8 @@ void Bomb::deactivate() {
 	mNode->setVisible(false);
 	mSM->getParticleSystem(_name)->setEmitting(false);
 	mSM->getParticleSystem(_name)->clear();
-	_animState->setEnabled(false);
+	_bombSizeAnimState->setEnabled(false);
+	_particleMovementAnimState->setEnabled(false);
 }
 
 Vector2 Bomb::getNormalizedPos() const {
@@ -82,7 +85,7 @@ bool Bomb::getActive() const {
 void Bomb::createAnimations() {
 	// TODO
 	mNode->setInitialState();
-	//_particlesNode->setInitialState();
+	_particlesNode->setInitialState();
 
 	Animation* anim = mSM->createAnimation("BombAnim_"+ _name, cte::BOMB_SIZE_ANIM_DURATION);
 	anim->setInterpolationMode(Ogre::Animation::IM_LINEAR);
@@ -100,9 +103,23 @@ void Bomb::createAnimations() {
 
 	kf = bombScaleTrack->createNodeKeyFrame(cte::BOMB_SIZE_ANIM_DURATION * 1);
 	kf->setScale(normalScale);
-	//PARTICLE ANIMATIONS
 
-	_animState = mSM->createAnimationState("BombAnim_" + _name);
-	_animState->setEnabled(true);
-	_animState->setLoop(true);
+	//PARTICLE ANIMATIONS
+	Animation* anim2 = mSM->createAnimation("BombParticleAnim_" + _name, cte::BOMB_EXPLODING_TIME/1000.);
+	anim2->setInterpolationMode(Ogre::Animation::IM_LINEAR);
+
+	NodeAnimationTrack* particleMovementTrack = anim2->createNodeTrack(PARTICLES);
+	particleMovementTrack->setAssociatedNode(_particlesNode);
+
+	kf = particleMovementTrack->createNodeKeyFrame(0);
+
+	kf = particleMovementTrack->createNodeKeyFrame(cte::BOMB_EXPLODING_TIME/1000.);
+	kf->setTranslate(-_particlesNode->getPosition());
+
+	_bombSizeAnimState = mSM->createAnimationState("BombAnim_" + _name);
+	_bombSizeAnimState->setEnabled(true);
+	_bombSizeAnimState->setLoop(true);
+
+	_particleMovementAnimState = mSM->createAnimationState("BombParticleAnim_" + _name);
+	_particleMovementAnimState->setEnabled(true);
 }

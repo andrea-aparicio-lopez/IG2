@@ -44,6 +44,7 @@ protected:
 		PARTICLES
 	};
 
-	Ogre::AnimationState* _animState;
+	Ogre::AnimationState* _bombSizeAnimState;
+	Ogre::AnimationState* _particleMovementAnimState;
 };
 
