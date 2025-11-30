@@ -10,12 +10,12 @@ uniform vec4 center;
 
 out vec2 vUv0;
 
-    void main() {
-        vec4 vertexCoord = vertex;
-        float distanceCenter = distance(center, vertexCoord);
+void main() {
+    vec4 vertexCoord = vertex;
+    float distanceCenter = distance(center, vertexCoord);
 
-        vertexCoord.y += sin(vertexCoord.x + (t*waveSpeed)) * waveLength + sin(vertexCoord.z + (distanceCenter) + (t*waveSpeed)) * waveLength;
+    vertexCoord.y += sin(vertexCoord.x + (t*waveSpeed)) * waveLength + sin(vertexCoord.z + (distanceCenter) + (t*waveSpeed)) * waveLength;
 
-        vUv0 = uv0;
-        gl_Position = modelViewProjMat * vertexCoord;
-    }
+    vUv0 = uv0;
+    gl_Position = modelViewProjMat * vertexCoord;
+}

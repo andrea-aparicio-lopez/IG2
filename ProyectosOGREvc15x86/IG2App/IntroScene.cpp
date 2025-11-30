@@ -1,6 +1,5 @@
 #include "IntroScene.h"
 #include "SceneSystem.h"
-#include "Constants.h"
 #include "AnimCharacter.h"
 
 #include <OgreMath.h>
@@ -30,12 +29,21 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 	_plane->setMaterialName(FLOORMAT);
 
 
+	// ------- ESFERA --------
+	auto node = _root->createChildSceneNode();
+	_sphere = new IG2Object(SHPERE_POS, node, _sys->getSceneManager(), "uv_sphere.mesh");
+	node->_update(true, true);
+	auto s = _sphere->getAABB().getSize();
+	auto scale = Vector3(cte::SCALE_SPHERE / s.x, cte::SCALE_SPHERE / s.y, cte::SCALE_SPHERE / s.z);
+	_sphere->setScale(scale);
+	_sphere->setMaterialName("practica/sphere");
+
 	// ------- SINBAD ---------
 	_sinbad = new AnimCharacter(SINBAD_START_POS, _root->createChildSceneNode(), _sys->getSceneManager(), "Sinbad.mesh");
 
 	_sinbad->getNode()->_update(true, true);
-	auto s = _sinbad->getAABB().getSize();
-	auto scale = Vector3(cte::SCALE_HERO / s.x, cte::SCALE_HERO / s.y, cte::SCALE_HERO/(s.z *1.5));
+	s = _sinbad->getAABB().getSize();
+	scale = Vector3(cte::SCALE_HERO / s.x, cte::SCALE_HERO / s.y, cte::SCALE_HERO/(s.z *1.5));
 	_sinbad->setScale(scale);
 
 	_sinbad->getNode()->setInitialState();
@@ -84,6 +92,13 @@ bool IntroScene::keyPressed(const OgreBites::KeyboardEvent& evt) {
 }
 
 IntroScene::~IntroScene() {
+	delete _plane;
+	delete _sphere;
+	delete _sinbad;
+	delete _swordLeft;
+	delete _swordRight;
+	delete _ogreHead;
+
 	Scene::~Scene();
 }
 

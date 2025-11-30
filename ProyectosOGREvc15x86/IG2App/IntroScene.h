@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "AnimCharacter.h"
+#include "Constants.h"
 
 #include <string>
 
@@ -48,6 +49,7 @@ protected:
 
 	const Ogre::Vector3 SINBAD_START_POS = { 0,55,0 };
 	const Ogre::Vector3 OGREHEAD_START_POS = { -350, 60, 0 };
+	const Ogre::Vector3 SHPERE_POS = { 0, cte::SCALE_SPHERE / 2, -200 };
 
 	const Ogre::Vector3 WALK_LENGHT = { 200,0,0 };
 	const Ogre::Real DURATION = 21.0;
@@ -59,8 +61,8 @@ protected:
 
 protected:
 	IG2Object* _plane;
+	IG2Object* _sphere;
 	AnimCharacter* _sinbad;
-
 	Ogre::Entity* _swordLeft;
 	Ogre::Entity* _swordRight;
 	AnimCharacter* _ogreHead;
