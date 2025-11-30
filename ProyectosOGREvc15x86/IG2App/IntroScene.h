@@ -66,7 +66,7 @@ protected:
 	AnimCharacter* _ogreHead;
 	Light* _luz;
 
-	const std::string FLOORMAT = "IntroSceneFloor";
+	const std::string FLOORMAT = "Wave";
 
 };
 

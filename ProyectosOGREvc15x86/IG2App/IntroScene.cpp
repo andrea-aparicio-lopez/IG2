@@ -23,7 +23,7 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 	Ogre::MeshManager::getSingleton().createPlane("introPlane",
 		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 		Plane(Vector3::UNIT_Y, 0),
-		3000, 1500, 1, 1,
+		3000, 1500, 50, 50,
 		true, 1, 1.0, 1.0, Vector3::UNIT_Z);
 
 	_plane = new IG2Object(Vector3(0,0,0), _root->createChildSceneNode(), _sys->getSceneManager(), "introPlane");
