@@ -2,7 +2,11 @@ material IntroSceneFloor {
     technique {
         pass {
             texture_unit {
-                texture floor_bump.PNG
+                texture floor_diffuse.PNG
+            }
+            texture_unit {
+                texture flare.png
+                colour_op modulate
             }
         }
     }

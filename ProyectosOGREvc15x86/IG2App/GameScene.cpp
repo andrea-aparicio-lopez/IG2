@@ -50,6 +50,19 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
     _smokePool = new SmokePool(_root->createChildSceneNode(), _sys->getSceneManager(), mLabyrinth);
 
 
+    //--------------------- SKY -----------------------------
+    Ogre::MeshManager::getSingleton().createPlane("mSky",
+        ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+        Plane(Vector3::UNIT_Y, 0),
+        cte::SKY_SIZE, cte::SKY_SIZE, 1, 1,
+        true, 1, 1.0, 1.0, Vector3::UNIT_Z);
+
+    mSky = new IG2Object(Vector3(0, -300,0), _root->createChildSceneNode(), _sys->getSceneManager(), "mSky");
+
+    mSky->setMaterialName("SkyMaterial");
+
+
+
     //--------------------- LIGHT -----------------------------
 
 
@@ -89,8 +102,10 @@ GameScene::GameScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* text
 }
 
 GameScene::~GameScene() {
+
     delete mHero;
     delete mLabyrinth;
+    delete mSky;
     for (auto v : mVillains)
         delete v;
 

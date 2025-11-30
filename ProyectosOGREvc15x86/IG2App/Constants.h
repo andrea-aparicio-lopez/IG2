@@ -25,4 +25,6 @@ namespace cte {
 
 	constexpr int MAX_SMOKE = MAX_HERO_BOMBS * (BOMB_EXPLODING_LENGTH * 4 + 1);
 	constexpr int SMOKE_DURATION = 2000; // ms
+
+	const int SKY_SIZE = 10000;
 }

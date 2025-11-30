@@ -56,6 +56,7 @@ protected:
 
     Hero* mHero = nullptr;
     Labyrinth* mLabyrinth = nullptr;
+    IG2Object* mSky;
 
     std::vector<Villain*> mVillains;
 

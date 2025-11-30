@@ -83,13 +83,12 @@ bool Bomb::getActive() const {
 }
 
 void Bomb::createAnimations() {
-	// TODO
 	mNode->setInitialState();
 	_particlesNode->setInitialState();
 
+	// BOMB SIZE ANIMATION
 	Animation* anim = mSM->createAnimation("BombAnim_"+ _name, cte::BOMB_SIZE_ANIM_DURATION);
 	anim->setInterpolationMode(Ogre::Animation::IM_LINEAR);
-	//NODE ANIMATIONS
 	NodeAnimationTrack* bombScaleTrack = anim->createNodeTrack(BOMB);
 	bombScaleTrack->setAssociatedNode(mNode);
 	auto normalScale = mNode->getScale();
@@ -104,7 +103,7 @@ void Bomb::createAnimations() {
 	kf = bombScaleTrack->createNodeKeyFrame(cte::BOMB_SIZE_ANIM_DURATION * 1);
 	kf->setScale(normalScale);
 
-	//PARTICLE ANIMATIONS
+	//PARTICLE ANIMATION
 	Animation* anim2 = mSM->createAnimation("BombParticleAnim_" + _name, cte::BOMB_EXPLODING_TIME/1000.);
 	anim2->setInterpolationMode(Ogre::Animation::IM_LINEAR);
 
@@ -112,9 +111,10 @@ void Bomb::createAnimations() {
 	particleMovementTrack->setAssociatedNode(_particlesNode);
 
 	kf = particleMovementTrack->createNodeKeyFrame(0);
+	kf->setTranslate(Vector3(0,0,0));
 
 	kf = particleMovementTrack->createNodeKeyFrame(cte::BOMB_EXPLODING_TIME/1000.);
-	kf->setTranslate(-_particlesNode->getPosition());
+	kf->setTranslate(-_particlesNode->getPosition()*2);
 
 	_bombSizeAnimState = mSM->createAnimationState("BombAnim_" + _name);
 	_bombSizeAnimState->setEnabled(true);
