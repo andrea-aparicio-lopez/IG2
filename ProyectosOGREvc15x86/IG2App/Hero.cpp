@@ -11,8 +11,11 @@ Hero::Hero(Vector3 position, SceneNode* node, SceneManager* sM, Labyrinth* lab, 
 	entity->getParentSceneNode()->_update(true, true);
 
 	auto s = getAABB().getSize();
-	s = cte::SCALE_HERO / s ;
+	s = Vector3(cte::SCALE_HERO / s.x, cte::SCALE_HERO / s.y, cte::SCALE_HERO / (s.z * 1.5));
 	setScale(s);
+
+	startAnimation();
+
 }
 
 Hero::~Hero() {
@@ -60,6 +63,10 @@ void Hero::placeBomb() {
 	_gameScene->placeBomb(pos);
 }
 
+void Hero::addScore() {
+	_score++;
+}
+
 void Hero::damageHero() {
 	if (!_isImmune && --_health) {
 		resetHeroPos();
@@ -76,4 +83,13 @@ void Hero::resetHeroPos() {
 	setPosition(lab->getHeroPos() * cte::SCALE_CUBE);
 	dir = nextDir = directions[2];
 	turnCharacter();
+}
+
+void Hero::startAnimation() {
+	AnimationState* anim = entity->getAnimationState("RunBase");
+	anim->setEnabled(true);
+	anim->setLoop(true);
+	anim = entity->getAnimationState("RunTop");
+	anim->setEnabled(true);
+	anim->setLoop(true);
 }

@@ -79,7 +79,7 @@ IntroScene::IntroScene(SceneNode* root, SceneSystem* sys, OgreBites::TextBox* te
 
 	auto lightNode = _root->createChildSceneNode();
 	lightNode->attachObject(_luz);
-	lightNode->setDirection(Ogre::Vector3(0, -1, 0));
+	lightNode->setDirection(Ogre::Vector3(1, 1, -1));
 
 }
 
@@ -103,7 +103,6 @@ IntroScene::~IntroScene() {
 }
 
 void IntroScene::openScene() {
-	//_root->setVisible(true);
 	_sys->getSceneManager()->getSceneNode("nCam")->setPosition(Vector3(0,100,500));
 	_sys->getSceneManager()->getSceneNode("nCam")->lookAt(Vector3(0, 1, -0.2), Ogre::Node::TS_WORLD);
 

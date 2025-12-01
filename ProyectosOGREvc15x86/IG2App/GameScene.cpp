@@ -225,19 +225,27 @@ bool GameScene::checkCharacterBombDamage(Vector3 bombPos, Character* ch) {
 void GameScene::calculateBombCollisions(Vector3 pos) {
 
     for (auto v : mVillains) {
+        if (v->isDead()) continue;
         if (checkCharacterBombDamage(pos, v)) {
             v->damageVillain();
             _sys->removeInputListener(v);
+            mHero->addScore();
+            setText();
         }
     }
 
-    if (checkCharacterBombDamage(pos, mHero))
+    if (checkCharacterBombDamage(pos, mHero)) {
         mHero->damageHero();
+        setText();
+    }
 }
 
 void GameScene::setText() {
     if (mHero->health() <= 0) {
         _textBox->setText("YOU LOSE");
+    }
+    else if (mHero->score() >= mVillains.size()) {
+        _textBox->setText("YOU WIN");
     }
     else {
         _textBox->setText("Lives: " + std::to_string(mHero->health()) +

@@ -22,6 +22,12 @@ void Character::setNewDir(Vector3 const& nDir) {
 
 void Character::frameRendered(const Ogre::FrameEvent& evt) {
 	moveCharacter(evt.timeSinceLastFrame);
+
+	if (entity->_isAnimated()) {
+		Ogre::EnabledAnimationStateList anims = entity->getAllAnimationStates()->getEnabledAnimationStates();
+		for (auto a : anims)
+			a->addTime(2.5 * evt.timeSinceLastEvent);
+	}
 }
 
 

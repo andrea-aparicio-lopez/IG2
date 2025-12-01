@@ -21,6 +21,8 @@ protected:
 	double _immunityTime;
 
 	GameScene* _gameScene;
+
+
 public:
 	inline int health() const { return _health; }
 	inline int score() const { return _score; }
@@ -33,6 +35,9 @@ public:
 
 	void placeBomb();
 
+	void addScore();
+
 protected:
 	void resetHeroPos();
+	void startAnimation();
 };
