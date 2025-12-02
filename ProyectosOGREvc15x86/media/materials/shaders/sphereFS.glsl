@@ -37,6 +37,11 @@ void main() {
     vec3 diffuse = diff(viewVertex, viewNormal) * lightDiffuse * materialDiffuse;
     vec3 vFrontColor = ambient + diffuse;
 
+    // Diffuse en view space (back)
+    diffuse = diff(viewVertex, -viewNormal) * lightDiffuse * materialDiffuse;
+    vec3 vBackColor = ambient + diffuse;
+
+
     vec3 color = texture(textura, vUv0).rgb;
     if(color.r > threshold)
         discard;
@@ -44,7 +49,7 @@ void main() {
     if (gl_FrontFacing)
         color = vFrontColor * color;
     else
-        color = normalize(vVertex.rgb * lightDirection);
+        color = vBackColor * normalize(vVertex.rgb * lightDirection);
 
     fFragColor = vec4(color, 1.0);
 }
